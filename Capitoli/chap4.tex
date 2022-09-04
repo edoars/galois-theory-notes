@@ -1,0 +1,1432 @@
+%!TEX root = ../main.tex
+\chapter{Calcolo dei gruppi di Galois}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 22/11/2016 - SETTIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+%CAMPI CICLOTOMICI%
+%%%%%%%%%%%%%%%%%%%
+\section{Campi ciclotomici}
+
+In questo paragrafo studieremo il gruppo di Galois di \(\Q[\z_m]\), dimostrando in particolare che
+\[
+	U(\Z/m\Z) \cong \Gal(\Q[\z_m]:\Q) \qquad\text{tramite}\qquad a\mapsto \s_a(\z_m)=z_m^a.
+\]
+Infine studieremo alcuni casi particolari.
+
+Come prima cosa elenchiamo alcune proprietà, molte delle quali già note, riguardo a \(\Q[\z_m]\) che saranno utili alla nostra tesi.
+
+Da ora in avanti faremo uso di queste notazioni:
+\[
+	\z = \z_m = e^{i\,\frac{2\p}{m}} \qquad\text{e}\qquad G = \Gal(\Q[\z]/\Q).
+\]
+
+\begin{pr}\label{campiCiclo1}
+	\(\Q[\z]/\Q\) è un'estensione di Galois.
+\end{pr}
+
+\begin{proof}
+	Per la \hyperref[th:caratterizzazioneEstensioniGalois]{caratterizzazione delle estensioni di Galois}, infatti \(\Q[\z]\) è il campo di spezzamento di
+	\[
+		X^m-1 \in \Q[X].\qedhere
+	\]
+\end{proof}
+
+\begin{pr}\label{campiCiclo2}
+	\(X^m-1\) è separabile.
+\end{pr}
+
+\begin{proof}
+	Sia \(f(X)=X^m-1\). Sappiamo dalla \hyperref[pr:caratterizzazioneRadiciMultiple]{caratterizzazione delle radici multiple} che se \(f\) non fosse semplice si avrebbe
+	\[
+		(f,f')\neq 1.
+	\]
+	D'altronde \(f'(X)=n\,X^{n-1}\) e \(0\) non è una radice di \(f\), quindi \((f,f')=1\).
+\end{proof}
+
+\begin{pr}\label{campiCiclo3}
+	La mappa
+	\[
+		U(\Z/m\Z) \longrightarrow \Gal(\Q[\z]/\Q), k \longmapsto \s_k\colon \z \mapsto \z^k
+	\]
+	è un omomorfismo iniettivo di gruppi.
+\end{pr}
+
+\begin{proof}
+	Mostriamo che è un omomorfismo: siano \(a,b\in U(\Z/m\Z)\), avremo
+	\[
+		\s_a\circ \s_b(\z) = \s_a(\z^b) = \z^{b\cdot a} = \s_{a\,b}(\z).
+	\]
+	Quindi le operazioni vengono conservate. Per cui, dal momento che \(k\mapsto \s_k\) è ben definito, abbiamo un omomorfismo di gruppi.
+	
+	Per dimostrare che è iniettivo, mostriamo che il nucleo è banale:
+	\[
+		\s_k(\z) = \z \iff \z^k = \z \iff k=1
+	\]
+	in quanto \(k\in U(\Z/m\Z)\) implica \((k,m)=1\). Quindi l'omomorfismo è iniettivo.
+\end{proof}
+
+\begin{oss}
+	Per dimostrare che è suriettivo, ho bisogno di dimostrare che
+	\[
+		\Gal(\Q[\z]/\Q) = \j(m).
+	\]
+\end{oss}
+
+\begin{pr}\label{campiCiclo4}
+	Vale la seguente identità:
+	\[
+		X^m-1 = \prod_{d\mid m} \Phi_d(X) \qquad\text{dove}\qquad \Phi_d(X) = \prod_{\substack{k=1\\(k,d)=1}}^d (X-\z_d^m).
+	\]
+\end{pr}
+
+\begin{proof}
+	Sappiamo che le radici di \(X^m-1\) sono le \(\z^k\) con \(k=1,\ldots,m\). Quindi
+	\[
+		X^m-1 = \prod_{k=1}^m (X-\z^k) = \prod_{d\mid m}\prod_{\substack{k=1\\(k,m)=d}}^m (X-\z^k) = \prod_{d\mid m} \Phi_{\frac{m}{d}}(X),
+	\]
+	dove
+	\[
+		\Phi_{\frac{m}{d}}(X) = \prod_{\substack{k=1\\(k,m)=d}}^m (X-\z^k) = \prod_{\substack{k=1\\\left( \frac{k}{d},\frac{m}{d} \right)=1}}^m (X-\z^k) = \prod_{\substack{j=1\\(j,m/d)=1}}^{m/d} (X-\z^{j\,d}).\graffito{posto \(j=k/d\)}
+	\]
+	Ora se
+	\[
+		\z = \z_m = e^{i\,\frac{2\p}{m}} \implies \z^d = e^{i\,\frac{2\p}{m}d} = \z_{\frac{m}{d}}.
+	\]
+	Quindi
+	\[
+		\Phi_{\frac{n}{d}}(X) = \prod_{\substack{j=1\\(j,m/d)=1}}^{m/d}(X-\z_d^j).
+	\]
+	Inoltre, poiché \(d\mid m \implies m/d \mid m\), avremo
+	\[
+		X^m-1 = \prod_{d\mid m} \Phi_{\frac{m}{d}}(X) = \prod_{d\mid m} \Phi_d (X),
+	\]
+	dove
+	\[
+		\Phi_d(X) = \prod_{\substack{j=1\\(j,d)=1}}^d (X-\z_d^j).\qedhere
+	\]
+\end{proof}
+
+\begin{pr}\label{campiCiclo5}
+	Il polinomio \(\Phi_m(X)\) è a coefficienti interi ed è irriducibile.
+\end{pr}
+
+\begin{proof}
+	Per mostrare che \(\Phi_m(X)\in\Z[X]\), è sufficiente mostrare che ha coefficienti razionali. Infatti, dalla proprietà precedente,
+	\[
+		X^m-1 = \prod_{d\mid m} \Phi_d(X),
+	\]
+	dove \(X^m-1\in \Z[X]\) monico, quindi per la \autoref{pr:fattoriMoniciPolinomioMonico} ogni suo fattore a coefficienti razionali è a coefficienti interi.
+	Mostriamolo per induzione:
+	\begin{itemize}
+		\item \(\Phi_1(X)=X-1\) ha coefficienti interi.
+		\item Assumiamo che \(\Phi_d(X)\in\Q[X]\) per ogni \(d<n\), segue
+		      \[
+			      \Phi_m(X) = \frac{X^m-1}{\prod_{\substack{d\mid m\\d<m}}^m \Phi_d(X)}\in\Q[X]
+		      \]
+		      in quanto rapporto di polinomi a coefficienti razionali.
+	\end{itemize}
+	Mostriamo ora che è irriducibile. Per definizione
+	\[
+		\Phi_m(X) = \prod_{\substack{k=1\\(k,m)=1}}^m (X-\z^m)
+	\]
+	noi vorremmo dimostrare che \(\Phi_m = f_\z\). Osserviamo che
+	\[
+		f_\z(X) = \prod_{\s \in G}\big(X-\s(\z)\big).
+	\]
+	D'altronde
+	\[
+		\s(\z) = \z^k \qquad\text{e}\qquad \s^{-1}(\z) = z^{k'},
+	\]
+	quindi \(\z = \s\circ \s^{-1}(\z)=\z^{k\,k'}\), da cui \(k\,k'\equiv_m 1\). Ovvero
+	\[
+		(k,m) = 1.
+	\]
+	Questo significa che le radici di \(f_\z\) sono della forma \(\z^k\) con \((k,m)=1\), da cui
+	\[
+		f_\z \mid \Phi_m.
+	\]
+	Resta da mostrare il viceversa. Per farlo possiamo verificare che se \((k,m)=1\) allora
+	\[
+		f_\z(\a) = 0 \implies f_\z(\a^k) = 0.
+	\]
+	In tal caso tutte le radici di \(\Phi_m\) sarebbero radici di \(f_\z\), che implicherebbe \(\Phi_m \mid f_\z\).
+	Noi dimostreremo che per ogni \(p\) primo tale che \((p,m)=1\) si ha
+	\[
+		f_\z(\a) = 0 \implies f_\z(\a^p)=0,
+	\]
+	da cui, preso \(k=p_1 \cdot\ldots\cdot p_s\), avremo
+	\[
+		f_\z(\a) = 0 \implies f_\z(\a^{p_1}) = 0 \implies f_\z(\a^{p_1 p_2}) = 0 \implies \ldots \implies f(\a^k) = 0.
+	\]
+	Sia \(f_\z(\a)=0\), supponiamo per assurdo che \(p\) sia un primo tale che \(f(\a^p)\neq 0\). Da \(f_\z\mid \Phi_m\) segue \(\Phi_m(X) = f_\z(X)g(X)\). Inoltre per la definizione di \(\Phi_m\) si ha necessariamente
+	\[
+		\Phi_m(\a) = 0 \implies \Phi_m(\a^p)=0.
+	\]
+	Quindi
+	\[
+		0 = \Phi_m(\a^p) = f_\z(\a^p)g(\a^p) \implies g(\a^p) = 0.
+	\]
+	Ciò significa che \(f_\z\) ha una radice in comune con \(g(X^p)\), da cui
+	\[
+		\big(f_\z(X),g(X^p)\big) \neq 1.
+	\]
+	Se prendiamo le classi di equivalenza modulo \(p\), \(\chius{f_\z(X)},\chius{g(X^p)}\in\F_p[X]\), allora
+	\[
+		\big(\chius{f_\z(X)},\chius{g(X^p)}\big) \neq 1.
+	\]
+	Ma, modulo \(p\), \(\chius{g(X^p)}=\big(\chius{g(X)}\big)^p\). Quindi \(f_\z(X)\) e \(g(X)\) hanno una radice in comune modulo \(p\). Da
+	\[
+		f_\z(X) g(X) = \Phi_m(X)
+	\]
+	segue che \(\Phi_m(X)\) ha una radice doppia modulo \(p\). In particolare \(\Phi_m(X)\) è un fattore di \(X^m-1\), quindi anche quest'ultimo avrà una radice doppia modulo \(p\). Ciò è assurdo poiché abbiamo visto nella \autoref{campiCiclo2} che \(X^m-1\) è separabile. Quindi \(\Phi_m(X)\) è irriducibile
+\end{proof}
+
+\begin{pr}\label{campiCiclo6}
+	Il grado di \(\Q[\z]/\Q\) è \(\j(m)\).
+\end{pr}
+
+\begin{proof}
+	In quanto estensione algebrica semplice, avremo
+	\[
+		\big[\Q[\z]:\Q\big] = \deg f_\z.
+	\]
+	Nella proprietà precedente abbiamo dimostrato che \(f_\z = \Phi_m\). Per definizione
+	\[
+		\Phi_m(X) = \prod_{\substack{k=1\\(k,m)=1}}^m (X-\z^k).
+	\]
+	Quindi è chiaro che \(\deg \Phi_m = \j(m)\), da cui la tesi.
+\end{proof}
+
+\begin{teor}{Gruppo di Galois dei campi ciclotomici}{gruppoGaloisCiclotomici}\index{Gruppo di Galois!dei campi ciclotomici}
+	Il gruppo di Galois dei campi ciclotomici \(\Gal\big(\Q[\z_m]/\Q\big)\) è isomorfo a \(U(\Z/m\Z)\), tramite
+	\[
+		U(\Z/m\Z) \longrightarrow \Gal(\Q[\z]/\Q), k \longmapsto \s_k\colon \z \mapsto \z^k.
+	\]
+\end{teor}
+
+\begin{proof}
+	Sappiamo dalla \autoref{campiCiclo3} che la mappa dell'ipotesi, è un omomorfismo iniettivo fra \(U(\Z/m\Z)\) e \(\Gal\big(\Q[\z_m]/\z\big)\). Inoltre
+	\[
+		\#\Gal\big(\Q[\z_m]/\Q\big) = \big[\Q[\z_m]:\Q\big],
+	\]
+	dove \(\big[\Q[\z_m]:\Q\big]=\j(m)\) per la proprietà precedente.
+	Quindi \(U(\Z/m\Z)\) e \(\Gal\big(\Q[\z_m]/\z\big)\) hanno lo stesso numero di elementi. Ne segue che l'omomorfismo iniettivo è necessariamente un isomorfismo.
+\end{proof}
+
+\begin{oss}
+	Riepiloghiamo quanto visto finora. Posto \(K_n = \Q[\z], \z = e^{\frac{2\p\,i}{n}}\), \(K_n\) è il campo di spezzamento di \(X^n-1\). Quindi \(K_n\) è Galois poiché \(X^n-1\) è separabile.
+	
+	\'E un'estensione abeliana, infatti
+	\[
+		\Gal(K_n/\Q) \cong U(\Z/n\Z) = \Set{k\in\{1,\ldots,n\} | (k,n)=1}.
+	\]
+	Inoltre
+	\[
+		[K_n:\Q] = \#\Gal(K_n/\Q) = \j(n).
+	\]
+	In generale se \(n=p_1^{\a_1}\cdot\ldots\cdot p_s^{\a_s}\), si ha il seguente reticolo:
+	\[
+		\begin{tikzcd}
+			&                     & \Q[\z_n] \arrow[dll, dash] \arrow[dl, dash] \arrow[dr, dash] \arrow[drr, dash]\\
+			\Q(\z_{p_1^{\a_1}}) & \ldots &       & \ldots & \Q(\z_{p_s^{\a_s}})\\
+			&                     & \Q \arrow[ull, dash, "\j(p_1^{\a_1})"] \arrow[ul, dash] \arrow[ur, dash] \arrow[urr, dash, swap, "\j(p_s^{\a_s})"] \arrow[uu, dash, swap, "\j(n)"]
+		\end{tikzcd}
+	\]
+\end{oss}
+
+\begin{exeN}
+	Si determini il campo di Galois di \(\Q[\z_8]/\Q\) e il corrispondente reticolo dei sottocampi.
+\end{exeN}
+
+\begin{sol}
+	Osserviamo che
+	\[
+		\z_8 = \cos \frac{\p}{4} + i\,\sin \frac{\p}{4} = \frac{\sqrt{2}}{2} (1+i).
+	\]
+	Inoltre \(\z_8^2 = \z_4 = i\), quindi si mostra facilmente che
+	\[
+		\Q[z_8] = \Q[\sqrt{2},i].
+	\]
+	Possiamo quindi scrivere gli elementi di \(\Gal\big(\Q[\z_8]/\Q\big)\) tramite le immagini dei generatori:
+	\[
+		\s_0 = id; \quad \s_1=
+		\left(\begin{aligned}
+				\sqrt{2} & \mapsto -\sqrt{2} \\
+				i        & \mapsto i
+			\end{aligned}\right);\quad
+		\s_2=
+		\left(\begin{aligned}
+				\sqrt{2} & \mapsto \sqrt{2} \\
+				i        & \mapsto -i
+			\end{aligned}\right);\quad
+		\s_1\circ \s_2=
+		\left(\begin{aligned}
+				\sqrt{2} & \mapsto -\sqrt{2} \\
+				i        & \mapsto -i
+			\end{aligned}\right).
+	\]
+	D'altronde, grazie alla teoria sviluppata in questo paragrafo, abbiamo un altro modo per esprimere questi elementi.
+	Sappiamo infatti che
+	\[
+		\Gal\big(\Q[\z_8]/\Q\big) \cong U(\Z/8\Z) = \{\pm 1,\pm 3\},
+	\]
+	che inducono i seguenti automorfismi:
+	\[
+		\t_0\colon \z_8 \mapsto \z_8; \qquad \t_1\colon \z_8 \mapsto \z_8^{-1}; \qquad \t_2\colon \z_8 \mapsto \z_8^3; \qquad \t_1\circ \t_2\colon \z_8 \mapsto \z_8^{-3}.
+	\]
+	Cerchiamo di dare una corrispondenza fra le due scritture:
+	\begin{itemize}
+		\item chiaramente \(\s_0=\t_0=id\).
+		\item \(\t_1\colon \z_8 \mapsto \z_8^{-1}\), dove
+		      \[
+			      \z_8^{-1} = \frac{\sqrt{2}}{2} - i \frac{\sqrt{2}}{2} \implies \frac{\sqrt{2}}{2}(1+i) \mapsto \frac{\sqrt{2}}{2}(1-i).
+		      \]
+		      Quindi \(\t_1=\s_2\).
+		\item \(\t_2\colon \z_8 \mapsto \z_8^3\), dove
+		      \[
+			      \z_8^3 = -\frac{\sqrt{2}}{2}+i \frac{\sqrt{2}}{2} \implies \frac{\sqrt{2}}{2}(1+i) \mapsto \frac{\sqrt{2}}{2}(-1+i).
+		      \]
+		      Quindi \(\t_2=\s_1\).
+		\item Dai punti precedenti segue immediatamente che \(\t_1\circ \t_2 =\s_1 \circ \s_2\).
+	\end{itemize}
+\end{sol}
+
+\begin{exeN}
+	Si determini il gruppo di Galois di \(K_7 = \Q[\z_7]\).
+\end{exeN}
+
+\begin{sol}
+	Sappiamo
+	\[
+		\Gal(K_7/\Q) \cong U(\Z/7\Z) = \{1,2,3,4,5,6\} \cong \Z/6\Z = \{0,1,2,3,4,5\}.
+	\]
+	Osserviamo che in generale è più comodo lavorare con \(U(\Z/7\Z)\) in quanto costituisce un gruppo moltiplicativo, tale struttura si avvicina di più a quella del gruppo di automorfisimi.
+	
+	I generatori di \(U(\Z/7\Z)\) e \(\Z/6\Z\) sono rispettivamente \(3\) e \(1\). Quindi l'isomorfismo fra i due gruppi si costruisce con la mappa \(1 \mapsto 3\).
+	
+	Ricordiamo dalla teoria dei gruppi che i sottogruppi di un gruppo ciclico sono in corrispondenza biunivoca con i divisori dell'ordine. In \(\Z/6\Z\) i divisori dell'ordine sono \(6,3,2,1\) a cui corrispondono
+	\[
+		\langle 1 \rangle = \Z/6\Z; \qquad \langle 2 \rangle; \qquad \langle 3 \rangle; \qquad \langle 0 \rangle.
+	\]
+	I corrispondenti del gruppo di Galois, in vista dell'isomorfismo
+	\[
+		\Z/6\Z \longrightarrow U(\Z/7\Z)\colon
+		\begin{aligned}
+			1 & \longmapsto 3  \\
+			2 & \longmapsto 2  \\
+			3 & \longmapsto 6  \\
+			4 & \longmapsto 4  \\
+			5 & \longmapsto 5  \\
+			0 & \longmapsto 1
+		\end{aligned}
+	\]
+	sono determinati da
+	\begin{align*}
+		\langle 1 \rangle \longleftrightarrow \langle \s_3 \rangle & = \Set{\s_{3^k} : K_7 \to K_7, \z_7 \mapsto \z_7^{3^k}} = \Gal(K_7/\Q); \\
+		\langle 2 \rangle \longleftrightarrow \langle \s_2 \rangle & = \{\s_2,\s_4,\s_1=id\};                                                \\
+		\langle 3 \rangle \longleftrightarrow \langle \s_6 \rangle & = \{\s_6,\s_1=id\};                                                     \\
+		\langle 0 \rangle \longleftrightarrow \langle \s_1 \rangle & = \{\s_1 = id\}.
+	\end{align*}
+	Per il \hyperref[th:TFCG]{Teorema Fondamentale della Corrispondenza di Galois}, avremo una corrispondenza con i sottocampi di \(K_7\). I corrispondenti banali sono
+	\begin{align*}
+		\langle \s_3 \rangle = G      & \longleftrightarrow K_7^{\Gal(K_7/\Q)} = \Q; \\
+		\langle \s_1 \rangle = \{id\} & \longleftrightarrow K_7^{\{id\}} = K_7.
+	\end{align*}
+	Consideriamo ora il corrispondente di \(\langle \s_6 \rangle\):
+	\[
+		\langle \s_6 \rangle = \langle \s_{-1} \rangle \longleftrightarrow K_7^{\langle \s_{-1} \rangle} = \Set{\a \in K_7 | \s_{-1}(\a) = \a} = \Set{\a \in K_7 | \conj{\a}=\a} = K_7 \cap \R.
+	\]
+	Abbiamo già visto in esempi precedenti che \(K_7 \cap \R = \Q[\cos \rfrac{2\p}{7}]\).
+	Infine
+	\[
+		\langle \s_2 \rangle \longleftrightarrow K_7^{\langle \s_2 \rangle} = \Set{\a \in K_7 | \s_2(\a) = \a}.
+	\]
+	Cerchiamo di determinare esplicitamente \(K_7^{\langle \s_2 \rangle}\). Per prima cosa osserviamo che \(K_7^{\langle \s_2 \rangle}/\Q\) è Galois in quanto \(\langle \s_2 \rangle \triangleleft G\) e ciò è sempre vero nei campi ciclotomici poiché \(G\) è abeliano. Inoltre
+	\[
+		[K_7^{\langle \s_2 \rangle}:\Q] = \frac{[K_7:\Q]}{[K_7:K_7^{\langle \s_2 \rangle}]} = \frac{6}{\#\langle \s_2 \rangle} = 2,
+	\]
+	quindi \(K_7^{\langle \s_2 \rangle}\) è un'estensione quadratica di \(\Q\). Definiamo
+	\[
+		\h = \sum_{\s \in \langle \s_2 \rangle}\s(\z_7) = \s_2(\z) + \s_4(\z) + \s_8(\z) = \z^2+\z^4+\z.
+	\]
+	Osserviamo che \(\s_2(\h)=\h\), quindi \(\Q[\h] \subseteq K_7^{\langle \s_2 \rangle}\). Ora
+	\[
+		\Q \subseteq \Q[\h] \subseteq K_7^{\langle \s_2 \rangle} \qquad\text{dove }[K_7^{\langle \s_2 \rangle}:\Q]=2.
+	\]
+	Quindi se dimostriamo che \(\Q[\h]\neq \Q\) segue necessariamente \(\Q[\h]=K_7^{\langle \s_2 \rangle}\).
+	Per prima cosa troviamo il polinomio minimo di \(\h\) sfruttando la \autoref{pr:polMinimoTFCG}:
+	\[
+		\h^G = \big\{\h,\s_2(\h),\s_3(\h),\s_4(\h),\s_5(\h),\s_6(\h)\big\} = \{\h,\s_3(\h)\}= \{\z+\z^2+\z^4,\z^3+\z^5+\z^6\}.
+	\]
+	Quindi
+	\[
+		f_\h(X) = \big(X-\h\big)\big(X-\s_3(\h)\big) = X^2 - \big(\h+\s_3(\h)\big)X+ \h\,\s_3(\h),
+	\]
+	dove
+	\begin{align*}
+		\h+\s_3(\h)  & = \z+\z^2+\z^3+\z^4+\z^5+\z^6=-1;                                          \\
+		\h\,\s_3(\h) & = (\z+\z^2+\z^4)(\z^3+\z^5+\z^6) = \z^4+\z^6+1+\z^5+1+\z+1+\z^2+\z^3 = 2.
+	\end{align*}
+	Per cui
+	\[
+		f_\h(X) = x^2+x+2 \implies \h,\s_3(\h) = -\frac{1}{2}\pm \frac{1}{2}\sqrt{-7}.
+	\]
+	Concludendo \(Q[\h]=\Q[\sqrt{-7}]\neq \Q\), quindi \(Q[K_7^{\langle \s_2 \rangle}] = Q[\sqrt{-7}]\).
+\end{sol}
+
+\begin{oss}
+	In generale se consideriamo \(\Q[\z_p]\) con \(p\ge 3\), avremo sempre che
+	\[
+		\Gal\big(\Q[\z_p]/\Q\big) \cong U(\Z/p\Z) = \F_p^*
+	\]
+	che è ciclico. Quindi ha un sottogruppo per ogni divisore dell'ordine. Per il TFCG i sottocampi sono in corrispondenza biunivoca con i divisori di \(\j(p)= p-1\).
+	
+	In particolare avremo sempre
+	\[
+		\Q\left[\cos \frac{2\p}{p}\right]\text{ di grado }\frac{p-1}{2} \qquad\text{e}\qquad \Q\left[\sqrt{(-1)^{\frac{p-1}{2}}p}\right]\text{ di grado }2.
+	\]
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 28/11/2016 - OTTAVA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{pr}
+	Sia \(p\) primo, allora vale la seguente identità
+	\[
+		D_{\Phi_p} = -p^{p-2}.
+	\]
+\end{pr}
+
+\begin{proof}
+	Per definizione di discriminante
+	\[
+		D_f = \prod_{i<j} (\a_i-\a_j)^2 \qquad\text{dove \(\a_i,\a_j\) sono radici di \(f\)}.
+	\]
+	\'E possibile dimostrare la seguente definizione equivalente:
+	\[
+		D_f = \prod_{i<j} (\a_i-\a_j)^2 = (-1)^{\frac{n(n-1)}{2}} \prod_{j=1}^n f'(\a_j).
+	\]
+	Applicandola al discriminante di \(\Phi_p(X)\), otteniamo
+	\[
+		D_{\Phi_p} = (-1)^{\frac{\cancel{p}(p-1)}{2}} \prod_{k=1}^{p-1} \Phi_p'(\z^k) = (-1)^{\frac{p-1}{2}} \prod_{k=1}^{p-1} \Phi_p'(\z^k)\graffito{la \(p\) come esponente di \((-1)\) è ininfluente}.
+	\]
+	Ora
+	\[
+		\Phi_p'(X) = \frac{p\,X^{p-1}(X-1)-(X^p-1)}{(X-1)^2} \implies \Phi_p'(\z^k) = p\,{(\z^{p-1})}^k{(\z^k-1)}^{-1}.
+	\]
+	Quindi
+	\[
+		\begin{split}
+			\prod_{k=1}^{p-1}\Phi_p'(\z^k) & = p^{p-1}{(\z^{p-1})}^{\sum_{k=1}^{p-1}k} \left( \prod_{k=1}^{p-1} (1-\z^k) \right)^{-1}(-1)^{\sum_{k=1}^{p-1}k}\\
+			& = p^{p-1} \underbrace{{(\z^{p-1})}^{\frac{p(p-1)}{2}}}_{=1} \underbrace{\Phi_p(1)^{-1}}_{=p^{-1}} (-1)^{\frac{\cancel{p}(p-1)}{2}}\\
+			& = (-1)^{\frac{p-1}{2}}p^{p-2}.
+		\end{split}
+	\]
+	Da cui
+	\[
+		D_{\Phi_p} = (-1)^{\frac{p-1}{2}}(-1)^{\frac{p-1}{2}} p^{p-2}
+	\]
+	DA FINIRE PERCHE' SBAGLIATO
+\end{proof}
+
+\begin{prop}{Sottocampi di \(\Q[\z_p]\)}{sottocampipCiclotomico}
+	Consideriamo \(\Q[\z],\z=e^{\frac{2\p\,i}{p}}\) e sia \(G=\Gal\big(\Q[\z]/\Q\big)\). Per ogni \(H\subseteq G\), sia
+	\[
+		\h_H = \sum_{h\in H} \z^h \in \Q[\z].
+	\]
+	Allora \(\Q[\z]^H = \Q[\h_H]\).
+\end{prop}
+
+\begin{proof}
+	Da questo momento faremo uso dell'isomorfismo canonico di \(G\) con \((\Z/p\Z)^*\), rendendo di fatto indistinguibili di due gruppi tramite la mappa
+	\[
+		k \longmapsto \s_k\colon \z \mapsto \z^k.
+	\]
+	Per prima cosa osserviamo che
+	\[
+		\s_k(\h_H) = \sum_{h\in H}\z^{k\,h},\,\fa \s_k\in G.
+	\]
+	Inoltre, per ogni \(k\in H\) si avrà \(\s_k(\h_H)=\h_H\) da cui \(\Q[\h_H]\subseteq \Q[\z]^H\).
+	Quindi, per dimostrare l'uguaglianza, basta mostrare che
+	\[
+		\big[\Q[\h_H]:\Q\big] = \big[\Q[\z]^H:\Q\big] \qquad\text{dove }\big[\Q[\z]^H:\Q\big] = \frac{\big[\Q[\z]:\Q\big]}{\big[\Q[\z]:\Q[\z]^H\big]} = \frac{\#G}{\#H},
+	\]
+	ovvero che
+	\[
+		\big[\Q[\h_H]:\Q\big] = \big[(\Z/p\Z)^*:H\big].
+	\]
+	Sfruttando l'espressione del polinomio minimo che abbiamo \hyperref[pr:polMinimoTFCG]{precedentemente dimostrato}, avremo che
+	\[
+		\big[\Q[\h_H]:\Q\big] = \deg f_{\h_H} = \#(\h_H)^G.
+	\]
+	Quindi il teorema si riduce a verificare che
+	\[
+		\#(\h_H)^G = [G:H].
+	\]
+	Se \(y\in (\Z/p\Z)^*\) definiamo il seguente periodo:
+	\[
+		\h_{y\,H} = \sum_{h\in H} \z^{y\,h}.
+	\]
+	In altre parole \(\h_{y\,H} = \s_y(\h_H)\).
+	Osserviamo che, presi \(y_1,y_2\in (\Z/p\Z)^*\), se \(y_1H=y_2H\), allora chiaramente \(\h_{y_1H}=\h_{y_2H}\).
+	Inoltre se \(y_1H \neq y_2H\), allora sosteniamo che
+	\[
+		\h_{y_1H} \neq \h_{y_2H}.
+	\]
+	Ricordiamo che le classi laterali costituiscono una partizione per il gruppo, quindi
+	\[
+		y_1H \neq \y_2H \implies y_1H \cap y_2H = \emptyset.
+	\]
+	Inoltre sappiamo che \((1,\z,\ldots,\z^{p-2})\) è una \(\Q\)-base di \(\Q[\z]\). D'altronde anche \((\z,\z^2,\ldots,\z^{p-1})\) lo è. Infatti
+	\[
+		\Q[\z] \longrightarrow \Q[\z], \a\longmapsto \z\a
+	\]
+	è un'applicazione lineare di \(\Q\)-spazi vettoriali invertibile. Per cui
+	\[
+		\h_{y_1H}-\h_{y_2H} = \sum_{h\in H} \z^{y_1H}-\sum_{h\in H}\z^{y_2H} \neq 0
+	\]
+	proprio perché \((\z,\z^2,\ldots,\z^{p-1})\) è una base.
+	
+	Infine
+	\[
+		(\h_H)^G = \Set{\s_k\h_h | k\in(\Z/p\Z)^*} = \Set{\h_{k\,H} | k\in (\Z/p\Z)^*} = \Set{\h_{g_1 H},\ldots,\h_{g_s H}}.
+	\]
+	Da cui \(\#(\h_H)^G=[G:H]\) in quanto \(G/H=\Set{g_1 H,\ldots,g_s H}\).
+\end{proof}
+
+\begin{oss}
+	In particolare vale
+	\[
+		f_{\h_H}(X) = \prod_{j=1}^s (X-\h_{g_j H}).
+	\]
+\end{oss}
+
+\begin{oss}
+	Ricordiamo dalla definizione di classe laterale, che \(g_1 H = g_2 H \iff g_1 g_2^{-1}\in H\). Quindi
+	\[
+		\#\Set{y\in G | yH = kH} = \#\Set{k\,h | h\in H} = \#H,
+	\]
+	da cui
+	\[
+		\prod_{k\in G}(X-\h_{kH}) = \prod_{k=1}^{p-1} (X-\h_{kH}) = f_{\h_H}(X)^{\#H}.
+	\]
+\end{oss}
+
+\begin{prop}{Due sottocampi importanti di \(\Q[\z_p]\)}{sottocampiImporatntipCiclotomici}
+	Sia \(G=\Gal\big(\Q[\z_p]/\Q\big) = (\Z/p\Z)^*\). \(G\) è ciclico quindi \(G=\langle g \rangle\). Allora
+	\begin{itemize}
+		\item Il sottocampo associato a \(\langle g^{\frac{p-1}{2}} \rangle\) è \(\Q \left[ \cos \frac{2\p}{p} \right]\).
+		\item Il sottocampo associato a \(\langle g^{2} \rangle\) è \(\Q \left[ \sqrt{(-1)^{\frac{p-1}{2}}p} \right]\).
+	\end{itemize}
+\end{prop}
+
+\begin{proof}
+	Dal momento che \(G=\langle g \rangle\) è ciclico, sappiamo che ogni sottogruppo \(H\le G\) è del tipo
+	\[
+		H = \langle g^d \rangle \qquad\text{con }d\mid p-1.
+	\]
+	Inoltre avremo \(\#H = \frac{p-1}{d}\).
+	Nel nostro caso \(\langle g^{\frac{p-1}{2}} \rangle\) ha \(2\) elementi.
+	Ora \(\langle g^{\frac{p-1}{2}} \rangle = \langle -1 \rangle\), quindi per la proposizione precedente, il sottocampo associato sarà
+	\[
+		\Q[\z_p]^{\langle -1 \rangle} = \Q[\h_{\langle -1 \rangle}]
+	\]
+	che sarà un'estensione di grado \(\frac{p-1}{2}\) su \(\Q\). Infatti
+	\[
+		\Q[\h_{\langle -1 \rangle}] = \Q[\z+\z^{-1}] = \Q\left[\cos \frac{2\p}{p}\right].
+	\]
+	Descriviamo ora il sottocampo associato a \(H=\langle g^2 \rangle\). Sappiamo
+	\[
+		\#H = \frac{p-1}{2} \qquad\text{e}\qquad \h_H = \sum_{t=1}^{\frac{p-1}{2}} \z^{g^{2t}}.
+	\]
+	Inoltre sappiamo che \(\deg f_{\h_{\langle g^2 \rangle}} = 2\). Ora
+	\[
+		\s_g (\h_{\langle g^2 \rangle}) = \h_{g\langle g^2 \rangle} = \sum_{k=1}^{\frac{p-1}{2}} \z^{g^{2k+1}}.
+	\]
+	Da cui, come abbiamo visto nella prima osservazione alla proposizione,
+	\[
+		f_{\h_{\langle g^2 \rangle}}(X) = (X-\h_{\langle g^2 \rangle}) (X-\h_{g\langle g^2 \rangle}) = X^2-(\h_{\langle g^2 \rangle}+\h_{g \langle g^2 \rangle})X + \h_{\langle g^2 \rangle}\h_{g \langle g^2 \rangle}.
+	\]
+	Dove
+	\[
+		\h_{\langle g^2 \rangle} + \h_{g \langle g^2 \rangle} = \sum_{k=1}^{\frac{p-1}{2}} \z^{g^{2k}} + \sum_{k=1}^{\frac{p-1}{2}} \z^{g^{2k+1}} = \z+\z^2 + \ldots + \z^{p-1} = -1.
+	\]
+	Resta da calcolare \(\h_{\langle g^2 \rangle} \h_{g\langle g^2 \rangle}\) che sappiamo essere in \(\Z\).
+	Per semplicità di notazione scriviamo
+	\[
+		\h_0 = \h_{\langle g^2 \rangle} \qquad\text{e}\qquad \h_1 = \h_{g \langle g^2 \rangle}.
+	\]
+	Se riusciamo a determinare \(\h_0-\h_1=A\), avremo
+	\[
+		\begin{cases}
+			\h_0+\h_1 = -1 \\
+			\h_0-\h_1 = A
+		\end{cases}
+		\implies \h_0 = \frac{1}{2}(-1+A), \h_1 = \frac{1}{2}(-1-A).
+	\]
+	Ora
+	\[
+		A = \h_0-\h_1 = \sum_{k=1}^{\frac{p-1}{2}} \z^{g^{2k}} - \sum_{k=1}^{\frac{p-1}{2}} \z^{g^{2k+1}} = \sum_{j=1}^{p-1} \e_j \z^j,
+	\]
+	dove
+	\[
+		\e_j = \lege{j}{p} = 	\begin{cases}
+			1  & j=g^{2k}    \\
+			-1 & j=g^{2k+1}
+		\end{cases}
+	\]
+	è il simbolo di Legendre.\graffito{guardare gli appundi di TN410 per alcune proprietà sul simbolo di Legendre}
+	Tramite alcune manipolazioni algebriche che sfruttano le proprietà del simbolo di Legendre, si può dimostrare che
+	\[
+		A^2 = \lege{-1}{p}p.
+	\]
+	Da cui
+	\[
+		A = \pm \sqrt{(-1)^{\frac{p-1}{2}}p} \implies \h_0,\h_1 = \frac{1}{2} \left( 1\pm \sqrt{(-1)^{\frac{p-1}{2}}p} \right)
+	\]
+	Che ci dice proprio \(\Q[\h_0]=\Q \left[ \sqrt{(-1)^{\frac{p-1}{2}}p} \right] \).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%GRUPPO TRANSITIVO DI UN POLINOMIO%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Gruppo transitivo di un polinomio}
+
+Nei prossimi paragrafi \(f(X)\in F[X]\) sarà sempre monico e separabile.
+
+Se \(f\in F[X]\) separabile, allora il suo campo di spezzamento \(F_f\) è Galois su \(F\). In particolare se
+\[
+	f(X) = \prod_{j=1}^n (X-\a_j), \qquad\text{con }\a_1,\ldots,\a_n \in F_f,
+\]
+preso
+\[
+	\b = \prod_{i<j} (\a_i-\a_j),
+\]
+certamente \(\b\in F_f\), inoltre \(\b^2=D_f\). Quindi
+\[
+	F \subseteq F[\sqrt{D_f}] \subseteq F_f,
+\]
+dove \(F[\sqrt{D_f}]/F\) è quadratica se \(D_f\) non è un quadrato perfetto, altrimenti \(F[\sqrt{D_f}]=F\).
+
+\begin{defn}{Gruppo di Galois di un polinomio}{gruppoGaloisPolinomio}\index{Gruppo di Galois!di un polinomio}
+	Sia \(f\in F[X]\) un polinomio separabile. Definiamo il \emph{gruppo di Galois di \(f\)} come il gruppo di Galois di \(F_f/F\):
+	\[
+		\Gal(f) := \Gal(F_f/F).
+	\]
+\end{defn}
+
+\begin{prop}{}{GaloisSottogruppoPermutazioni}
+	Sia \(E/F\) un'estensione di Galois. Dove \(E=F_f\) con \(f\in F[X],n=\deg f\). Allora
+	\[
+		\Gal(f) \lesssim S_n.
+	\]
+\end{prop}
+
+\begin{proof}
+	Supponiamo che
+	\[
+		f(X) = (X-\a_1)(X-\a_2)\cdot\ldots\cdot(X-\a_n) \implies E=F_f = F[\a_1,\ldots,\a_n].
+	\]
+	Vogliamo dimostrare che
+	\[
+		\Gal(f) \longrightarrow \text{Sym}\big(\{\a_1,\ldots,\a_n\}\big) \cong S_n, \s \longmapsto
+		\begin{pmatrix}
+			\a_1     & \ldots & \a_n      \\
+			\s(\a_1) & \ldots & \s(\a_n)
+		\end{pmatrix}
+	\]
+	è un omomorfismo.
+	Ma ciò segue da
+	\[
+		f\big(\s(\a_j)\big) = \s\big(f(\a_j)\big) = 0 \implies \,\fa j\,\exists!\, k:\s(\a_j)=\a_k.
+	\]
+	Da cui segue che \(\Gal(f)\lesssim S_n\) per il teorema fondamentale dell'omomorfismo di gruppi.
+\end{proof}
+
+\begin{oss}
+	Da ciò segue che \(\#\Gal(f) \mid n!\). Inoltre se \(f\) è irriducibile e \(f(\a)=0\) avremo
+	\[
+		F \subset F[\a] \subseteq F_f \qquad\text{con }\big[F[\a]:F\big] = n.
+	\]
+	Da cui \(n \mid \#\Gal(f)\).
+\end{oss}
+
+\begin{ese}[Controesempio]
+	Il viceversa non è sempre vero, ad esempio se prendiamo
+	\[
+		f(X) = (X^2-2)(X^2+1),
+	\]
+	avremo che \(f\) ha grado \(4\) ed è riducibile. Ma il suo campo di spezzamento \(\Q[\sqrt{2},i]\) ha ancora grado \(4\).
+\end{ese}
+
+\begin{cor}
+	Se \(f\) ha grado \(n>2\), allora
+	\[
+		\Gal(f) \not\cong \Z/n!\Z.
+	\]
+\end{cor}
+
+\begin{proof}
+	Segue da \(\Z/n!\Z\not\cong S_n\), infatti pur avendo la stessa dimensione, \(\Z/n!\Z\) è abeliano mentre \(S_n\) non lo è.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 30/11/2016 - OTTAVA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{defn}{Sottogruppo transitivo}{sottogruppoTransitivo}
+	Un sottogruppo \(H\le S_n\) si dice \emph{transitivo} se
+	\[
+		\fa i,j \in \{1,\ldots,n\}\,\ex \s\in H: \s(i)=j.
+	\]
+\end{defn}
+
+\begin{table}[tp]
+	\caption{Sottogruppi transitivi di \(S_n\)}
+	\centering
+	\begin{tabular}{ccc}
+		\toprule
+		\textbf{Gruppo} & \textbf{\#Sottogruppi transitivi} & \textbf{Descrizione}    \\
+		\midrule
+		\(S_2\)         & \(1\)                             & \(S_2\)                 \\
+		\(S_3\)         & \(2\)                             & \(S_3=D_3, A_3=C_3\)    \\
+		\(S_4\)         & \(5\)                             & \(S_4,A_4,C_4,D_4,V\)   \\
+		\(S_5\)         & \(5\)                             & \(S_5,A_5,C_5,D_5,F_5\) \\
+		\(S_6\)         & \(16\)                                                      \\
+		\(S_7\)         & \(7\)                                                       \\
+		\(S_8\)         & \(50\)                                                      \\
+		\(\vdots\)                                                                    \\
+		\(S_{24}\)      & \(26813\)                                                   \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{oss}
+	Chiaramente è possibile dare una nozione più generale di sottogruppo transitivo, in questo corso si è preferito richiamarla solo per i sottogruppi di \(S_n\).
+\end{oss}
+
+\begin{ese}
+	\(S_n,A_n,C_n=\langle(1\ 2\ \ldots\ n)\rangle, D_n\) sono tutti sottogruppi transitivi su \(S_n\).
+	
+	\(S_{n-1}\le S_n\) non è transitivo.
+\end{ese}
+
+\begin{ese}[Sottogruppi isomorfi ma diversamente transitivi]
+	Consideriamo \(\langle(1\, 2),(3\ 4)\rangle\le S_4\). Osserviamo che tale sottogruppo non è transitivo (ad esempio non esiste \(\s\) tale che \(\s(2)=3\)) e che è isomorfo a \(C_2\times C_2\).
+	
+	Consideriamo ora il gruppo di Klein
+	\[
+		V = \Set{(1),(1\ 2)(3\ 4),(1\ 3)(2\ 4),(1\ 4)(2\ 3)}.
+	\]
+	Si mostra facilmente che \(V\) è transitivo. Inoltre anche \(V\) è isomorfo a \(C_2\times C_2\).
+	Quindi la transitività non è una proprietà invariante per isomorfismi.
+\end{ese}
+
+\begin{prop}{Caratterizzazione gruppi di Galois transitivi}{caratterizzazioneGaloisTransitivi}
+	Sia \(f\in F[X]\) separabile. Allora \(f\) è irriducibile se e soltanto se \(\Gal(f)\lesssim S_n\) è transitivo sulle radici.
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(f\) sia irriducibile. Quindi avremo
+	\[
+		f(X) = \prod_{j=1}^n (X-\a_j) \qquad\text{e}\qquad F_f = F[\a_1,\ldots,\a_n].
+	\]
+	Siano \(\a,\b\in \{\a_1,\ldots,\a_n\}\). \(F[\a],F[\b]\) sono campi col gambo \(f\). Vi è chiaramente un isomorfismo \(F[\a]\xrightarrow{\sim} F[\b],\a \mapsto \b\). Definisco \(f_1\) la composizione di tale isomorfismo con l'immersione in \(F_f\):
+	\[
+		f_1\colon F[\a] \xrightarrow{\sim} F[\b] \hookrightarrow F_f.
+	\]
+	Sappiamo, assumendo \(\a=\a_1\), che \(f_1\) può essere esteso, passo dopo passo, a un \(F\)-omomorfismo\graffito{per la costruzione possiamo usare il \autoref{th:corrispondenzaFOmomorfismiEstensioniSemplici}}
+	\[
+		f_n\colon F[\a_1,\ldots,\a_n] = F_f \longrightarrow F_f, \a \longmapsto \b.
+	\]
+	Quindi ho trovato \(f_n\in \Aut(F_f/F)=\Gal(F_f/F)\) tale che \(f_n(\a)=\b\). Dal momento che posso trovare una tale mappa per ogni coppia di radici di \(f\), ciò significa che \(\Gal(f)\) è transitivo su \(S_n\).
+	
+	\graffito{\(\Leftarrow)\)}Supponiamo che \(\Gal(f)\) sia transitivo. Sia \(g(X)\in F[X]\) un fattore irriducibile di \(f(X)\).
+	Se \(\a\) è una radice di \(g\), allora per ogni radice \(b\) di \(f\), sia \(\s\in \Gal(f)\) tale che \(\s(\a)=\b\). Da cui
+	\[
+		g(\b) = g\big(\s(\a)\big) = \s\big(g(\a)\big) = 0.
+	\]
+	Quindi ogni radice di \(f\) è radice di \(g\), ne segue che \(f\mid g\) e quindi \(f(X)=g(X)\) irriducibile.
+\end{proof}
+
+\begin{ese}
+	Consideriamo \(f(X) = (X^2-2)(X^2+1)\). Sappiamo che \(\Q_f=\Q[\sqrt{2},i]\) e
+	\[
+		\Gal(\Q_f,\Q) = \Set{\s_1,\s_4=
+			\left(\begin{aligned}
+				\sqrt{2} & \mapsto \pm\sqrt{2} \\
+				i        & \mapsto \pm i
+			\end{aligned}\right),
+			\s_2,\s_3=
+			\left(\begin{aligned}
+				\sqrt{2} & \mapsto \pm \sqrt{2} \\
+				i        & \mapsto \mp i
+			\end{aligned}\right)}
+	\]
+	Ora, se denotiamo \(\Set{\a_1=\sqrt{2},\a_2=-\sqrt{2},\a_3=i,\a_4=-i}\), possiamo sfruttare l'immersione isomorfa
+	\[
+		\Gal(f) \xhookrightarrow{\sim}\text{ Sym}\big(\{\a_1,\a_2,\a_3,\a_4\}\big) \cong S_4
+	\]
+	In particolare avremo
+	\begin{align*}
+		\left(\begin{aligned}\sqrt{2} & \mapsto \sqrt{2}\\i & \mapsto i\end{aligned}\right)  & \longleftrightarrow (1)    & \left(\begin{aligned}\sqrt{2} & \mapsto -\sqrt{2}\\i & \mapsto i\end{aligned}\right)  & \longleftrightarrow (1\ 2)        \\
+		\left(\begin{aligned}\sqrt{2} & \mapsto \sqrt{2}\\i & \mapsto -i\end{aligned}\right) & \longleftrightarrow (3\ 4) & \left(\begin{aligned}\sqrt{2} & \mapsto -\sqrt{2}\\i & \mapsto -i\end{aligned}\right) & \longleftrightarrow (1\ 2)(3\ 4)
+	\end{align*}
+	Ovvero \(\Gal(f) \cong \Set{(1),(1\ 2),(3\ 4),(1\ 2)(3\ 4)} \le S_n\) che come ci aspettavamo dalla proposizione non è transitivo.
+\end{ese}
+
+\begin{oss}
+	Se invece consideriamo \(\Q[\sqrt{2}+i]=\Q[\sqrt{2},i]\) che è il campo di spezzamento di
+	\[
+		g(X) = f_{\sqrt{2}+i}(X) = \prod_{j=1}^4 \big(X-\s_j(\sqrt{2}+i)\big) = X^4-2x^2+9,
+	\]
+	ci aspettiamo che \(\Gal(g)\) sia transitivo poiché \(g\) è irriducibile su \(\Q[X]\). Ce lo aspettiamo nonostante \(\Gal(g)\cong \Gal(f)\), poiché abbiamo visto che la transitività non è invariante per isomorfismi.
+	Denotiamo \(\Set{\b_1=\sqrt{2}+i,\b_2=-\sqrt{2}+i,\b_3=\sqrt{2}-i,\b_4=-\sqrt{2}-i}\). Ora, dal momento che \(\Q[\sqrt{2}+i]=\Q[\sqrt{2},i]\), avremo che \(\Gal(g)\) ha gli stessi automorfismi di \(\Gal(f)\). In particolare
+	\begin{align*}
+		\s_1 & \colon \begin{aligned}\b_1 &\mapsto \b_1\\\b_2 &\mapsto \b_2\\\b_3 &\mapsto \b_3\\\b_4 &\mapsto \b_4\end{aligned} & \s_2 & \colon \begin{aligned}\b_1 &\mapsto \b_2\\\b_2 &\mapsto \b_1\\\b_3 &\mapsto \b_4\\\b_4 &\mapsto \b_1\end{aligned} & 
+		\s_3 & \colon \begin{aligned}\b_1 &\mapsto \b_3\\\b_2 &\mapsto \b_4\\\b_3 &\mapsto \b_1\\\b_4 &\mapsto \b_2\end{aligned} & \s_4 & \colon \begin{aligned}\b_1 &\mapsto \b_4\\\b_2 &\mapsto \b_3\\\b_3 &\mapsto \b_2\\\b_4 &\mapsto \b_1\end{aligned}
+	\end{align*}
+	da cui
+	\begin{align*}
+		\s_1 & \longleftrightarrow (1) & \s_2 & \longleftrightarrow (1\ 2)(3\ 4) & \s_3 & \longleftrightarrow (1\ 3)(2\ 4) & \s_4 & \longleftrightarrow (1\ 4)(2\ 3).
+	\end{align*}
+	Ovvero \(\Gal(g) \cong V\le S_n\) che è transitivo. In conclusione \(\Gal(g)=\Gal(f)\) ed entrambi sono isomorfi a \(C_2\times C_2\le S_4\), ma solo \(\Gal(g)\) è transitivo. Questo accade poiché \(g\) è irriducibile mentre \(f\) non lo è.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%GRUPPO DI UN POLINOMIO NEL GRUPPO ALTERNO%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Gruppo di un polinomio nel gruppo alterno}
+
+In questo paragrafo cercheremo di capire sotto quali ipotesi il gruppo di Galois di un polinomio \(f\) di grado \(n\), è contenuto nel gruppo alterno \(A_n\).
+
+Cominciamo con un breve richiamo sul segno di una permutazione.
+
+\begin{defn}{Segno permutazione}{segnoPermutazione}
+	Sia \(\s\in S_n\). Scritto \(\s = c_1\circ c_2 \circ \ldots \circ c_k\) prodotto di cicli disgiunti, diremo che il \emph{segno} di \(\s\) è
+	\[
+		\sgn(\s) = (-1)^{l(c_1)+\ldots+l(c_k)-k},
+	\]
+	dove con \(l(c_j)\) indichiamo la lunghezza di \(c_j\).
+\end{defn}
+
+\begin{oss}
+	Alternativamente, scritto \(\s = \t_1 \circ \ldots \circ \t_s\) prodotto di trasposizioni, potevamo definire il segno di \(\s\) come
+	\[
+		\sgn(\s) = (-1)^s.
+	\]
+	Chiaramente le due definizioni sono equivalenti.
+\end{oss}
+
+\begin{ese}
+	\[
+		\sgn(1\ 2) = (-1)^1 = -1 \qquad\text{e}\qquad \sgn(1\ 2\ \ldots\ n) = (-1)^{n-1}.
+	\]
+\end{ese}
+
+\begin{defn}{Gruppo alterno}{gruppoAlterno}
+	Considero la mappa
+	\[
+		\sgn\colon S_n \longrightarrow \{\pm 1\}, \s \longmapsto \sgn(\s)
+	\]
+	che costituisce un omomorfismo suriettivo. Definisco il \emph{gruppo alterno} di \(S_n\) come il nucleo di \(\sgn\):
+	\[
+		A_n:=\Ker(\sgn) = \Set{\s\in S_n | \sgn(\s) = 1}.
+	\]
+\end{defn}
+
+\begin{oss}
+	\(A_n\) è di fatto l'insieme delle permutazioni pari di \(S_n\). La definizione come nucleo di un omomorfismo però ci garantisce che
+	\[
+		A_n \trianglelefteq S_n \qquad\text{e}\qquad [S_n:A_n] = 2.
+	\]
+\end{oss}
+
+\begin{ese}
+	Consideriamo il gruppo delle permutazioni di ordine \(3\):
+	\[
+		S_3 = \Set{(1),(1\ 2),(1\ 3),(2\ 3),(1\ 2\ 3),(1\ 3\ 2)}.
+	\]
+	In \(S_3\) i \(2\)-cicli hanno \(\sgn=-1\) mentre i \(3\)-cicli hanno \(\sgn=1\). Quindi
+	\[
+		A_3 = \Set{(1),(1\ 2\ 3),(1\ 3\ 2)} \cong C_3.
+	\]
+\end{ese}
+
+\begin{pr}
+	Sia \(f\in F[X]\). Allora \(D_f\in F\).
+\end{pr}
+
+\begin{proof}
+	Ricordiamo la definizione di discriminante
+	\[
+		D_f = \prod_{i<j} (\a_i-\a_j)^2.
+	\]
+	Tale definizione, per via del quadrato, non dipende dall'etichettatura delle radici di \(f\).
+	Quindi, per ogni \(\s\in \Gal(f)\), avremo
+	\[
+		\s D_f = \prod_{i<j} \big(\s(\a_i)-\s(\a_j)\big)^2 = D_f
+	\]
+	in quanto abbiamo solo riordinato le radici. Da ciò segue
+	\[
+		D_f \in F_f^{\Gal(f)} = F.\qedhere
+	\]
+\end{proof}
+
+\begin{defn}{Radice del discriminante}{radiceDiscriminante}
+	Preso \(f\in F[X]\), definiamo
+	\[
+		\Delta_f = \prod_{i<j} (\a_i-\a_j) = \sqrt{D_f}.
+	\]
+\end{defn}
+
+\begin{pr}
+	Siano \(f\in F[X]\) e \(\s\in \Gal(f)\). Allora
+	\[
+		\s\Delta_f = \sgn(\s)\Delta_f.
+	\]
+\end{pr}
+
+\begin{proof}
+	Non fornita. La tesi è comunque intuitiva poiché \(\s\) scambia gli indici delle radici, facendo comparire un segno meno ogni volta che \(i<j\) e \(\s(i)>\s(j)\).
+\end{proof}
+
+\begin{teor}{Quando \(\Gal(f)\le A_n\)?}{GalfInAn}
+	Sia \(f\in F[X]\). Allora \(\Gal(f)\le A_n\) se e soltanto se \(\Delta_f\in F\), ovvero se \(D_f\) è un quadrato perfetto in \(F\).
+\end{teor}
+
+\begin{proof}
+	Dalla proprietà precedente sappiamo che \(\s\Delta_f = \sgn(\s)\Delta_f\). Da cui
+	\[
+		\s\in A_n \iff \s \Delta_f = \Delta_f \iff \Delta_f \in F_f^{A_n\cap \Gal(f)}.
+	\]
+	In particolare segue facilmente che
+	\[
+		F[\Delta_f] = F_f^{A_n\cap \Gal(f)}.
+	\]
+	Inoltre \(\big[F[\Delta_f]:F\big]\le 2\) in quanto \(\Delta_f^2=D_f\in F\).
+	
+	In conclusione
+	\[
+		\Gal(f) \le A_n \iff \Gal(f)\cap A_n = \Gal(f) \iff F[\Delta_f] = F_f^{A_n\cap \Gal(f)} = F_f^{\Gal(f)} = F.
+	\]
+	Da cui segue la tesi.
+\end{proof}
+
+\begin{prop}{Gruppo di Galois di un polinomio di grado \(3\)}{gruppoGaloisPolinomio3}
+	Sia \(f\in F[X]\) un polinomio di grado \(3\). Allora
+	\begin{itemize}
+		\item Se \(f\) è irriducibile,
+		      \[
+			      \begin{cases}
+				      \Gal(f) \cong A_3 & \text{se }D = \square     \\
+				      \Gal(f) \cong S_3 & \text{se }D \neq \square
+			      \end{cases}
+		      \]
+		\item Se \(f\) è totalmente riducibile,
+		      \[
+			      \Gal(f) = \{id\}.
+		      \]
+		\item Se \(f\) è parzialmente riducibile in un fattore di secondo grado e uno di primo,
+		      \[
+			      \Gal(f) \cong \Z/2\Z.
+		      \]
+	\end{itemize}
+\end{prop}
+
+\begin{proof}
+	Per definizione \(\Gal(f)=\Gal(F_f/F)\). D'altronde sappiamo che
+	\[
+		\#\Gal(F_f/F) = [F_f:F] \le (\deg f)! = 6.
+	\]
+	Quindi \(\Gal(f)\) ha ordine un divisore di \(6\).
+	
+	Se \(f\) è totalmente riducibile, è chiaro che \(F_f=F\) e quindi \(\Gal(f)=\{id\}\).
+	Se \(f\) ha un fattore di grado \(2\) irriducibile, allora \(F_f/F\) è un'estensione quadratica, in particolare
+	\[
+		\#\Gal(f) = [F_f:F] = 2 \implies \Gal(f) \cong \Z/2\Z. 
+	\]
+	Supponiamo ora che \(f\) sia irriducibile. Avremo che se \(f[\a]=0\), \(F \subset F[\a] \subset F_f\), da cui
+	\[
+		\big[F[\a]:F\big] = \deg f = 3 \implies 3 \mid [F_f:F] = \#\Gal(f).
+	\]
+	Per cui \(3\mid \#\Gal(f) \mid 6\), ovvero \(\#\Gal(f)\in\{3,6\}\).
+	Dal teorema precedente sappiamo che \(\Gal(f)\le A_3\) se e soltanto se \(\Delta_f\in F\), ovvero se \(D_f\) è un quadrato perfetto in \(F\). Da cui
+	\[
+		\#\Gal(f) = [F_f:F] = 	\begin{cases}
+			3 & \text{se }D_f = \square     \\
+			6 & \text{se }D_f \neq \square
+		\end{cases}\qedhere
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 14/12/2016 - DECIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%POLINOMI DI QUARTO GRADO%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polinomi di quarto grado}
+
+In questo paragrafo forniremo dei criteri per determinare il gruppo di Galois di un polinomio \(f\in F[X]\) di quarto grado che sia irriducibile e separabile.
+
+Sappiamo che \(G_f :=\Gal(f) \subseteq \text{Sym}\{\a_1,\a_2,\a_3,\a_4\}\cong S_4\), dove \(\a_i\) sono radici di \(f\). Inoltre \(G_f\) è transitivo su \(S_4\) poiché \(f\) è irriducibile.
+\(G_f\) deve pertanto essere uno dei sottogruppi di \(S_4\) elencati nella tabella \ref{tb:transitiviS4}.
+
+\begin{table}[tp]
+	\caption{Sottogruppi transitivi di \(S_4\).}
+	\label{tb:transitiviS4}
+	\centering
+	\begin{tabular}{ccc}
+		\toprule
+		\textbf{Sottogruppo} & \textbf{Elementi}                                            & \textbf{Normale su \(S_4\)?} \\
+		\midrule
+		\(S_4\)              & \((1),(i\ j),(i\ j\ k),(i\ j\ k\ l),(i\ j)(k\ l)\)           & Sì                           \\
+		\(A_4\)              & \((1),(i\ j\ k),(i\ j)(k\ l)\)                               & Sì                           \\
+		\(D_4\)              & \((1),(1\ 2\ 3\ 4),(1\ 4\ 3\ 2),(1\ 3),(2\ 4),(i\ j)(k\ l)\) & No                           \\
+		\(C_4\)              & \(\langle(1\ 2\ 3\ 4)\rangle\)                               & No                           \\
+		\(V\)                & \((1),(1\ 2)(3\ 4),(1\ 3)(2\ 4),(1\ 4)(2\ 3)\)               & Sì                           \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{oss}
+	Forniamo qualche spiegazione sulla normalità dei sottogruppi transitivi di \(S_4\):
+	\begin{itemize}
+		\item \(S_4\) è banalmente normale in se stesso.
+		\item \(A_4\) è normale in \(S_4\) poiché ha indice \(2\).
+		\item \(D_4\) non è normale, infatti \((1\ 2)(1\ 2\ 3\ 4)(1\ 2) = (1\ 3\ 4\ 2)\not\in D_4\).
+		\item \(C_4\) non è normale per lo stesso motivo di \(D_4\).
+		\item \(V\) è normale poiché coniugando un \(k\)-ciclo si ottiene sempre un \(k\)-ciclo. In particolare tutti gli elementi di \(V\) distinti da \((1)\) sono \(2\times 2\)-cicli, quindi \(V\) è normale.
+	\end{itemize}
+\end{oss}
+
+\begin{defn}{Risolvente cubica}{risolventeCubica}\index{Risolvente cubica}
+	Supponiamo che \(f\in F[X]\) sia un polinomio irriducibile e separabile di grado \(4\).
+	Il suo campo di spezzamento sarà \(F_f = F[\a_1,\a_2,\a_3,\a_4]\) dove \(\a_i\) sono le radici di \(f\). Presi
+	\begin{align*}
+		\a & = \a_1\a_2 + \a_3\a_4; & \b & = \a_1\a_3 + \a_2\a_4; & \g & = \a_1\a_4 + \a_2\a_3.
+	\end{align*}
+	Definiamo la \emph{risolvente cubica} di \(f\) come
+	\[
+		g(X) = (X-\a)(X-\b)(X-\g).
+	\]
+\end{defn}
+
+\begin{oss}
+	Per prima cosa osserviamo che \(F\subseteq F[\a,\b,\g]\subseteq F_f\).
+	Inoltre, dal momento che \(f\) è separabile, \(\a,\b,\g\) sono tutti distinti. Ad esempio
+	\[
+		\a-\b = (\a_1-\a_4)(\a_2-\a_4) \neq 0.
+	\]
+	Infine si può facilmente verificare che \(S_4\) permuta \(\a,\b,\g\), cioè se \(\s\in S_4 = \text{Sym}\{\a_1,\a_2,\a_3,\a_4\}\), si ha
+	\[
+		\s\{\a,\b,\g\} = \{\a,\b,\g\}.
+	\]
+\end{oss}
+
+\begin{pr}
+	La risolvente cubica ha coefficienti in \(F\).
+\end{pr}
+
+\begin{proof}
+	Dall'osservazione precedente sappiamo che \(S_4\) permuta \(\a,\b,\g\). In particolare da
+	\[
+		g(X) = (X-\a)(X-\b)(X-\g) \implies \s g(X) = g(X),\,\fa \s\in S_4.
+	\]
+	In particolare \(G_f \subseteq S_4\), quindi
+	\[
+		g(X) \in F^{G_f}[X] = F[X].
+	\]
+\end{proof}
+
+\begin{prop}{Forma esplicita della risolvente cubica}{formaEsplicitaRisolventeCubica}
+	Supponiamo che \(f(X)\in F[X]\) sia un polinomio separabile e irriducibile della forma
+	\[
+		f(X) = X^4+b\,X^3+c\,X^2+d\,X+e.
+	\]
+	Allora la risolvente cubica di \(f\) è
+	\[
+		g(X) = X^3-c\,X^2+(b\,d-4e)X+4c\,e-d^2.
+	\]
+\end{prop}
+
+\begin{proof}
+	Per definizione
+	\[
+		g(X) = (X-\a)(X-\b)(X-\g) = X^3 - (\a+\b+\g)X^2 + (\a\,\b+\a\,\g+\b\,\g)X-\a\,\b\,\g.
+	\]
+	Inoltre
+	\[
+		f(X) = \prod_{i=1}^4 (X-\a_i) = X^4-(\a_1+\a_2+\a_3+\a_4)X^3 + \ldots + \a_1\a_2\a_3\a_4.
+	\]
+	A questo punto è sufficiente verificare l'esattezza delle identità sui coefficienti.
+\end{proof}
+
+\begin{oss}
+	Se in \(f\) sostituiamo \(X-b/4\) ad \(X\), otteniamo
+	\[
+		f(X-b/4) = X^4+A\,X^2+B\,X+C,
+	\]
+	che sappiamo avere lo stesso gruppo di Galois di \(f(X)\).
+	A questo punto la risolvente cubica ha una forma più compatta:
+	\[
+		g(X) = X^3-A\,X^2-4C\,X+4A\,C-B^2.
+	\]
+\end{oss}
+
+\begin{prop}{Campo di spezzamento della risolvente cubica}{campoSpezzamentoRisolventeCubica}
+	Sia \(f\in F[X]\) un polinomio irriducibile e separabile di grado \(4\) e sia \(G_f = \Gal(f)\).
+	Se \(g(X)\) è la risolvente cubica di \(f\), allora
+	\[
+		F_g = F_f^{V\cap G_f},
+	\]
+	dove \(V \le S_4\) è il gruppo di Klein.
+\end{prop}
+
+\begin{proof}
+	In questa dimostrazione mostreremo solo una delle due implicazioni, poiché la seconda richiede una parte di teoria dei gruppi che esula dagli argomenti di questo corso.
+	
+	Per definizione sappiamo che \(F_g = F[\a,\b,\g]\). Mostriamo che \(F[\a,\b,\g]\subseteq F_f^{V\cap G_f}\).
+	Se \(\s\in V\)  è facile verificare che
+	\begin{align*}
+		\s\a & = \a; & \s\b & = \b; & \s\g & = \g.
+	\end{align*}
+	In particolare ciò vale se \(\s\in V\cap G_f\), da cui
+	\[
+		\a,\b,\g \in F_f^{V\cap G_f} \implies F[\a,\b,\g] \subseteq F_f^{V\cap G_f}.\qedhere
+	\]
+\end{proof}
+
+\begin{cor}
+	L'estensione \(F[\a,\b,\g]/F\) è Galois con gruppo di Galois
+	\[
+		G_g \cong \frac{G_f}{V\cap G_f}.
+	\]
+\end{cor}
+
+\begin{proof}
+	Siccome \(V\cap G_f\) è normale in \(G_f\), avremo che \(F_f^{V\cap G_f} = F[\a,\b,\g]/F\) è normale è quindi di Galois. In particolare, sempre per la normalità del gruppo corrispondente, avremo
+	\[
+		G_g \cong \frac{G_f}{V\cap G_f}.\qedhere
+	\]
+\end{proof}
+
+\begin{table}[tp]
+	\caption{Caratterizzazione dei gruppi di Galois per polinomi di grado \(4\).}
+	\label{tb:caratGaloisPolinomi4}
+	\centering
+	\begin{tabular}{ccc}
+		\toprule
+		\textbf{\(G_f\)} & \textbf{\(\#V\cap G_f\)} & \textbf{\(\#(G_f/V\cap G_f)=\#G_g=\big[F[\a,\b,\g]:F\big]\)} \\
+		\midrule
+		\(S_4\)          & \(4\)                    & \(6\)                                                        \\
+		\(A_4\)          & \(4\)                    & \(3\)                                                        \\
+		\(V\)            & \(4\)                    & \(1\)                                                        \\
+		\(D_4\)          & \(4\)                    & \(2\)                                                        \\
+		\(C_4\)          & \(2\)                    & \(2\)                                                        \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{oss}
+	Da ciò segue un'importante caratterizzazione dei gruppi di Galois dei polinomi separabili e irriducibili di grado \(4\).
+	Nella tabella \ref{tb:caratGaloisPolinomi4} possiamo vedere come il gruppo di Galois \(G_g\) ci permetta di determinare \(G_f\), tranne nel caso in cui \(G_f=D_4\) o \(G_f=C_4\).
+	Per dare una determinazione in quest'ultimo caso, osserviamo che se \(g(X)\) ha un fattore di grado due irriducibile, allora
+	\[
+		G_g = C_2 \implies F_g = F[\sqrt{D}].
+	\]
+	Consideriamo \(f\) in \(F[\sqrt{D}]\big[X\big]\). Se \(f\) risulta ancora irriducibile, allora
+	\[
+		\big[F_f:F[\sqrt{D}]\big] = 4 \implies G_f = D_4. \text{ Quindi} \qquad G_f = 	\begin{cases}
+			D_4 & f\in\irr\big(F[\sqrt{D}]\big[X]\big) \\
+			C_4 & \text{altrimenti}
+		\end{cases}
+	\]
+\end{oss}
+
+\begin{ese}
+	\begin{itemize}
+		Troviamo il gruppo di Galois di alcuni polinomi di quarto grado:
+		\item \(X^4-4x+2\) è irriducibile poiché è un \(2\)-eisenstain. La sua risolvente cubica è \(X^3-8X-16\) che è irriducibile e il suo discriminante non è un quadrato perfetto. Quindi \(G_g= S_3\) da cui \(G_f = S_4\).
+		\item \(X^4+4X^2+2\) è irriducibile poiché è un \(2\)-eisenstain. La sua risolvente cubica è \((X-4)(X^2-8)\). Quindi \(G_g = C_2\) da cui \(G_f\) è \(D_4\) oppure \(C_4\). Osserviamo che \(\Q_g = \Q[\sqrt{2}]\), su cui \(f\) si scrive come \((X^2+2-\sqrt{2})(X^2+2+\sqrt{2})\). Quindi \(G_f=C_4\).
+		\item \(X^4-2\) è irriducibile. La sua risolvente cubica è \(X\,(X^2+8)\). Quindi \(G_g=C_2\) e \(G_f\) è \(D_4\) oppure \(C_4\). Osserviamo che \(\Q_g = \Q[\sqrt{-2}]\), su cui \(f\) si può dimostrare essere ancora irriducibile. Quindi \(G_f = D_4\).
+		\item \(X^4+10X^2+2\) è irriducibile. La sua risolvente cubica è \((X+10)(X+4)(X-4)\).
+		      Quindi \(G_g = C_1\) da cui \(G_f = V\).
+	\end{itemize}
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%POLINOMI DI GRADO PRIMO%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Polinomi di grado primo}
+
+In questo paragrafo ci occuperemo di polinomi irriducibili che hanno grado primo. In particolare studieremo il loro gruppo di Galois nel caso in cui abbiano precisamente \(p-2\) radici reali.
+
+\begin{lem}
+	Sia \(H\) un sottogruppo di \(S_p\). Supponiamo che \(H\) contenga una trasposizione e un \(p\)-ciclo.
+	Allora \(H=S_p\).
+\end{lem}
+
+\begin{proof}
+	Non fornita.
+\end{proof}
+
+\begin{prop}{}{}
+	Sia \(f\in F[X]\) un polinomio irriducibile tale che \(\deg f = p\) e \(f\) ha \(p-2\) radici reali e \(2\) radici complesse. Allora
+	\[
+		\Gal(f) = S_p.
+	\]
+\end{prop}
+
+\begin{proof}
+	Sia \(G_f = \Gal(f)\).
+	Vogliamo applicare il lemma precedente a \(G_f\).
+	Supponiamo che \(\a\) sia una radice di \(f\), avremo
+	\[
+		F \subseteq F[\a] \subseteq F_f, \qquad\text{con }\big[F[\a]:F\big] = p.
+	\]
+	Quindi \(p \mid [F_f:F] = \#G_f\).
+	Da un fatto di teoria dei gruppi\graffito{il fatto a cui facciamo riferimento è il teorema di Cauchy}, se \(p\mid \#G\) con \(G\) un gruppo finito, allora esiste \(g\in G\) tale che \(\ord(g)=p\).
+	Quindi nel nostro caso esiste \(\s\in G_f\) tale che \(\ord(\s)=p\). Dal momento che \(G_f \le S_p\), \(\s\) è necessariamente un \(p\)-ciclo, infatti non esistono altri elementi di \(S_p\) con tale ordine.
+	
+	Per trovare la trasposizione, osserviamo che, per ipotesi, vi sono solo due radici complesse. In particolare se \(\a_1,\a_2\in\C\setminus\R\) sono tali radici, necessariamente \(\a_1=\conj{\a_2}\).
+	Quindi se consideriamo l'automorfismo
+	\[
+		k\colon F_f \longrightarrow F_f, \a \longmapsto \conj{\a},
+	\]
+	avremo che
+	\begin{align*}
+		k(\a_1) & = \a_2; & k(\a_2) & = \a_1; & k(\a_j) & =\a_j,\,\fa j\ge 3.
+	\end{align*}
+	Quindi \(k=(1\ 2)\).
+	Dal lemma segue che \(G_f = S_p\).
+\end{proof}
+
+\begin{oss}
+	Per ogni \(p\) primo esiste sempre un polinomio con le proprietà descritte nella proposizione precedente.
+	Se \(p=2,3\) è facile dare degli esempi, supponiamo quindi \(p\ge 5\).
+	Siano \(n_1<\ldots<n_{p-2}\in\N\) pari e \(m>0\) pari. Definiamo
+	\[
+		g(X) = (X^2+m)(X-n_1)\cdot\ldots\cdot(X-n_{p-2}).
+	\]
+	Tale polinomio ha precisamente \(p-2\) radici reali. Cerchiamo di traslarlo opportunamente in modo da renderlo irriducibile senza cambiare il numero di radici reali.
+	Definiamo
+	\begin{align*}
+		e & = \min\Set{\abs{g(x)} > 0 : g'(x) = 0}; & n & \in\N\text{ dispari tale che }\frac{2}{n}<e
+	\end{align*}
+	Prendiamo quindi
+	\[
+		f(X) = g(X)-\frac{2}{n}\in\Q[X]
+	\]
+	che p irriducibile.
+	Infatti, per come abbiamo definito \(g\), si mostra facilmente che \(n\,f(X)=n\,g(X)-2\) è un \(2\)-eisenstain.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%PROBLEMA DI GALOIS INVERSO (CENNI)%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problema di Galois inverso (cenni)}
+
+Questo paragrafo vuole solo accennare in cosa consiste il problema di Galois inverso. Per una trattazione più approfondita si rimanda ad un testo più approfondito.
+
+Il problema inverso consiste nel determinare, dato \(G\) un gruppo finito, se esiste \(f\in F[X]\) tale che
+\[
+	G_f \cong G.
+\]
+Tale questione resta un problema aperto nella sua forma più generale. In alcuni casi particolari è comunque possibile fornire una risposta certa.
+
+\begin{teor}{Problema inverso per gruppi abeliani}{problemaInversoGruppiAbeliani}
+	Sia \(G\) un gruppo abeliano.
+	Allora esiste \(f\in F[X]\) tale che \(G_f \cong G\).
+\end{teor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 15/12/2016 - DECIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%
+%CAMPI FINITI%
+%%%%%%%%%%%%%%
+\section{Campi finiti}
+
+In questo paragrafo per denotare un generico campo finito useremo il simbolo \(\F\).
+Cominciamo con il riepilogare alcune proprietà dei campi finiti.
+
+\begin{pr}
+	Esistono \(n\in\N\) e \(p\) primo tali che
+	\[
+		\# \F = p^n.
+	\]
+\end{pr}
+
+\begin{pr}
+	Se \(\F\) ha cardinalità \(p^n\), allora
+	\[
+		\F = \F_{p^n}.
+	\]
+\end{pr}
+
+\begin{oss}
+	In generale \(\F_{p^n}\neq \Z/p^n \Z\).
+\end{oss}
+
+\begin{pr}
+	\(\F_{p^n}/\F_p\) è un'estensione finita di grado \(n\).
+\end{pr}
+
+\begin{pr}
+	Per ogni \(x\in F_{p^n}\) si ha \(x^{p^n}=x\).
+\end{pr}
+
+\begin{pr}
+	\(\F_{p^n}/\F_p\) è sempre un'estensione di Galois.
+\end{pr}
+
+\begin{proof}
+	Il polinomio \(X^{p^n}-X\in \F_p[X]\) è separabile in quanto \((X^{p^n}-X)'=-1\). Quindi
+	\[
+		\F_{p^n} = (\F_p)_{X^{p^n}-X}
+	\]
+	è il campo di spezzamento di un polinomio separabile.
+\end{proof}
+
+\begin{pr}
+	Due campi finiti \(\F_{q_1}\) e \(\F_{q_2}\) sono isomorfi se e solo se \(q_1=q_2\).
+\end{pr}
+
+\begin{pr}
+	Per ogni \(q=p^n\) esiste un campo finito \(\F_q\) di ordine \(q\).
+\end{pr}
+
+\begin{proof}
+	Consideriamo \(K=(\F_p)_{X^q-X}\) il campo di spezzamento di \(X^q-X\in \F_p[X]\).
+	Definiamo \(S = \Set{\a \in K | \a^q = \a}\) l'insieme delle radici di \(X^q-X\). Osserviamo che \(\abs{S}=q\) in quanto sappiamo dalle proprietà precedenti che \(X^q-X\in \F_p[X]\) è un polinomio separabile.
+	Certamente \(S\subseteq K\), se dimostriamo che \(S\) è un campo, esso deve necessariamente essere il campo di spezzamento di \(X^q-X\), da cui \(S=K\).
+	Ora \(S\) è chiaramente chiuso rispetto alla moltiplicazione e al calcolo degli inversi. D'altronde è chiuso anche rispetto alla somma, infatti, presi \(\a,\b\in S\), per la formula sbagliata avremo
+	\[
+		(\a+\b)^q = (\a+\b)^{p^n} = \a^{p^n}+\b^{p^n} = \a+\b \implies \a+\b\in S.\qedhere
+	\]
+\end{proof}
+
+\begin{teor}{Gruppo di Galois di \(\F_{p^n}/\F_p\)}{gruppoGaloisFpn}
+	Sia \(q=p^n\) con \(p\) primo. Allora
+	\[
+		\Gal(\F_{p^n}/\F_p) \cong \Z/n\Z.
+	\]
+\end{teor}
+
+\begin{proof}
+	Sappiamo già che \(\#\Gal(\F_{p^n}/\F_p) = [\F_{p^n}:\F_p] = n\).
+	Quindi, affinché \(\Gal(\F_{p^n}/\F_p)\cong \Z/n\Z\), ci basta dimostrare che \(\Gal(\F_{p^n}/\F_p)\) è ciclico. Dobbiamo quindi esibire un generatore.
+	Consideriamo l'automorfismo di Frobenius:
+	\[
+		\Phi\colon \F_{p^n} \longrightarrow F_{p^n}, x \longmapsto x^p.
+	\]
+	Osserviamo che \(\Phi\) fissa gli elementi di \(\F_p\), quindi \(\Phi \in \Gal(\F_{p^n}/\F_p)\).
+	A questo punto dobbiamo mostrare che \(\Phi\) ha ordine \(n\). Osserviamo che
+	\[
+		\Phi^k(X) := \underbrace{\Phi \circ \ldots \circ \Phi}_{k\text{ volte}}(X) = X^{p^k}.
+	\]
+	Quindi
+	\[
+		\Phi^n(x) = x^{p^n} = x,\,\fa x\in \F_{p^n}.
+	\]
+	Resta da mostrare che per ogni \(k<n,\Phi^k\neq id\), cioè che esite \(y\in \F_{p^n}\) tale che \(y^{p^k}\neq y\).
+	Per un fatto di teoria dei gruppi, \(\F_{p^n}^*\) è ciclico.
+	Sia \(y\) un generatore di \(\F_{p^n}^*\), allora
+	\[
+		\ord(y) = p^n-1, k<n \implies y^{p^k-1} \neq 1 \implies y^{p^k}\neq y.
+	\]
+	Quindi \(\ord(\Phi)=n\) e \(\langle \Phi \rangle = \Gal(\F_{p^n}/\F_p)\).
+\end{proof}
+
+\begin{oss}
+	Alla luce delle proprietà precedenti, sappiamo che per ogni \(q=p^n\) con \(p\) primo, esiste \(\F_q\) il campo finito con \(q\) elementi. Inoltre due campi con \(q\) elementi sono isomorfi.
+	Infine \(\F_q/\F_p\) è Galois e il teorema ci dice che
+	\[
+		\Gal(\F_q/\F_p) \cong \Z/n\Z.
+	\]
+\end{oss}
+
+\begin{teor}{\(\F_{p^n}\) come estensione semplice}{FpnEstensioneSemplice}
+	Consideriamo l'estensione \(\F_{p^n}/\F_p\). Allora esiste \(\z\in \F_{p^n}\) tale che
+	\[
+		\F_{p^n} = \F_p[\z].
+	\]
+\end{teor}
+
+\begin{proof}
+	Sia \(\z\) un generatore di \(\F_{p^n}^*\), che sappiamo esistere per un fatto di teoria dei gruppi. Segue immediatamente che \(\F_p[\z] = \F_{p^n}\), infatti
+	\[
+		\F_{p^n} = \Set{0,\z,\z^2,\ldots,\z^{p^n-1}}.\qedhere
+	\]
+\end{proof}
+
+\begin{oss}
+	Più in generale, tramite il teorema dell'elemento primitivo, si può dimostrare che se \(K/\Q\) è finita, allora esiste \(\a\in K\) tale che \(K=\Q[\a]\).
+\end{oss}
+
+\begin{teor}{Sottocampi di \(\F_{p^n}\)}{sottocampiFpn}
+	Consideriamo l'estensione \(\F_{p^n}/\F_p\). Per ogni \(k\mid n\) esiste un unico sottocampo \(\F_{p^k}\) con \(p^k\) elementi.
+\end{teor}
+
+\begin{proof}
+	Abbiamo mostrato che \(\Gal(\F_{p^n}/\F_p)=\Z/n\Z = \langle \Phi \rangle\). Per le proprietà dei gruppi ciclici, sappiamo che per ogni divisore \(k\) dell'ordine di \(\langle \Phi \rangle\) vi è un solo sottogruppo di indice \(k\).
+	Quindi per ogni \(k\mid n\) avremo il sottogruppo \(\langle \Phi^k \rangle \cong \Z/\frac{n}{k}\Z\) a cui corrisponde il sottocampo
+	\[
+		\F_{p^n}^{\langle \Phi^k \rangle} = \F_{p^k}.\qedhere
+	\]
+\end{proof}
+
+\begin{oss}
+	Vale anche il viceversa, cioè se \(\F_{p^k}\subseteq \F_{p^n}\) allora \(k\mid n\).
+\end{oss}
+
+\begin{defn}{Funzione enumeratrice dei polinomi irriducibili in \(\F_p\)}{funzioneNumeroPolinomiIrriducibiliFp}
+	Sia \(p\) primo. Definiamo la \emph{funzione che enumera i polinomi irriducibili di grado \(d\)} in \(\F_p\) come
+	\[
+		N_d(p) = \#\Set{f\in\irr\big(\F_p[X]\big) | \deg f = d}.
+	\]
+\end{defn}
+
+\begin{prop}{Numero di polinomi irriducibili in \(\F_p\)}{numeroPolinomiIrriducibiliFp}
+	Sia \(p\) primo. Allora
+	\[
+		\sum_{d\mid n} d\,N_d(p) = p^n.
+	\]
+\end{prop}
+
+\begin{proof}
+	Consideriamo \(f(X) = X^{p^n}-X\in \F_p[X]\). Se mostriamo
+	\begin{equation*}
+		f(X) = \prod_{\substack{f\in\irr(\F_p[X])\\\deg f \mid n}} f, \tag{\(\star\)}
+	\end{equation*}
+	seguirebbe
+	\[
+		p^n = \deg f = \deg \prod_{d\mid n}\prod_{\substack{f\in\irr(\F_p[X])\\\deg f = d}} f = \sum_{d\mid n}N_d(p)\,d.
+	\]
+	Mostriamo quindi \((\star)\).
+	Sia \(g\) un fattore irriducibile di \(X^{p^n}-X\) e sia \(\a\) una radice di \(g\). Avremo
+	\[
+		\F_p \subseteq \F_p[\a] \subseteq \F_{p^n} \implies \deg g = \big[\F_p[\a]:\F_p\big] \mid n.
+	\]
+	In particolare, dal momento che \(X^{p^n}-X\) è il prodotto di tali fattori irriducibili ed è anche separabile, segue
+	\[
+		X^{p^n}-X \mid \prod_{\substack{f\in\irr(\F_p[X])\\\deg f \mid n}} f.
+	\]
+	Per concludere basta dimostrare che se \(h\in \irr\big(\F_p[X]\big)\) e \(\deg h\mid n\), allora
+	\[
+		h \mid X^{p^n}-X.
+	\]
+	Sia \(\b\) una radice di \(h\). Per la corrispondenza e l'unicità dei campi finiti, \(\F_p[\b]\) si inietta isomorficamente in \(\F_{p^n}\). Nel sottocampo di \(\F_{p^n}\) isomorfo a \(\F_p[\b]\) ci sono tutte le radici di \(h\), le quali sono in particolare radici di \(X^{p^n}-X\).
+\end{proof}
+
+\begin{oss}
+	Se \(n=l\) primo, allora la formula si riduce a 
+	\[
+		N_1(p) + l\,N_l(p) = p^l \implies N_l(p) = \frac{p^l-p}{l},
+	\]
+	poiché chiaramente \(N_1(p)=p\).
+\end{oss}

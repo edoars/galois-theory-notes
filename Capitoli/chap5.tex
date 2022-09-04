@@ -1,0 +1,366 @@
+%!TEX root = ../main.tex
+\chapter{Costruzioni con riga e compasso}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 05/12/2016 - NONA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%
+%INTRODUZIONE%
+%%%%%%%%%%%%%%
+\section{Introduzione}
+
+I greci credevano che la dimostrazione ideale facesse uso della riga e del compasso. Furono tre i problemi classici che questo metodo non riuscì mai ad attaccare:
+\begin{itemize}
+	\item la duplicazione del cubo;
+	\item la trisezione di un angolo;
+	\item la quadratura del cerchio.
+\end{itemize}
+Nell'800 Wantzel dimostrò che tali problemi non erano risolubili con il metodo della riga e del compasso.
+
+In questo paragrafo daremo una struttura a tale approccio. Introdurremo i numeri "costruibili" che costituiscono un'estensione usata dai greci nella loro struttura numerica.
+
+\begin{defn}{Punti d'orgine}{puntiOrigine}
+	Nella struttura delle costruzioni con riga e compasso, i punti \(O=(0,0)\) e \((1,0)\), sono "assiomaticamente" intesi come costruibili.
+\end{defn}
+
+\begin{defn}{Operazioni con riga e compasso}{operazioniRigaCompasso}
+	Le seguenti sono tutte e le sole operazioni consentite con riga e compasso:
+	\begin{enumerate}
+		\item Si può costruire la retta per due punti costruibili.
+		\item Si può costruire la circonferenza data il suo centro e un suo punto.
+	\end{enumerate}
+\end{defn}
+
+\begin{oss}
+	Il compasso viene inteso come "rigido", ciò significa che a priori non è possibile replicare il raggio di una circonferenza già tracciata per disegnarne un'altra.
+\end{oss}
+
+\begin{defn}{Punti costruibili}{puntiCostruibili}
+	Sono \emph{costruibili} tutti e soli i punti di intersezione di
+	\begin{itemize}
+		\item due rette costruibili;
+		\item due cerchi costruibili;
+		\item una retta e un cerchio costruibile.
+	\end{itemize}
+\end{defn}
+
+\begin{oss}
+	In generale un punto del piano si dice costruibile se, attraverso le operazioni sopra elencata, lo si può ottenere dai due punti di origine \((0,0)\) e \((1,0)\).
+\end{oss}
+
+\begin{notz}
+	Dati due punti \(A,B\), indicheremo con
+	\begin{itemize}
+		\item \(AB\) la retta passante per \(A,B\);
+		\item \(C(A,B)\) la circonferenza di centro \(A\) e passante per \(B\).
+	\end{itemize}
+\end{notz}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%COSTRUZIONI ELEMENTARI%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Costruzioni elementari}
+
+\begin{prop}{Retta mediana}{costruzioniRC1}
+	Siano \(A,B\) due punti costruibili. Allora possiamo costruire la mediana del segmento \(AB\).
+\end{prop}
+
+\begin{proof}
+	Prendiamo le circonferenze \(C(A,B)\) e \(C(B,A)\). Dai punti di intersezione delle due circonferenze possiamo costruire la mediana.
+	\[
+		\tikz[baseline=-0.5ex]{
+			\draw (-3.3,0) -- (3.3,0);
+			\draw[help lines] (-1,0) circle (2);
+			\draw[help lines] (1,0) circle (2);
+			\draw[thick] (0,2) -- (0,-2);
+			
+			\fill (-1,0) circle (0.05);
+			\fill (1,0) circle (0.05);
+			
+			\node[below left] at (-1,0) {\(A\)};
+			\node[below right] at (1,0) {\(B\)};
+		}
+	\]
+\end{proof}
+
+\begin{prop}{Cerchio per tre punti non allineati}{costruzioniRC2}
+	Siano \(A,B\) e \(C\) tre punti costruibili non allineati. Allora possiamo costruire la circonferenza passante per \(A,B,C\).
+\end{prop}
+
+\begin{proof}
+	Tramite la \autoref{pr:costruzioniRC1} costruiamo le mediane di \(AC\) e \(BC\). La loro intersezione \(D\) costituisce il centro della circonferenza cercata.
+	\[
+		\tikz[baseline=-0.5ex]{
+			\fill (-2,0) circle (0.05);
+			\fill (2,0) circle (0.05);
+			\fill (0,-2) circle (0.05);
+			\fill (0,0) circle (0.05);
+			
+			\node[above left] at (-2,0) {\(A\)};
+			\node[above right] at (2,0) {\(B\)};
+			\node[below] at (0,-2) {\(C\)};
+			\node[above] at (0,0) {\(D\)};
+			
+			\draw[help lines] (-2,0) -- (0,-2);
+			\draw[help lines] (2,0) -- (0,-2);
+			\draw[help lines] (-2,-2) -- (2,2);
+			\draw[help lines] (-2,2) -- (2,-2);
+			
+			\draw[thick] (0,0) circle (2);
+		}
+	\]
+\end{proof}
+
+\begin{prop}{Perpendicolare passante per un punto sulla retta}{costruzioniRC3}
+	Sia \(r\) una retta costruibile e sia \(A\) un punto costruibile sulla retta data. Allora possiamo costruire la perpendicolare ad \(r\) passante per \(A\).
+\end{prop}
+
+\begin{proof}
+	Sia \(B\) un altro punto sulla retta anch'esso costruibile, tale punto esiste sicuramente dal momento che possiamo costruire rette a partire da almeno due punti.
+	Costruiamo la circonferenza \(C(A,B)\) e chiamiamo \(C\) l'intersezione, distinta da \(B\), di tale circonferenza con \(r\). La mediana del segmento \(BC\) costituisce la perpendicolare cercata.
+	\[
+		\tikz[baseline=-0.5ex]{
+			\coordinate[label=below left:\(A\)] (A) at (0,0);
+			\coordinate[label=above right:\(B\)] (B) at (2,0);
+			\coordinate[label=above left:\(C\)] (C) at (-2,0);
+			
+			\fill (A) circle (0.05);
+			\fill (B) circle (0.05);
+			\fill (C) circle (0.05);
+			
+			\draw (-3,0) -- (3,0);
+			\draw[help lines] (A) circle (2);
+			\draw[thick] (0,2.3) -- (0,-2.3);
+			
+			\node[below] at (3,0) {\(r\)};
+		}
+	\]
+\end{proof}
+
+\begin{prop}{Perpendicolare passante per un punto fuori dalla retta}{costruzioniRC4}
+	Sia \(r\) una retta costruibile e sia \(A\) un punto costruibile fuori da \(r\). Allora possiamo costruire la retta perpendicolare ad \(r\) passante per \(A\).
+\end{prop}
+
+\begin{proof}
+	Prendiamo \(B\) un punto costruibile su \(r\) e consideriamo \(C(A,B)\).
+	Se \(C(A,B)\cap r = \{B\}\) allora la circonferenza è tangente alla retta. Per cui \(AB\) è la perpendicolare cercata.
+	Supponiamo quindi che via sia un altro punto \(C\neq B\) nell'intersezione \(C(A,B)\cap r\).
+	La mediana di \(BC\) è la perpendicolare cercata.
+	\[
+		\tikz[baseline=-0.5ex, extended line/.style={shorten >=-#1, shorten <=-#1}]{
+			\coordinate[label=above right:\(A\)] (A) at (0,0);
+			\coordinate[label=below:\(B\)] (B) at (-120:2);
+			\coordinate[label=below right:\(C\)] (C) at (-15:2);
+			
+			\fill (A) circle (0.05);
+			\fill (B) circle (0.05);
+			\fill (C) circle (0.05);
+			
+			\draw[extended line=1cm] (B) -- (C);
+			\draw[extended line=0.5cm, thick] (-0.77,1.85) -- (0.77,-1.85);
+			\draw[help lines] (A) circle (2);
+			
+			\node[below right] at (2.81,-0.15) {\(r\)};
+			\node at (-0.93,2.24) {};
+		}
+	\]
+\end{proof}
+
+\begin{prop}{Parallela ad una retta}{costruzioniRC5}
+	Sia \(r\) una retta costruibile e sia \(A\) un punto costruibile fuori da \(r\). Allora possiamo costruire la retta parallela ad \(r\) passante per \(A\).
+\end{prop}
+
+\begin{proof}
+	Per la \autoref{pr:costruzioniRC4} possiamo costruire la perpendicolare \(r'\) ad \(r\) passante per \(A\). A questo punto sfruttiamo la \autoref{pr:costruzioniRC3} per costruire la perpendicolare ad \(r'\) passante ancora per \(A\). Abbiamo così ottenuto la parallela cercata.
+	\[
+		\tikz[baseline=-0.5ex, extended line/.style={shorten >=-#1, shorten <=-#1}]{
+			\coordinate[label=above right:\(A\)] (A) at (0,0);
+			\coordinate[label=below:\(B\)] (B) at (-120:2);
+			\coordinate[label=below right:\(C\)] (C) at (-15:2);
+			
+			\fill (A) circle (0.05);
+			\fill (B) circle (0.05);
+			\fill (C) circle (0.05);
+			
+			\draw[extended line=1cm] (B) -- (C);
+			\draw[extended line=1cm, help lines] (A) -- (0.47,-1.12);
+			\draw[extended line=1cm, thick] (-1.47,-0.61) -- (1.47,0.61);
+			
+			\node[below right] at (2.81,-0.15) {\(r\)};
+			\node[right] at (0.85,-2.05) {\(r'\)};
+			\node at (2.39,0.99) {};
+			\node at (-0.38,0.92) {};
+		}
+	\]
+\end{proof}
+
+\begin{prop}{Circonferenza di dato raggio}{costruzioniRC6}
+	Sia \(A\) un punto costruibile e sia \(BC\) un segmento costruibile. Allora possiamo costruire la circonferenza di centro \(A\) e raggio \(\abs{BC}\).
+\end{prop}
+
+\begin{proof}
+	Per la \autoref{pr:costruzioniRC5} possiamo costruire la parallela \(r\) a \(BC\) passante per \(A\).
+	Costruiamo la retta \(AB\). Ancora per la \autoref{pr:costruzioniRC5} costruiamo la parallela \(r'\) ad \(AB\) passante per \(C\). Intersecando \(r'\) con \(r\) otteniamo un punto \(D\) a distanza \(\abs{BC}\) da \(A\).
+	\[
+		\tikz[baseline=-0.5ex, extended line/.style={shorten >=-#1, shorten <=-#1}]{
+			\coordinate[label=below:\(A\)] (A) at (0,0);
+			\coordinate[label=below:\(B\)] (B) at (2,-1);
+			\coordinate[label=above:\(C\)] (C) at (3.94,-0.5);
+			\coordinate (D) at (1.94,0.5);
+			
+			\fill (A) circle (0.05);
+			\fill (B) circle (0.05);
+			\fill (C) circle (0.05);
+			
+			\draw (B) -- (C);
+			\draw[extended line=1cm, help lines] (A) -- (D);
+			\draw[help lines] (A) -- (B);
+			\draw[extended line=1cm, help lines] (C) -- (D);
+			\draw[thick] (A) circle (2);
+			
+			\node[below right] at (2.91,0.75) {\(r\)};
+			\node[left] at (1.04,0.95) {\(r'\)};
+		}
+	\]
+\end{proof}
+
+\begin{prop}{Bisezione di un angolo}{costruzioniRC7}
+	Siano \(A,B,C\) punti costruibili. Allora possiamo dividere l'angolo \(B\hat{A}C\) in due parti uguali.
+\end{prop}
+
+\begin{proof}
+	Prendiamo la circonferenza \(C(A,B)\) e \(D\) il suo punto di intersezione con \(AC\). Adesso prendiamo \(C(D,B)\) e \(C(B,D)\). La retta passante per le intersezioni delle due circonferenze biseca l'angolo dato.
+	\[
+		\tikz[baseline=-0.5ex, extended line/.style={shorten >=-#1, shorten <=-#1}]{
+			\coordinate[label=above right:\(A\)] (A) at (0,0);
+			\coordinate[label=below:\(B\)] (B) at (0.5,-2);
+			\coordinate[label=above right:\(C\)] (C) at (3,0);
+			\coordinate[label=above right:\(D\)] (D) at (2.06,0);
+			\coordinate (E) at (3.01,-2.35);
+			\coordinate (F) at (-0.45,0.35);
+			
+			\fill (A) circle (0.05);
+			\fill (B) circle (0.05);
+			\fill (C) circle (0.05);
+			\fill (D) circle (0.05);
+			
+			\draw (A) -- (B);
+			\draw (A) -- (C);
+			\draw[help lines] (A) circle (2.06);
+			\draw[help lines] (B) circle (2.54);
+			\draw[help lines] (D) circle (2.54);
+			\draw[extended line=1cm, thick] (E) -- (F);
+		}
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%
+%NUMERI COSTRUIBILI%
+%%%%%%%%%%%%%%%%%%%%
+\section{Numeri costruibili}
+
+\begin{defn}{Numero reale costruibile}{numeroRealeCostruibile}
+	Un numero reale \(\a\) si dice \emph{costruibile} se il punto \((\a,0)\) è costruibile.
+\end{defn}
+
+\begin{oss}
+	Più in generale è sufficiente richiedere che esista \(y\in\R\) tale che il punto \((\a,y)\) sia costruibile.
+\end{oss}
+
+\begin{defn}{Numero complesso costruibile}{numeroComplessoCostruibile}
+	Un numero complesso \(\a=x+i\,y\) si dice \emph{costruibile} se il punto \((x,y)\) è costruibile.
+\end{defn}
+
+\begin{defn}{\(F\)-piano}{FPiano}
+	Sia \(F\) un sottocampo di \(\R\). Definiamo un \(F\)-piano come
+	\[
+		F\times F \subset \R\times \R.
+	\]
+\end{defn}
+
+\begin{notz}
+	Per un \(\a\in F\) positivo, definiamo \(\sqrt{\a}\) come la radice \emph{positiva} di \(\a\).
+\end{notz}
+
+\begin{defn}{\(F\)-retta}{FRetta}
+	Consideriamo un \(F\)-piano. Una \(F\)-retta è una retta in \(\R\times\R\) passante per due punti dell'\(F\)-piano.
+	Tali rette hanno equazione
+	\[
+		a\,x+b\,y+c = 0, \qquad\text{con }a,b,c\in F.
+	\]
+\end{defn}
+
+\begin{defn}{\(F\)-circonferenza}{FCirconferenza}
+	Consideriamo un \(F\)-piano. Una \(F\)-circonferenza è una circonferenza di \(\R\times \R\) di centro un punto dell'\(F\)-piano e di raggio un elemento di \(F\).
+\end{defn}
+
+\begin{lem}
+	Consideriamo un \(F\)-piano. Siano \(r\neq r'\) due \(F\)-rette e \(C\neq C'\) due \(F\)-circonferenze. Allora
+	\begin{enumerate}
+		\item \(r\cap r'\) è vuoto oppure consiste di un solo \(F\)-punto.
+		\item \(r\cap C\) è vuoto oppure consiste di uno o due \(F[\sqrt{e}]\)-punti, per qualche \(e\in F\) positivo.
+		\item \(C\cap C'\) è vuoto oppure consiste di uno o due \(F[\sqrt{e}]\)-punti, per qualche \(e\in F\) positivo.
+	\end{enumerate}
+\end{lem}
+
+\begin{proof}
+	Segue da semplici considerazioni geometriche.
+\end{proof}
+
+\begin{lem}
+	Siano \(a,b\in \R\) costruibili, con \(b\neq 0\). Allora
+	\[
+		a+b, \qquad a-b, \qquad a\,b, \qquad \frac{a}{b}, \qquad \sqrt{a}
+	\]
+	sono costruibili.
+\end{lem}
+
+\begin{proof}
+	\(a,b\) sono costruibili, quindi per definizione i punti \(A=(a,0),B=(b,0)\) sono costruibili.
+	Per costruire \(a+b\) supponiamo che \(b>a\), prendiamo quindi \(C(B,A)\) e consideriamo la sua intersezione con la retta \(AB\). Tale punto avrà coordinate \((a+b,0)\).
+	Analogamente si costruisce \(a-b\).
+	
+	Per costruire \(a\,b\) consideriamo \(O=(0,0),A=(a,0),B=(1,0),C=(0,b)\) che sono tutti punti costruibili. Prendiamo \(r\) la retta \(BC\) e poi prendiamo la parallela ad \(r\) passante per \(A\). Chiamato \(D\) l'intersezione della parallela con \(OC\) ottengo due triangoli simili \(OBC\) e \(OAD\). In particolare
+	\[
+		\frac{\abs{OC}}{\abs{OB}} = \frac{\abs{OD}}{\abs{OA}} \implies \frac{b}{1} = \frac{\abs{OD}}{a} \implies \abs{OD} = a\,b.
+	\]
+	Analogamente si costruisce \(a/b\).
+	
+	Infine per costruire \(\sqrt{a}\), poniamo \(A=(0,0)\) e \(B=(a,0)\), così da avere \(\abs{AB}=a\).
+	Costruiamo \(C\) a sinistra di \(A\) tale che \(\abs{CA}=1\).
+	Prendiamo il punto medio \(M\) di \(CB\) e quindi costruiamo la circonferenza ci centro \(M\) e passante per \(B\) e \(C\).
+	Prendiamo la perpendicolare per \(A\) ad \(AB\): Chiamato \(D\) l'intersezione superiore della perpendicolare con la circonferenza, otteniamo due triangoli simili \(ACD\) e \(ADB\). In particolare
+	\[
+		\frac{\abs{AD}}{\abs{AC}} = \frac{\abs{AB}}{\abs{AD}} \implies \abs{AD}^2 = \abs{AB} = a \implies \abs{AD} = \sqrt{a}.
+	\]
+\end{proof}
+
+\begin{teor}{Caratterizzazione dei reali costruibili}{caratterizzazioneRealiCostruibili}
+	Un numero reale \(\a\) è costruibile se e soltanto se è contenuto in un sottocampo di \(\R\) della forma
+	\[
+		\Q[\sqrt{a_1},\ldots,\sqrt{a_n}], \qquad\text{con }a_i\in \Q[\sqrt{a_1},\ldots,\sqrt{a_{i-1}}].
+	\]
+\end{teor}
+
+\begin{proof}
+	Segue dai due lemmi precedenti.
+\end{proof}
+
+\begin{ese}[Duplicazione del cubo]
+	Duplicare un cubo equivale a costruire una radice di \(X^3-2\). D'altronde tale radice genere un'estensione che contiene numeri non costruibili
+\end{ese}
+
+\begin{ese}[Trisezione di un angolo]
+	Supponiamo di voler trisecare un angolo \(3\a\). Tramite semplici manipolazioni algebriche otteniamo
+	\[
+		\cos(3\a) = 4\cos^3\a - 3 \cos\s.
+	\]
+	Posto \(\cos \a=X\) otteniamo
+	\[
+		4X^3-3X-\cos(3\a) = 0
+	\]
+	che in generale determina un'estensione cubica i cui elementi non sono tutti costruibili.
+\end{ese}
+
+\begin{ese}[Quadratura del cerchio]
+	Per quadrare il cerchio bisognerebbe costruire \(\sqrt{\p}\) che è un elemento trascendente e pertanto non costruibile.
+\end{ese}

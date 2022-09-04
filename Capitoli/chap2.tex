@@ -1,0 +1,720 @@
+%!TEX root = ../main.tex
+\chapter{Campi di spezzamento e radici multiple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 19/10/2016 - QUARTA SETTIMANA (3)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%OMOMORFISMI FRA ESTENSIONI%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Omomorfismi fra estensioni}
+
+\begin{defn}{Omomorfismo di campi}{omomorfismoCampi}\index{Omomorfismo!di campi}
+	Siano \(E/F\) e \(E'/F\) estensioni di \(F\). Si definisce \(F\)-omomorfismo un omomorfismo
+	\[
+		\j\colon E \to E',
+	\]
+	tale che \(\j(a)=a\) per ogni \(a\in F\).
+\end{defn}
+
+\begin{oss}
+	Un \(F\)-omomorfismo è iniettivo in quanto omomorfismo di campi.
+\end{oss}
+
+\begin{oss}
+	Se \([E:F]=[E':F]<+\infty\) allora \(\j\) è un isomorfismo in quanto omomorfismo iniettivo fra spazi della stessa dimensione.
+\end{oss}
+
+\begin{oss}
+	Se \(\j\) è un \(F\)-omomorfismo e \(g\in F[X]\) allora
+	\[
+		g\big(\j(\b)\big) = \j\big(g(\b)\big) \,\fa \b\in F[\a].
+	\]
+\end{oss}
+
+\begin{pr}\label{pr:corrispondenzaTrascendente}
+	Sia \(F(\a)\) un'estensione semplice di \(F\) e sia \(E/F\) un'altra estensione.
+	Supponiamo che \(\a\) sia trascendente su \(F\).
+	Allora per ogni \(F\)-omomorfismo \(\j\colon F(\a)\to E\), si ha \(\j(\a)\) trascendente su \(F\).
+	Inoltre vi è una corrispondenza biunivoca
+	\[
+		\Set{\j\colon F(\a) \to E | \j\text{ \(F\)-omomorfismo}} \longleftrightarrow \Set{x\in E | x\text{ trascendente su \(F\)}}
+	\]
+	tramite
+	\[
+		\j \longmapsto \j(\a) \qquad\text{e}\qquad \left(\frac{f(\a)}{g(\a)} \mapsto \frac{f(x)}{g(x)}\right) \longmapsfrom x.
+	\]
+\end{pr}
+
+\begin{proof}
+	\graffito{\(\mapsto\)}Supponiamo che \(\j\colon F(\a) \to E\) sia un \(F\)-omomorfismo.
+	La mappa \(\j\mapsto \j(\a)\) è ben definita, infatti se per assurdo esistesse \(g\in F[X]\) tale che \(g\big(\j(\a)\big)=0\), allora avremmo
+	\[
+		0 = g\big(\j(\a)\big) = \j\big(g(\a)\big) \implies g(\a) = 0,
+	\]
+	che è assurdo per la trascendenza di \(\a\).
+
+	\graffito{\(\mapsfrom\)}Supponiamo che \(x\in E\) sia trascendente su \(F\). La mappa \(x\longmapsto (\a \mapsto x)\) definisce l'omomorfismo \(\j\colon F(\a) \to E, \a \mapsto x\), il quale si estende in modo unico a
+	\[
+		F[\a] \to F[x] \subset E, h(\a) \mapsto h(x),
+	\]
+	da cui
+	\[
+		F(\a) \to F(x) \subset E, \frac{h_1(\a)}{h_2(\a)} \mapsto \frac{h_1(x)}{h_2(x)}.
+	\]
+	Si mostra facilmente che una funzione è l'inversa dell'altra.
+\end{proof}
+
+\begin{pr}\label{pr:corrispondenzaAlgebrica}
+	Sia \(F(\a)\) un'estensione semplice di \(F\) e sia \(E/F\) un'altra estensione.
+	Supponiamo che \(\a\) sia algebrico su \(F\) e che \(f_\a(X)\) sia il suo polinomio minimo.
+	Allora per ogni \(F\)-omomorfismo \(\j\colon F[\a] \to E\), si ha che \(\j(\a)\) è una radice di \(f_\a(X)\) in \(E\).
+	Inoltre vi è una corrispondenza biunivoca
+	\[
+		\Set{\j\colon F[\a] \to E | \j \text{ \(F\)-omomorfismo}} \longleftrightarrow \Set{\g\in E | \g \text{ radice di \(f_\a\)}}
+	\]
+	tramite
+	\[
+		\j \longmapsto \j(\a) \qquad\text{e}\qquad (\a\mapsto \g) \longmapsfrom \g.
+	\]
+\end{pr}
+
+\begin{proof}
+	\graffito{\(\mapsto\)}Scriviamo il polinomio minimo di \(\a\):
+	\[
+		f_\a(X) = X^n+a_1\,X^{n-1}+\ldots+a_n.
+	\]
+	Supponiamo \(\j\colon F[\a] \to E\) sia un \(F\)-omomorfismo, mostriamo che \(\j(\a)\) è una radice di \(f_\a\):
+	\[
+		\begin{split}
+			f\big(\j(\a)\big) & = \j(a)^n + a_1 \j(\a)^{n-1} + \ldots + a_{n-1}\j(\a)+a_n\graffito{sfruttiamo l'ipotesi che \(\j\) è un \(F\)-omomorfismo}\\
+			& = \j(\a^n) + \j(a_1)\j(\a^{n-1})+ \ldots + \j(a_{n-1})\j(\a)+\j(a_n)\\
+			& =  \j(\a^n+a_1\a^{n-1}+\ldots+a_{n-1}\a+a_n)\\
+			& = \j\big(f_\a(\a)\big) = \j(0) = 0.
+		\end{split}
+	\]
+	\graffito{\(\mapsfrom\)}Viceversa se \(\g\) è una radice di \(f_\a\), dobbiamo mostrare che \(\g\longmapsto (\a \mapsto \g)\) individua un ben definito \(F\)-omomorfismo \(F[\a] \to E, \a \mapsto \g\). Ciò è vero in quanto
+	\[
+		F[X] \to E, X \mapsto \g,
+	\]
+	ha \((f_\a)\) come nucleo, per cui viene indotto l'omomorfismo
+	\[
+		F[\a] = \frac{F[X]}{(f_\a)} \to E, \a \mapsto \g. \qedhere
+	\]
+\end{proof}
+
+\begin{oss}
+	Dalla proposizione segue che se \(F[\a]/F\) è algebrica, allora
+	\[
+		\#\Set{\j\colon F[\a] \to E | \j\text{ \(F\)-omomorfismo}} \le \deg f_\a.
+	\]
+\end{oss}
+
+\begin{ese}
+	Supponiamo che \(F=\Q,\a=\sqrt{2}\) e \(E=\C\).
+	Stiamo quindi considerando i \(\Q\)-omomorfismi del tipo \(\j\colon \Q[\sqrt{2}] \to \C\).
+	Per la proposizione vi è una corrispondenza biunivoca
+	\[
+		\Set{\j\colon \Q[\sqrt{2}] \to \C | \j\text{ \(\Q\)-omomorfismo}} \longleftrightarrow \Set{\g\in\C | \g\text{ radice di \(X^2-2\)}}=\{\sqrt{2},-\sqrt{2}\}.
+	\]
+	Per cui i \(\Q\)-omomorfismi possibili sono quelli tali che
+	\[
+		\sqrt{2} \mapsto \sqrt{2} \qquad\text{oppure}\qquad \sqrt{2} \mapsto -\sqrt{2}.
+	\]
+\end{ese}
+
+\begin{teor}{Corrispondenza fra \(F\)-omomorfismi di estensioni semplici}{corrispondenzaFOmomorfismiEstensioniSemplici}
+	Sia \(F(\a)\) un estensione semplice di \(F\) e sia \(\j_0\colon F \to E\) un omomorfismo di campi.
+	Allora vi è una corrispondenza biunivoca:
+	\begin{itemize}
+		\item Se \(\a\) è trascendente
+		      \[
+			      \Set{\j\colon F(\a) \to E | \j|_F = \j_0, \j\text{ omom.}} \longleftrightarrow \Set{x\in E | x\text{ trascendente su }\j_0(F)}.
+		      \]
+		\item Se \(\a\) è algebrico
+		      \[
+			      \Set{\j\colon F(\a) \to E | \j|_F = \j_0, \j\text{ omom.}} \longleftrightarrow \Set{\b\in E | \b\text{ radice di }f_\a}.
+		      \]
+	\end{itemize}
+\end{teor}
+
+\begin{proof}
+	Questo teorema è una generalizzazione delle due proprietà precedenti. Non forniremo un'ulteriore dimostrazione.
+\end{proof}
+
+\begin{pr}
+	Supponiamo che \(E_1,E_2\) siano campi aventi la stessa caratteristica.
+	Allora gli omomorfismi \(E_1 \to E_2\) sono \(F\)-omomorfismi, dove \(F\) è il sottocampo fondamentale di entrambi, ovvero
+	\[
+		F = \Q \qquad\text{oppure}\qquad F = \F_p.
+	\]
+\end{pr}
+%%%%%%%%%%%%%%%%%%%%%%
+%CAMPI DI SPEZZAMENTO%
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Campi di spezzamento}
+
+\begin{defn}{Campo di spezzamento}{campoSpezzamento}\index{Campo!di spezzamento}
+	Un'estensione \(E/F\) si definisce \emph{campo di spezzamento} di \(f\in F[X]\) se
+	\begin{itemize}
+		\item \(f\) si spezza in \(E\):
+		      \[
+			      f(X) = a\,\prod_{j=1}^n (X-\a_j), \qquad\text{con }\a_j\in E, n=\deg f.
+		      \]
+		\item \(E=F[\a_1,\ldots,\a_n]\).
+	\end{itemize}
+\end{defn}
+
+\begin{ese}
+	\(\Q[\sqrt{2}]\) è un campo di spezzamento per \(X^2-2=(X-\sqrt{2})(X+\sqrt{2})\) in \(\Q\)
+\end{ese}
+
+\begin{pr}
+	Sia \(f\in F[X]\) e supponiamo
+	\[
+		f = a\, \prod_{j=1}^n (X-\a_j).
+	\]
+	Se \(E/F\) è un campo di spezzamento per \(f\), allora
+	\[
+		E = F[\a_1,\ldots,\a_n] = F[\a_1,\ldots,\a_{n-1}].
+	\]
+\end{pr}
+
+\begin{proof}
+	L'inclusione \(F[\a_1,\ldots,\a_n] \supseteq F[\a_1,\ldots,\a_{n-1}]\) è banalmente vera. Per dimostrare l'uguaglianza è quindi sufficiente mostrare che \(\a_n\in F[\a_1,\ldots,\a_{n-1}]\).
+	Ora
+	\[
+		a\,X^n + a_1 X^{n-1}+\ldots +a_n = f(X) = a\,\prod_{j=1}^n (X-\a_j),
+	\]
+	da cui
+	\[
+		\frac{a_1}{a} = -(\a_1+\a_2+\ldots+\a_n) \implies \a_n = -\frac{a_1}{a}-\a_1- \ldots-\a_{n-1}.\qedhere
+	\]
+\end{proof}
+
+\begin{ese}
+	Troviamo un campo di spezzamento per \(X^3-2\in\Q[X]\).
+	Posto \(w = e^{\frac{2\p\,i}{3}}\) avremo
+	\[
+		X^3-2 = \prod_{j=0}^2 (X-w^j 2^{\frac{1}{3}}).
+	\]
+	Quindi un campo di spezzamento è \(\Q[2^{\frac{1}{3}},w\,2^{\frac{1}{3}},w^2 2^{\frac{1}{3}}]\).
+	Per la proposizione precedente avremo
+	\[
+		\Q[2^{\frac{1}{3}},w\,2^{\frac{1}{3}},w^2 2^{\frac{1}{3}}] = \Q[2^{\frac{1}{3}},w\,2^{\frac{1}{3}}].
+	\]
+	Inoltre \(\Q[2^{\frac{1}{3}},w\,2^{\frac{1}{3}}]=\Q[2^{\frac{1}{3}},w]\). Infine si può dimostrare che
+	\[
+		\Q[2^{\frac{1}{3}},w] = \Q[2^{\frac{1}{3}}+w].
+	\]
+\end{ese}
+
+\begin{ese}
+	Un campo di spezzamento di \(X^4-2\) è
+	\[
+		\Q[2^{\frac{1}{4}},-2^{\frac{1}{4}},i\,2^{\frac{1}{4}},-i\,2^{\frac{1}{4}}] = \Q[2^{\frac{1}{4}},i\,2^{\frac{1}{4}}] = \Q[2^{\frac{1}{4}},i].
+	\]
+\end{ese}
+
+\begin{ese}[\(p\)-esimo polinomio ciclotomico]
+	Consideriamo il \(p\)-esimo polinomio ciclotomico
+	\[
+		\phi_p(X) = 1+\ldots+X^{p-1} = \prod_{j=1}^{p-1} (X-e^{\frac{2\p\,i\,j}{p}}) = \prod_{j=1}^{p-1} (X-\z_p^j).
+	\]
+	Tale polinomio ha come campo di spezzamento
+	\[
+		\Q[\z_p,\z_p^2,\ldots,\z_p^{p-1}] = \Q[\z_p].
+	\]
+\end{ese}
+
+\begin{ese}[Polinomio di grado 2]
+	Consideriamo un generico polinomio di secondo grado irriducibile in \(\Q\):
+	\[
+		f(X) = X^2+a\,X+b.
+	\]
+	Se \(D_f=a^2-4b\) è il discriminante di \(f\), allora un campo di spezzamento di \(f\) è il seguente:
+	\[
+		\Q \left[ -\frac{a}{2}+\frac{\sqrt{D_f}}{2},-\frac{a}{2}-\frac{\sqrt{D_f}}{2} \right] = \Q[\sqrt{D_f}].
+	\]
+\end{ese}
+
+\begin{ese}[Polinomio di grado 3]
+	Consideriamo un generico polinomio di terzo grado irriducibile in \(\Q\):
+	\[
+		f(X) = X^3+\,X^2+b\,X+c = (X-\a_1)(X-\a_2)(X-\a_3).
+	\]
+	Sappiamo che \(\Q[\a_1,\a_2]\) è un suo campo di spezzamento. Ora per la formula del grado
+	\[
+		\big[\Q[\a_1,\a_2]:\Q\big] = \big[\Q[\a_1,\a_2]:\Q[\a_1]\big] \big[\Q[\a_1]:\Q\big],
+	\]
+	dove \(\big[\Q[\a_1]:\Q\big]=3\), mentre rispetto a \(\Q[\a_1]\) possiamo considerare \(\Q[\a_1,\a_2]\) come il campo di spezzamento del polinomio
+	\[
+		\frac{f(X)}{X-\a_1} \in \Q[\a_1][X],
+	\]
+	che ha grado 2. Per cui il grado \(\big[\Q[\a_1,\a_2]:\Q[\a_1]\big]\) può essere \(1\) oppure \(2\).
+
+	In conclusione un polinomio irriducibile di grado \(3\) ha un campo di spezzamento di grado \(3\) oppure \(6\).
+	Vedremo in seguito che il grado è \(3\) se e soltanto se \(D_f\) è un quadrato perfetto.
+\end{ese}
+
+\begin{prop}{Stima della dimensione del campo di spezzamento}{stimaDimensioneCampoSpezzamento}
+	Sia \(f\in F[X]\) un polinomio di grado \(n\).
+	Allora esiste un campo di spezzamento \(E/F\) di \(f\) e vale
+	\[
+		[E:F] \le n!
+	\]
+\end{prop}
+
+\begin{proof}
+	Sia \(f\in F[X]\) e sia \(F_1=F[\a_1]\), dove \(\a_1\) è una radice di un fattore irriducibile di \(f\).
+	In particolare \(f_{\a_1}\mid f\), da cui
+	\[
+		[F_1:F] = \deg f_{\a_1} \le \deg f.
+	\]
+	Prendiamo ora \(F_2=F_1[\a_2]\), dove \(\a_2\) è una radice di un fattore irriducibile di \(f(X)/(x-\a_1)\in F_1[X]\).
+	Avremo
+	\[
+		[F_2:F_1] = \deg f_{\a_2} \le (\deg f-1)\graffito{\(f_{\a_2}\in F_1[X]\)}
+	\]
+	Iterando per ogni \(2\le k \le n\) troviamo \(F_k=F_{k-1}[\a_k]\), dove \(a_k\) è una radice di un fattore irriducibile di
+	\[
+		\frac{f(X)}{(X-\a_1)\cdot\ldots\cdot (X-\a_{k-1})}\in F_{k-1}[X],
+	\]
+	dove \([F_k:F_{k-1}] = \deg f_{\a_k} \le (\deg f-k+1)\), con \(f_{\a_k}\in F_{k-1}[X]\).
+	Infine avremo
+	\[
+		F_n = F_{n-1}[\a_n] = \ldots = F[\a_1,\ldots,\a_n]
+	\]
+	il quale sarà un campo di spezzamento di \(f\). In particolare, per la formula del grado, avremo
+	\[
+		[F_n:F] = \prod_{j=1}^n [F_j:F_{j-1}] \le n!\qedhere \graffito{abbiamo posto \(F_0=F\)}
+	\]
+\end{proof}
+
+\begin{oss}
+	A priori \(1\le [E:F]\), d'altronde se \(f\) è irriducibile in \(F[X]\) si ha \(n\le [E:F]\) in quanto
+	\[
+		E \supseteq F[\a] \supseteq F,
+	\]
+	dove \(\a\) è una radice di \(f\) e sappiamo che \(\big[F[\a]:F\big]=n\)
+	Inoltre in tal caso vale anche \(n\mid [E:F]\).
+\end{oss}
+
+\begin{ese}
+	Tramite l'osservazione precedente si può dimostrare facilmente quale sia il possibile grado del campo di spezzamento di un polinomio irrducibile di grado \(3\).
+	Infatti se \(E\) è il campo di spezzamento di \(f\in F[X]\) avremo
+	\[
+		3 \le [E:F] \le 3! \qquad\text{e}\qquad 3\mid [E:F],
+	\]
+	da cui
+	\[
+		[E:F] = 3 \qquad\text{oppure}\qquad [E:F] = 6.
+	\]
+\end{ese}
+
+\begin{ese}
+	Se \(f\in F[X]\) è un polinomio irriducibile di grado \(4\) e se \(E/F\) è un suo campo di spezzamento, avremo
+	\[
+		4 \le [E:F] \le 4!=24 \qquad\text{e}\qquad 4 \mid [E:F],
+	\]
+	quindi i possibili gradi di \(E\) sono \(4,8,12,16,20,24\)
+\end{ese}
+
+\begin{prop}{}{campiSpezzamento1}
+	Sia \(f\in F[X]\) e siano \(E_1/F, E_2/F\) due estensioni tali che \(E_1\) è generata su \(F\) da alcune radici di \(f\); \(E_2\) è tale che \(f\) si spezza al suo interno. Allora
+	\[
+		\Set{\j\colon E_1 \to E_2 | \j \text{ \(F\)-omomorfismo}} \neq \emptyset.
+	\]
+	Inoltre tale insieme contiene al più \([E_1:F]\) elementi.
+\end{prop}
+
+\begin{proof}
+	Per ipotesi \(E_1=F[\a_1,\ldots,\a_m]\), dove \(\a_j\) sono radici di \(f\).
+	Il polinomio minimo di \(\a_1\) è un polinomio irriducibile \(f_1\) che divide \(f\) e tale che \(\deg f_1 = \big[F[\a_1]:F\big]\).
+	Per ipotesi \(f\) si spezza in \(E_2\), quindi anche \(f_1\) deve spezzarsi in \(E_2\), inoltre le sue radici saranno distinte se lo erano quelle di \(f\). Per la \autoref{pr:corrispondenzaAlgebrica} esisteranno degli \(F\)-omomorfismi
+	\[
+		\j_1 \colon F[\a_1] \to E_2,
+	\]
+	e tali omomorfismi saranno in numero al più uguale a \(\big[F[\a_1]:F\big]\), e saranno proprio uguali nel caso in cui \(f\) abbia tutte radici distinte in \(E_2\).
+
+	Ora, il polinomio minimo di \(\a_2\) su \(F[\a_1]\) è un polinomio irriducibile \(f_2\) che divide \(f\) in \(F[\a_1][X]\).
+	Avremo che \(\j_1(f_2)\in F[\a_1][X]\) e \(\j_1(f_2)\mid f\), per cui \(\j_1(f_2)\) si spezza in \(E_2\) e le sue radici sono distinte se lo sono quelle di \(f\). Sfruttando \hyperref[th:corrispondenzaFOmomorfismiEstensioniSemplici]{l'enunciato più generale della proposizione usata poc'anzi}, ogni \(\j_1\) si estende ad un omomorfismo
+	\[
+		\j_2 \colon F[\a_1,\a_2] \to E_2
+	\]
+	e tali estensioni saranno in numero al più uguale a \(\deg f_2 = \big[F[\a_1,\a_2]:F[\a_2]\big]\), e saranno proprio uguali quando \(f\) ha tutte radici distinte in \(E_2\).
+
+	Combinando le precedenti affermazioni, possiamo concludere che esiste un \(F\)-omomorfismo
+	\[
+		\j\colon F[\a_1,\a_2] \to E_2
+	\]
+	il cui numero è al più \(\big[F[\a_1,\a_2]:F[\a_1]\big]\big[F[\a_1]:F\big]=\big[F[\a_1,\a_2]:F\big]\).
+
+	Iterando questo procedimento fino a \(m\) si giunge alla tesi.
+\end{proof}
+
+\begin{oss}
+	Il numero di elementi nell'insieme degli \(F\)-omomorfismi è precisamente \([E_1:F]\) se \(f\) ha tutte le radici distinte in \(E_2\).
+\end{oss}
+
+\begin{cor}\label{cor:campiSpezzamentoIsomorfi}
+	Se \(E_1/F, E_2/F\) sono campi di spezzamento di \(f\in F[X]\), allora
+	\[
+		E_1 \cong_F E_2.
+	\]
+\end{cor}
+
+\begin{proof}
+	Applichiamo la proposizione nel caso in cui \(E_1,E_2\) sono due campi di spezzamento di \(f\) su \(F\).
+	Otteniamo che esiste \(\j\colon E_1 \to E_2\) che in quanto \(F\)-omomorfismo è iniettivo, da cui
+	\[
+		[E_1:F] \le [E_2:F].
+	\]
+	Applicando nuovamente la proposizione scambiando il ruolo di \(E_1\) con \(E_2\), otteniamo che esiste un altro \(F\)-omomorfismo \(\y\colon E_2 \to E_1\), la cui iniettività implica
+	\[
+		[E_2:F] \le [E_1:F].
+	\]
+	Da ciò segue che \(E_1,E_2\) hanno le stesso grado su \(F\), per cui \(\j,\y\) sono isomorfismi. Ovvero
+	\[
+		E_1 \cong_F E_2.
+	\]
+\end{proof}
+
+\begin{cor}\label{cor:stimaInsiemeOmo}
+	Sia \(E/F\) un'estensione finita e \(L/F\) un'estensione qualsiasi. Allora
+	\[
+		\#\Set{\j\colon E \to L | \j \text{ \(F\)-omomorfismo}} \le [E:F].
+	\]
+\end{cor}
+
+\begin{proof}
+	Per ipotesi \(E/F\) è finita, quindi \(E=F[\a_1,\ldots,\a_m]\).
+	Prendiamo \(f=f_{\a_1} \cdot\ldots\cdot f_{\a_m}\in F[X]\) il prodotto dei polinomi minimi di \(\a_1,\ldots,\a_m\).
+
+	Ora \(f\in F[X]\subseteq L[X]\), sia \(\Omega\) un campo di spezzamento di \(f\) su \(L\); in particolare \(\Omega\) è un'estensione di \(L\) dove \(f\) si spezza. Per la proposizione precedente
+	\[
+		\#\Set{\j\colon E \to \Omega | \j\text{ \(F\)-omomorfismo}} \le [E:F].
+	\]
+	D'altronde ogni omomorfismo \(\tilde{\j}\colon E \to L\) può essere composto con l'inclusione \(L \hookrightarrow \Omega\). In conclusione
+	\[
+		\#\Set{\j\colon E \to L | \j\text{ \(F\)-omomorfismo}} \le \#\Set{\j\colon E \to \Omega | \j\text{ \(F\)-omomorfismo}} \le [E:F].\qedhere
+	\]
+\end{proof}
+
+\begin{ese}
+	Consideriamo \(E=\Q[\sqrt[3]{2}]\) che sappiamo avere \([E:F]=3\).
+	Per il corollario precedente, ciò significa che \(\Q[\sqrt[3]{2}]\) può essere immerso in al più \(3\) modi distinti in \(\C\).
+
+	Da alcuni esempi precedenti si capisce facilmente che tali omomorfismi sono del tipo:
+	\[
+		\j_1 \colon \sqrt[3]{2} \mapsto \sqrt[3]{2}; \qquad \j_2 \colon \sqrt[3]{2} \mapsto w \,\sqrt[3]{2}; \qquad \j_3\colon \sqrt[3]{2} \mapsto w^2 \sqrt[3]{2},
+	\]
+	dove \(w=e^{\frac{2\p\,i}{3}}\).
+\end{ese}
+
+\begin{cor}
+	Supponiamo di avere una famiglia di estensioni finite \(E_1/F,E_2/F,\ldots,E_k/F\).
+	Allora esiste un'estensione finita \(\Omega/F\) tale che
+	\[
+		\Omega \supseteq \tilde{E}_1,\ldots\tilde{E}_k, \qquad\text{con }\tilde{E}_j \cong_F E_j.
+	\]
+\end{cor}
+
+\begin{proof}
+	DA FINIRE!
+\end{proof}
+%%%%%%%%%%%%%%%%%
+%RADICI MULTIPLE%
+%%%%%%%%%%%%%%%%%
+\section{Radici multiple}
+
+Siano \(f,g\in F[X]\). Anche quando \(f,g\) non hanno divisori in comune in \(F[X]\), ci si potrebbe aspettare che acquisiscano un fattore comune se ci si porta in un certo \(\Omega[X]\) con \(\Omega\supset F\). In realtà questo non accade, il massimo comun divisore non cambia quando si estende un campo.
+
+\begin{prop}{Invarianza del MCD tramite estensione}{invarianzaMCDEstensione}
+	Siano \(f,g\in F[X]\) e sia \(\Omega/F\) un'estensione.
+	Se \(r(X)\) è il MCD di \(f,g\) calcolato in \(F[X]\), allora tale MCD non cambia quando lo si calcola in \(\Omega[X]\).
+\end{prop}
+
+\begin{proof}
+	Siano \(r_F(X)\) e \(r_\Omega(X)\) i MCD di \(f,g\) calcolati rispettivamente in \(F[X]\) e \(\Omega[X]\).
+
+	\(r_F(X)\in F[X]\subseteq \Omega[X]\), quindi per le proprietà del MCD si avrà
+	\[
+		r_F(X) \mid r_\Omega (X).
+	\]
+	D'altronde in \(F[X]\) varrà l'identità di Bezout rispetto a \(r_F(X)\), ovvero esisteranno \(a,b\in F[X]\) tali che
+	\[
+		a(X)f(X) + b(X)g(X) = r_F(X) \in F[X]\subseteq \Omega[X].
+	\]
+	Ora \(r_\Omega(X)\) in quanto MCD di \(f,g\) in \(\Omega[X]\) divide ogni combinazione dei due polinomi, in particolare
+	\[
+		r_\Omega(X) \mid r_F(X),
+	\]
+	da cui la tesi.
+\end{proof}
+
+\begin{oss}
+	In particolare, polinomi monici irriducibili in \(F[X]\) non acquisiscono radici in comune in nessuna estensione di \(F\).
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 24/10/2016 - QUINTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{defn}{Insieme dei polinomi irriducibili}{insiemePolinomiIrriducibili}\index{Polinomi irriducibili}
+	SIa \(F\) un campo, si definisce l'insieme \(\irr(F)\) dei polinomi irriducibili di \(F[X]\) come l'insieme dei polinomi \(f\) tali che
+	\begin{itemize}
+		\item \(f\) monico;
+		\item \(\deg f\ge 1\);
+		\item \(f\) non ha fattori propri.
+	\end{itemize}
+\end{defn}
+
+\begin{defn}{Molteplicità di una radice}{molteplicitàRadice}\index{Molteplicità}
+	Sia \(f\in F[X]\) e sia \(F_f\) un suo campo di spezzamento. Scritto
+	\[
+		f(X) = a\,\prod_{j=1}^k (X-\a_j)^{m_j}, \qquad\text{con }\a_1,\ldots,a_k\in F_f,
+	\]
+	gli interi \(m_1,\ldots,m_k\in \N^{\ge 1}\) si definiscono \emph{molteplicità} di \(f\) su \(F_f\).
+\end{defn}
+
+\begin{notz}
+	Una radice \(\a_j\) si dice \emph{semplice} se \(m_j=1\).
+	Viceversa se \(m_j \ge 2\), \(a_j\) si dice \emph{multipla}.
+\end{notz}
+
+\begin{oss}
+	Per definizione si ha
+	\[
+		\sum_{j=1}^k m_j = \deg f.
+	\]
+\end{oss}
+
+\begin{oss}
+	Come diretta conseguenza del \autoref{cor:campiSpezzamentoIsomorfi} La molteplicità di una radice è invariante rispetto alla scelta del campo di spezzamento.
+\end{oss}
+
+\begin{ese}
+	Sia \(F=\F_p(T)\) e prendiamo \(f(X)=X^p-T \in F[X]\).
+	Mostriamo che \(f\) è irriducibile e che ha una sola radice in qualsiasi campo di spezzamento \(F_f\).
+
+	Sia \(\a\) una radice di un fattore irriducibile di \(f(X)\), consideriamo il campo col gambo \(F[\a], \a^p=T\).
+	Se adesso consideriamo \(f(X)\in F[\a]\big[X\big]\) avremo, per la \hyperref[pr:binomioNewtonCampi]{"formula sbagliata"},
+	\[
+		X^p -T = (X-\a)^p,
+	\]
+	da cui segue che la molteplicità di \(\a\) è \(p\).
+
+	Infine \(X^p-T\) è irriducibile perché se \(g\in F[X]\) fosse un divisore di \(f\), si avrebbe
+	\[
+		g(X) = (X-\a)^k \in F[X].
+	\]
+	D'altronde
+	\[
+		(X-\a)^k = X^k -k\,\a\,X^{k-1}+\ldots \implies k\,\a \in F \implies k=0,
+	\]
+	da cui \(p\mid k\) ma \(k\le p\), quindi \(k=p\). Per cui
+	\[
+		g(X) = (X-\a)^p = f(X).
+	\]
+\end{ese}
+
+\begin{defn}{Derivata formale}{derivataFormale}\index{Derivata formale}
+	Sia \(f\in F[X]\) un generico polinomio del tipo
+	\[
+		f(X) = \sum_{j=0}^n a_j X^k, \qquad\text{con }a_j \in F.
+	\]
+	Definiamo la \emph{derivata formale} \(f'(X)\) di \(f(X)\) come
+	\[
+		f'(X) = \sum_{j=0}^n j\,a_j X^{j-1}.
+	\]
+\end{defn}
+
+\begin{pr}
+	Siano \(f,g\in F[X]\), allora valgono le seguenti identità:
+	\[
+		(f+g)'(X) = f'(X) + g'(X) \qquad\text{e}\qquad (f\cdot g)'(X) = f'(X)g(X)+f(X)g'(X).
+	\]
+\end{pr}
+
+\begin{proof}
+	Basta verificarlo con la definizione.
+\end{proof}
+
+\begin{prop}{Caratterizzazione delle radici multiple}{caratterizzazioneRadiciMultiple}
+	Sia \(f\in F[X]\) con \(\deg f \ge 1\) e \(f\) irriducibile. Allora le seguenti affermazioni sono equivalenti:
+	\begin{enumerate}
+		\item \(f\) ha una radice multipla.
+		\item \((f,f')\neq 1\).
+		\item \(F\) ha caratteristica \(p\) ed esiste \(g\in F[X]\) tale che \(f(X)=g(X^p)\).
+		\item Tutte le radici di \(f\) sono multiple.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\graffito{\((1)\implies (2)\)}Supponiamo che \(\a\in F_f\) sia una radice multipla di \(f\). Allora esiste \(g\in F_f[X]\) tale che
+	\[
+		f(X) = (X-\a)^2 g(X) \in F_f[X].
+	\]
+	Passando alla derivata otteniamo
+	\[
+		f'(X) = 2(X-\a)\,g(X) + (X-\a)^2 g'(X) = (X-\a)\,h(X) \in F_f[X],
+	\]
+	da cui \((X-\a)\mid (f,f')\).
+
+	\graffito{\((2)\implies (3)\)}Supponiamo che \((f,f')\neq 1\). Allora, per l'irriducibilità di \(f\), avremo
+	\[
+		(f,f') = f.
+	\]
+	In particolare \(f\mid f' \implies f'=0\) in quanto \(\deg f' < \deg f\).
+	Ora
+	\[
+		f(X) = a_0 + a_1 X + \ldots + a_{m-1}X^{m-1}+a_m X^m,
+	\]
+	da cui
+	\[
+		0 = f'(X) = a_1+2a_2 X + \ldots + (m-1)a_{m-1}X^{m-2} + m\,a_m X^{m-1},
+	\]
+	quindi per ogni \(j=1,\ldots,m\) si ha \(j\cdot a_j=0\), ovvero \(j=0\) oppure \(a_j=0\).
+	Da ciò segue immediatamente che \(F\) ha caratteristica \(p\), poiché altrimenti si avrebbe \(a_j=0\,\fa j\), che contraddice l'ipotesi \(\deg f\ge 1\).
+
+	In particolare se \(p\nmid j\) si ha \(a_j=0\), da cui
+	\[
+		f(X) = a_0+a_p X^p + a_{2p} X^{2p} + \ldots + a_{k\,p}X^{k\,p}, \qquad\text{con }k\,p = m.
+	\]
+	Quindi se prendiamo \(g(X) = a_0 + a_p X + \ldots a_{k\,p}X^k \in F[X]\) otteniamo
+	\[
+		f(X) = g(X^p).
+	\]
+	\graffito{\((3)\implies (4)\)}Supponiamo che \(F\) abbia caratteristica \(p\) e che esista \(g\in F[X]\) tale che \(f(X)=g(X^p)\).
+	Fissato un campo di spezzamento \(F_f\) di \(f\), avremo
+	\[
+		g(X) = \prod_{j=1}^k (X-\a_j)^{m_j}, \qquad\text{con }\a_j \in F_f,
+	\]
+	da cui
+	\[
+		f(X) = g(X^p) = \prod_{j=1}^k (X^p-\a_j)^{m_j}.
+	\]
+	Ora da \(\Char F = p\) segue \(\a_j^p=\a_j\), quindi possiamo applicare la "formula sbagliata":
+	\[
+		f(X) = \prod_{j=1}^k (X^p-\a_j)^{m_j} = \prod_{j=1}^k (X^p-\a_j^p)^{m_j} = \prod_{j=1}^k (X-\a_j)^{p\,m_j},
+	\]
+	dove \(m_j\,p > 1\).
+
+	\graffito{\((4)\implies (1)\)}Conseguenza ovvia.
+\end{proof}
+
+\begin{defn}{Polinomio separabile}{polinomioSeparabile}\index{Polinomio!separabile}
+	Un polinomio \(f\in F[X]\) si dice \emph{separabile} se ha solo radici semplici.
+\end{defn}
+
+\begin{prop}{Caratterizzazione dei polinomi separabili}{caratterizzazionePolinomiSeparabili}
+	Sia \(f\in F[X]\). Allora \(f\) è separabile se e soltanto se \((f,f')=1\).
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(f\) sia separabile. Se per assurdo esistesse \(h\in F[X]\) tale che
+	\[
+		h \mid f \qquad\text{e}\qquad h \mid f',
+	\]
+	fissato un campo di spezzamento \(F_f\), se \(h(\a)=0\), si avrebbe
+	\[
+		(X-\a) \mid f(X) \qquad\text{e}\qquad (X-\a) \mid f'(X),
+	\]
+	da cui \((X-\a)^2\mid f(X)\), ovvero \(\a\) ha molteplicità maggiore di uno, che è assurdo per ipotesi.
+
+	\graffito{\(\Leftarrow)\)}Supponiamo che \((f,f')=1\). Se per assurdo \(\a\) fosse una radice di \(f\) con molteplicità maggiore di uno, si avrebbe
+	\[
+		(X-\a)^2 \mid f \implies (X-\a) \mid f',
+	\]
+	da cui \((X-\a) \mid (f,f')\) che è assurdo.
+\end{proof}
+
+\begin{oss}
+	In generale un polinomio \(f\in F[X]\) può essere non separabile se
+	\begin{itemize}
+		\item \(f(X)=f_1^{m_1} \cdot\ldots\cdot f_t^{m_t}\) dove \(f_j\in F[X]\) ed esiste \(j\) tale che \(m_j\ge 2\).
+		\item \(f(X) = f_1 \cdot\ldots\cdot f_t\) con \(f_j\) distinti, \(F\) ha caratteristica \(p\) ed esiste \(j_0\) tale che \(f_{j_0}=g(X^p)\).
+	\end{itemize}
+\end{oss}
+
+\begin{defn}{Campo perfetto}{campoPerfetto}\index{Campo!perfetto}
+	Un campo \(F\) si dice \emph{perfetto} se ogni polinomio \(f\in \irr(F)\) è separabile.
+\end{defn}
+
+\begin{oss}
+	Tutti i campi di caratteristica zero sono perfetti.
+\end{oss}
+
+\begin{prop}{Caratterizzazione dei campi perfetti di caratteristica \(p\)}{caratterizzazioneCampiPerfettiCharp}
+	Sia \(F\) un campo di caratteristica \(p\).
+	Allora \(F\) è perfetto se e soltanto se per ogni \(\a\in F\), \(\a\) è un \(p\)-esima potenza in \(F\), ovvero
+	\[
+		\ex \b\in F : \a = \b^p.
+	\]
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Sia \(F\) perfetto. Supponiamo per assurdo che \(a\in F\) non sia una \(p\)-esima potenza.
+	Consideriamo \(f(X)=X^p-a\in F[X]\), vogliamo mostrare che \(f\) è irriducibile e non separabile, da cui seguirebbe l'assurdo.
+	Sia \(\a\) una radice di un fattore irriducibile di \(f(X)\) e consideriamo il campo col gambo
+	\[
+		F[\a], \qquad \a^p = a.
+	\]
+	Quindi se consideriamo \(f(X)\in F[\a]\big[X\big]\) avremo
+	\[
+		X^p - a = X^p - \a^p = (X-\a)^p \graffito{ricordiamo che in un campo di caratteristica \(p\) vale la "formula sbagliata".}
+	\]
+	da cui segue che la molteplicità di \(\a\) è \(p\), per cui \(f\) non è separabile.
+
+	Inoltre \(f\) è irriducibile poiché se \(g(X)\in F[X]\) fosse un divisore di \(f(X)\), si avrebbe
+	\[
+		g(X) = (X-\a)^k\in F[X].
+	\]
+	D'altronde
+	\[
+		(X-\a)^k = X^k - k\,\a\,X^{k-1}+\ldots \implies k\,\a \in F \implies k=0,
+	\]
+	da cui \(p\mid k\) ma \(k\le p\), quindi \(k=p\). Ovvero
+	\[
+		g(X) = (X-\a)^p = f(X).
+	\]
+	\graffito{\(\Leftarrow)\)}Supponiamo che ogni \(a\in F\) sia una \(p\)-esima potenza. Se per assurdo \(F\) non fosse perfetto, esisterebbe \(f\in \irr(F)\) non separabile. Per la \autoref{pr:caratterizzazioneRadiciMultiple} esiste \(g(X)\in F[X]\) tale che \(f(X)=g(X^p)\).
+	Inoltre per ipotesi
+	\[
+		g(X) = a_0+a_1 X + \ldots + a_n X^n = b_0^p + b_1^p X + \ldots + b_n^p X^n,
+	\]
+	da cui, applicando la "formula sbagliata",
+	\[
+		f(X) = g(X^p) = (b_0+b_1 X+ \ldots + b_n X^n)^p,
+	\]
+	ovvero \(f\) non è irriducibile.
+\end{proof}
+
+\begin{cor}
+	Tutti i campi finiti sono perfetti.
+\end{cor}
+
+\begin{proof}
+	Sia \(F\) un campo finito e consideriamo \(\j\colon F \to F, \a \mapsto \a^p\).
+	\(\j\) è l'\emph{endomorfismo di Frobenius} che è un automorfismo quando \(F\) è finito, per cui applicando la proposizione precedente si ha \(che\) \(F\) è perfetto.
+\end{proof}
+
+\begin{cor}
+	Se \(F\) è un campo di caratteristica \(p\) e \(F/\F_p\) è algebrico, allora \(F\) è perfetto.
+\end{cor}
+
+\begin{proof}
+	Sia \(\a\in F\), poiché \(F/\F_p\) è algebrico, avremo che \(\F_p[\a]\) è finito. In particolare \(\a = \b^p\), da cui la tesi.
+\end{proof}
+
+\begin{oss}
+	In conclusione i campi imperfetti sono i campi infiniti, trascendenti e di caratteristica \(p\).
+	Come ad esempio \(\F_p(T)\).
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 26/10/2016 - QUINTA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

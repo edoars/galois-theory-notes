@@ -1,0 +1,727 @@
+%!TEX root = ../main.tex
+\chapter{Il Teorema Fondamentale di Galois}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%GRUPPI DI AUTOMORFISMI%
+%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Gruppi di automorfismi}
+
+\begin{defn}{Gruppo degli automorfismi}{gruppoAutomorfismi}\index{Gruppo degli automorfismi}
+	Sia \(E/F\) un'estensione. Un \(F\)-isomorfismo \(E\to E\) si dice \emph{\(F\)-automorfismo} di \(E\).
+	Gli \(F\)-automorfismi di \(E\) definiscono un gruppo
+	\[
+		\Aut(E/F) = \Set{\j\colon E \to E | \j \text{ \(F\)-automorfismo}}.
+	\]
+\end{defn}
+
+\begin{notz}
+	In generale quando scriviamo \(\Aut(E)\) faremo riferimento ad \(E\) come estensione sul suo sottocampo fondamentale, che come sappiamo può essere \(\F_p\) oppure \(\Q\).
+\end{notz}
+
+\begin{oss}
+	Con queste notazioni si ha
+	\[
+		\Aut(E/F) \le \Aut(E), \,\fa E/F.
+	\]
+	Inoltre se \(E\supseteq M \supseteq F\) vale
+	\[
+		\Aut(E/M) \le \Aut(E/F).
+	\]
+\end{oss}
+
+\begin{prop}{Dimensione del gruppo degli automorfismi di un campo di spezzamento}{dimensioneGruppoAutomorfismiCampoSpezzamento}
+	Supponiamo che \(E\) sia il campo di spezzamento di un polinomio separabile \(f\in F[X]\). Allora
+	\[
+		\#\Aut(E/F) = [E:F].
+	\]
+\end{prop}
+
+\begin{proof}
+	Applichiamo la proposizione \autoref{pr:campiSpezzamento1} ad \(E_1=E_2=E\) che soddisfano le ipotesi, in quanto \(E\) è il campo si spezzamento di un polinomio separabile. Quindi avremo
+	\[
+		\#\Set{\j\colon E \to E | \j \text{ \(F\)-omomorfismo}} = [E:F],
+	\]
+	dove abbiamo messo l'uguaglianza al posto del minore uguale in quanto \(f\), essendo separabile, ha tutte radici distinte in \(E\).
+\end{proof}
+
+\begin{ese}
+	Tramite la preposizione possiamo dedurre che \(\Q[\sqrt[3]{2}]\) non è il campo di spezzamento di nessun \(f\in \Q[X]\). Infatti sappiamo che
+	\[
+		\Aut\big(\Q[\sqrt[3]{2}]/\Q\big) \longleftrightarrow \Set{\g\in \Q[\sqrt[3]{2}] | \g\text{ radice di \(f_{\sqrt[3]{2}}=X^3-2\)}}
+	\]
+	e infatti
+	\[
+		\# \Aut\big(\Q[\sqrt[3]{2}]/\Q\big) = 1 \neq 3 = \big[\Q[\sqrt[3]{2}]:\Q\big].
+	\]
+\end{ese}
+
+\begin{ese}
+	\(\Q(\sqrt[3]{2},\sqrt{-2})/\Q\) è il campo di spezzamento di \(X^3-2\in \Q[X]\). Quindi per la proposizione
+	\[
+		\#\Aut\big(\Q(\sqrt[3]{2},\sqrt{-2})/\Q\big) = \big[\Q(\sqrt[3]{2},\sqrt{-2}):\Q\big] = 6.
+	\]
+	Per la caratterizzazione dei gruppi di ordine \(6\), avremo che
+	\[
+		\Aut\big(\Q(\sqrt[3]{2},\sqrt{-2})/\Q\big) \in \{\Z/\Z_6, S_3\}.
+	\]
+	Per determinare a quale gruppo sia effettivamente isomorfo dovremo stabilire se è abeliano o meno.
+	Per prima cosa troviamo esplicitamente gli automorfismi
+	\[
+		\Q(\sqrt[3]{2},\sqrt{-2}) \to \Q(\sqrt[3]{2},\sqrt{-2}).
+	\]
+	Osserviamo che \(\sqrt[3]{2}\) e \(\sqrt{-3}\) sono generatori del campo, quindi basta determinare le loro immagini per descrivere gli automorfismi.
+	Inoltre
+	\[
+		f_\a(\a) = 0 \implies f_\a\big(\s(\a)\big) = \s\big(f(\a)\big) = 0,
+	\]
+	ovvero ogni radice di un polinomio minimo deve andare in un'altra radice, da cui
+	\[
+		\sqrt[3]{2} \longmapsto \begin{cases}\sqrt[3]{2}\\w\sqrt[3]{2}\\w^2\sqrt[3]{2}\end{cases} \qquad\text{e}\qquad \sqrt{-3} \longmapsto \begin{cases}\sqrt{-3}\\-\sqrt{-3}\end{cases}
+	\]
+	Quindi
+	\begin{align*}
+		\s_1 & \colon \begin{aligned}\sqrt[3]{2} &\longmapsto \sqrt[3]{2}\\\sqrt{-3} &\longmapsto \sqrt{-3}\end{aligned}  & \s_2 & \colon \begin{aligned}\sqrt[3]{2} &\longmapsto w\sqrt[3]{2}\\\sqrt{-3} &\longmapsto \sqrt{-3}\end{aligned}  & \s_3 & \colon \begin{aligned}\sqrt[3]{2} &\longmapsto w^2\sqrt[3]{2}\\\sqrt{-3} &\longmapsto \sqrt{-3}\end{aligned}  \\
+		\s_4 & \colon \begin{aligned}\sqrt[3]{2} &\longmapsto \sqrt[3]{2}\\\sqrt{-3} &\longmapsto -\sqrt{-3}\end{aligned} & \s_5 & \colon \begin{aligned}\sqrt[3]{2} &\longmapsto w\sqrt[3]{2}\\\sqrt{-3} &\longmapsto -\sqrt{-3}\end{aligned} & \s_6 & \colon \begin{aligned}\sqrt[3]{2} &\longmapsto w^2\sqrt[3]{2}\\\sqrt{-3} &\longmapsto -\sqrt{-3}\end{aligned}
+	\end{align*}
+	Valutiamo la commutatività di \(\s_2\circ \s_6\):
+	\begin{gather*}
+		\s_2\circ\s_6(\sqrt{-3}) = \s_2(-\sqrt{-3}) = -\sqrt{-3};\\
+		\s_2\circ\s_6(\sqrt[3]{2}) = \s_2(w^2\sqrt[3]{2}) = \s_2(w^2)\,w\sqrt[3]{2},
+	\end{gather*}
+	dove
+	\[
+		\s_2(w) = \s_2 \left( -\frac{1}{2}+ \frac{\sqrt{-3}}{2} \right) = -\frac{1}{2}+\frac{1}{2}\s_2(\sqrt{-3}) = -\frac{1}{2}+\frac{\sqrt{-3}}{2}=w,
+	\]
+	quindi
+	\[
+		\s_2(w^2)w\sqrt[3]{2} = w^3\sqrt[3]{2} = \sqrt[3]{2}.
+	\]
+	Segue che \(\s_2\circ \s_6 = \s_4\). Calcoliamo il viceversa:
+	\begin{gather*}
+		\s_6\circ\s_2(\sqrt{-3}) = \s_6(\sqrt{-3}) = -\sqrt{-3};\\
+		\s_6\circ\s_2(\sqrt[3]{2}) = \s_6(w\sqrt[3]{2}) = \s_6(w)\,w^2\sqrt[3]{2},
+	\end{gather*}
+	dove
+	\[
+		\s_6(w) = \s_6\left(-\frac{1}{2}+\frac{\sqrt{-3}}{2}\right) = -\frac{1}{2}+\frac{1}{2}\s_6(\sqrt{-3}) = -\frac{1}{2}-\frac{\sqrt{-3}}{2} = w^2,
+	\]
+	quindi
+	\[
+		\s_6(w)w^2\sqrt[3]{2} = w^4\sqrt[3]{2} = w\sqrt[3]{2}.
+	\]
+	Segue che \(\s_6\circ\s_2 = \s_5\).
+	Quindi
+	\[
+		\Aut\big(\Q(\sqrt[3]{2},\sqrt{-2})/\Q\big) \cong S_3,
+	\]
+	poiché non è abeliano.
+\end{ese}
+
+\begin{ese}
+	\(\Q(\sqrt[4]{2},i)\) è il campo di spezzamento di \(X^4-2\in \Q[X]\). Per la proposizione
+	\[
+		\#\Aut\big(\Q(\sqrt[4]{2},i)/\Q\big) = \big[\Q(\sqrt[4]{2},i):\Q\big] = 8.
+	\]
+	I gruppi di ordine \(8\) sono
+	\[
+		\frac{\Z}{8\Z}; \qquad \frac{\Z}{4\Z}\times \frac{\Z}{4\Z}; \qquad \frac{\Z}{2\Z}\times \frac{\Z}{2\Z} \times \frac{\Z}{2\Z}; \qquad D_4; \qquad Q_8.
+	\]
+	A quale di questi corrisponde \(\Aut\big(\Q(\sqrt[4]{2},i)/\Q\big)\) lo si determina in base al numero di elementi di ordine \(2\).
+\end{ese}
+
+\begin{ese}[Campo di spezzamento di un polinomio non separabile]
+	\(\F_p(T,\a), \a^p=T\) è il campo di spezzamento di \(X^p-T\in \F_p(T)\).
+	Sappiamo che l'estensione \(\F_p(T,\a)/\F_p(T)\) ha grado \(p\), d'altronde
+	\[
+		\Aut\big(\F_p(T,\a)/\F_p(T)\big) = \{id\}
+	\]
+	in quanto
+	\[
+		f_\a(X) = X^p-T = (X-\a)^p \implies \a \mapsto \a.
+	\]
+\end{ese}
+
+\begin{defn}{Sottocampo invariante}{sottocampoInvariante}\index{Sottocampo!invariante}
+	Sia \(E/F\) un estensione e sia \(G\le \Aut(E/F)\). Definiamo
+	\[
+		E^G = \Inv(G) = \Set{\a \in E | \s\,\a = \a \,\fa \s \in G}
+	\]
+	un sottocampo di \(E\), detto \emph{sottocampo invariante di \(G\)}
+\end{defn}
+
+\begin{oss}
+	Per ogni \(G\le \Aut(E/F)\), si ha che \(F\subseteq E^G\subseteq E\) è un campo.
+	Infatti per ogni \(\a,\b\in E^G\) e per ogni \(\s\in G\), si ha
+	\[
+		\s(\a+\b)=\s(\a)+\s(\b)=\a+\b \qquad\text{e}\qquad \s(\a\,\b) = \s(\a)\s(\b) = \a\,\b.
+	\]
+\end{oss}
+
+\begin{pr}
+	Preso \(E/F\) e \(\Aut(E/F)\) vi è una relazione fra il reticolo dei sottocampi di \(E/F\) e quello dei sottogruppi di \(\Aut(E/F)\)
+	\[
+		\Set{M \text{ campo }| F\subseteq M\subseteq E} \longleftrightarrow \Set{G \text{ gruppo } | G\le \Aut(E/F)}
+	\]
+	tramite
+	\[
+		M \longmapsto \Aut(E/M) \qquad\text{e}\qquad E^G \longmapsfrom G
+	\]
+\end{pr}
+
+\begin{oss}
+	Se \(E\) è il campo di spezzamento di un polinomio separabile in \(F[X]\) mostreremo che la corrispondenza è biunivoca. In altre parole
+	\[
+		E^{\Aut(E/M)} = M \qquad\text{e}\qquad \Aut(E/E^G) = G.
+	\]
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 15/11/2016 - SESTA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{teor}{Lemma di Artin}{lemmaArtin}\index{Lemma di Artin}
+	Sia \(G\) un sottogruppo finito di \(\Aut(E)\). Allora
+	\[
+		[E:E^G] \le \#G.
+	\]
+\end{teor}
+
+\begin{proof}
+	Sia \(F=E^G\). Da \(G\) finito avremo \(G=\{\s_1,\ldots,\s_m\}\) con \(\s_1=id\).
+	Presi \(\a_1,\ldots,\a_n\in E\), con \(n>m\), mostreremo che \(\a_1,\ldots,\a_n\) sono \(F\)-linearmente dipendenti. Da ciò segue che \(\dim_F E\le m\).
+
+	Consideriamo il seguente sistema lineare:
+	\[
+		\left\{
+		\begin{aligned}
+			\s_1(\a_1)X_1 + \ldots + \s_1(\a_n)X_n & = 0 \\
+			\vdots                                       \\
+			\s_m(\a_1)X_1 + \ldots + \s_m(\a_n)X_n & = 0
+		\end{aligned}
+		\right.
+	\]
+	che ha \(m\) righe e \(n\) colonne. Dal momento che \(n>m\), vi sono più incognite che equazioni, per cui esiste una soluzione del sistema non banale.
+
+	Sia \((c_1,\ldots,c_n)\in E^n\) una soluzione del sistema tale che abbia il minimo numero di componenti non nulle.
+	A meno di riordinare le \(\a_j\), possiamo supporre che \(c_1\neq 0\) e, siccome l'insieme delle soluzioni di un sistema omogeneo è invariante per moltiplicazione di scalari, possiamo assumere che \(c_1\in F\).
+
+	Se tutte le altre componenti \(c_2,\ldots,c_n\) appartengono a \(F\), allora, dal momento che \(\s_1=id\), sostituendo la soluzione alla prima riga del sistema si avrebbe
+	\[
+		c_1\a_1 + \ldots + c_n\a_n = 0,
+	\]
+	ovvero \(\a_1,\ldots,\a_n\) sono \(F\)-linearmente dipendenti.
+
+	Supponiamo per assurdo che esista \(j\) tale che \(c_j\not\in F=E^G\). Per la definizione di sottocampo invariante, segue che esiste \(\s_k\in G\) tale che \(\s_k c_j \neq c_j\).
+	Se al sistema lineare sostituisco le soluzioni \(c_j\) e applico ad ogni riga \(\s_k\), ottengo:
+	\[
+		\left\{
+		\begin{aligned}
+			\s_k\circ\s_1(\a_1)\s_k(c_1) + \ldots + \s_k\circ\s_1(\a_n)\s_k(c_n) & = 0 \\
+			\vdots                                                                     \\
+			\s_k\circ\s_m(\a_1)\s_k(c_1) + \ldots + \s_k\circ\s_m(\a_n)\s_k(c_n) & = 0
+		\end{aligned}
+		\right.
+	\]
+	D'altronde \(G=\{\s_1,\ldots,\s_m\}=\{\s_k\s_1,\ldots,\s_k\s_m\}\), per cui abbiamo ottenuto uno scambio delle equazioni del sistema lineare. Inoltre \(\big(\s_k(c_1),\ldots,\s_k(c_n)\big)\) è ancora una soluzione e pertanto lo è anche
+	\[
+		\big(\s_k(c_1)-c_1,\ldots,\s_k(c_k)-c_k,\ldots,\s_k(c_n)-c_n\big),
+	\]
+	dove
+	\[
+		\s_k(c_1)=c_1 \implies \s_k(c_1)-c_1=0 \qquad\text{e}\qquad \s_k(c_k)\neq c_k \implies \s_k(c_k)-c_k \neq 0.
+	\]
+	Per cui abbiamo trovato un'altra soluzione del sistema che è non nulla ed ha uno zero in più della soluzione presa in ipotesi.
+	Ciò è assurdo per la minimalità della soluzione \(c_1,\ldots,c_n\), da cui segue che \(c_1,\ldots,c_n\in F\) che implica la tesi.
+\end{proof}
+
+\begin{cor}\label{cor:Artin}
+	Se \(G\) è un sottogruppo finito di \(\Aut(E)\) allora
+	\[
+		\Aut(E/E^G) = G.
+	\]
+\end{cor}
+
+\begin{proof}
+	Dalle definizioni di sottocampo invariante e gruppo di automorfismi
+	\begin{gather*}
+		E^G = \Set{\a \in E | \s\a = \a,\,\fa \s \in G},\\
+		\Aut(E/E^G) = \Set{\s\in \Aut(E) | \s\a = \a,\,\fa \a \in E^G}.
+	\end{gather*}
+	Per cui è ovvio che \(\Aut(E/E^G)\supseteq G\), da cui
+	\[
+		\#G \le \#\Aut(E/E^G).
+	\]
+	Ora per il lemma di Artin \([E:E^G]\le \#G\). Inoltre per un \hyperref[cor:stimaInsiemeOmo]{vecchio corollario} avremo \(\#\Aut(E/E^G)\le [E:E^G]\). Quindi
+	\[
+		[E:E^G] \le \#G \le \#\Aut(E/E^G) \le [E:E^G],
+	\]
+	da cui \(\#G=\#\Aut(E/E^G)\) che implica la tesi.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 16/11/2016 - SESTA SETTIMANA (3)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%ESTENSIONI SEPARABILI, NORMALI E DI GALOIS%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Estensioni separabili, normali e di Galois}
+
+\begin{defn}{Estensione separabile}{estensioneSeparabile}\index{Estensione di campi!separabile}
+	Un'estensione \(E/F\) si dice \emph{separabile} se il polinomio minimo \(f_\a(X)\in F[X]\) di ogni elemento \(\a\in E\) è separabile.
+\end{defn}
+
+\begin{oss}
+	Quindi un'estensione \(E/F\) è separabile se ogni polinomio irriducibile in \(F[X]\), avente una radice in \(E\), è separabile.
+	Viceversa è non separabile se \(F\) è non perfetto, in particolare ha caratteristica \(p\), e vi è un elemento \(\a\in E\) il cui polinomio minimo è della forma \(g(X^p)\), con \(g\in F[X]\).
+\end{oss}
+
+\begin{ese}
+	\(\F_p(T)\) è un'estensione non separabile di \(\F_p(T^p)\).
+\end{ese}
+
+\begin{defn}{Estensione normale}{estensioneNormale}\index{Estensione di campi!normale}
+	Un'estensione \(E/F\) si dice \emph{normale} se il polinomio minimo \(f_\a(X)\in F[X]\) di ogni elemento \(\a\in E\) si spezza in \(E[X]\).
+\end{defn}
+
+\begin{oss}
+	Quindi un'estensione \(E/F\) è normale se ogni polinomio irriducibile in \(F[X]\), avente una radice in \(E\), si spezza in \(E[X]\).
+\end{oss}
+
+\begin{oss}
+	Sia \(f\) un polinomio irriducibile di grado \(m\) in \(F[X]\). Se \(f\) ha una radice in \(E\), allora
+	\[
+		\left.
+		\begin{aligned}
+			E/F \text{ separabile } & \implies \text{ radici di \(f\) distinte } \\
+			E/F \text{ normale }    & \implies \text{ \(f\) si spezza in \(E\) }
+		\end{aligned}
+		\right\} \implies \text{ \(f\) ha \(m\) radici distinte in \(E\)}.
+	\]
+	Quindi \(E/F\) è normale e separabile se e soltanto se, per ogni \(\a \in E\), il polinomio minimo di \(\a\) ha \(\deg f_\a\) radici distinte in \(E\).
+\end{oss}
+
+\begin{ese}
+	\(\Q[\sqrt[3]{2}]/\Q\) è un'estensione separabile ma non normale. Infatti \(X^3-2\) non si spezza su \(\Q[\sqrt[3]{2}]\).
+\end{ese}
+
+\begin{ese}
+	Il campo \(\F_p(T)\) è normale ma non separabile su \(\F_p(T^p)\). Infatti il polinomio minimo di \(T\) è \(X^p-T^p\) che non è separabile.
+\end{ese}
+
+\begin{teor}{Caratterizzazione delle estensioni Galois}{caratterizzazioneEstensioniGalois}
+	Sia \(E/F\) un'estensione qualsiasi. Allora le seguenti affermazioni sono equivalenti:
+	\begin{enumerate}
+		\item \(E=F_f\) con \(f\in F[X]\) separabile.
+		\item \(F=E^G\) con \(G\le \Aut(E)\) finito.
+		\item \(E/F\) è finita, normale e separabile.
+		\item \(E/F\) è finita e \(F=E^{\Aut(E/F)}\).
+	\end{enumerate}
+\end{teor}
+
+\begin{proof}
+	\graffito{\(1\implies 4\)}Se \(E=F_f\) allora \(E\) è algebrico e finitamente generato, in particolare \(E\) è finito.
+	Resta da dimostrare che \(F=E^{\Aut(E/F)}\).
+
+	Poniamo \(F'=E^{\Aut(E/F)}\supseteq F\). Siccome \(E=F_f\) posso pensare \(f(X)\in F'[X]\), in particolare avremo \(F'_f=E\).
+	Per la \autoref{pr:dimensioneGruppoAutomorfismiCampoSpezzamento} avremo
+	\[
+		[E:F'] = \#\Aut(E/F') \qquad\text{e}\qquad [E:F] = \#\Aut(E/F).
+	\]
+	Ora \(\Aut(E/F)\) è finito, quindi per il \hyperref[cor:Artin]{corollario di Artin}
+	\[
+		\Aut(E/F') = \Aut(E/E^{\Aut(E/F)}) = \Aut(E/F).
+	\]
+	\graffito{\(4 \implies 2\)}\hyperref[cor:stimaInsiemeOmo]{Per un corollario precedente} sappiamo che \(\#\Aut(E/F)\le [E:F]\) che è finito per ipotesi. Quindi la tesi è un banale caso particolare.
+
+	\graffito{\(2\implies 3\)}Per ipotesi \(F=E^G\), quindi dal \hyperref[th:lemmaArtin]{lemma di Artin} otteniamo che
+	\[
+		[E:F] \le \#G < \infty.
+	\]
+	Sia ora \(\a\in E\), dobbiamo mostrare che \(f_\a\) ha \(\deg f_\a\) radici distinte in \(E\). Consideriamo l'orbita di \(\a\) sotto \(G\):
+	\[
+		\a^G = \Set{\s\a | \s \in G} = \{\a_1,\a_2,\ldots,\a_m\}\graffito{possiamo supporre \(\a_1=\a\) poichè \(id \in G\)}
+	\]
+	dove \(\a^G\subseteq E\) poiché \(\s\) sono tutti automorfismi di \(E\). Inoltre \(m\le \#G\). Definiamo
+	\[
+		g(X) = \prod_{j=1}^m (X-\a_j) = \prod_{\b\in \a^G} (X-\b).
+	\]
+	Dimostriamo che \(g(X)=f_\a(X)\in F[X]\). Per definizione
+	\[
+		g(X) = X^m + c_1 X^{m-1} + \ldots + c_m,
+	\]
+	dove
+	\[
+		c_1 = -(\a_1+\ldots+\a_m) \qquad\text{e}\qquad c_m = (-1)^m \a_1 \cdot\ldots\cdot \a_m,
+	\]
+	e, in generale, \(c_j=(-1)^j \varsigma_j(\a_1,\ldots,\a_m)\), dove \(\varsigma_j\) è la \(j\)-esima funzione simmetrica elementare.
+	Osserviamo che, per ogni \(\s\in G\), si ha
+	\[
+		\s(c_1) = -\big(\s(\a_1)+\ldots+\s(\a_m)\big) = -(\a_1 + \ldots +\a_m) = c_1,
+	\]
+	infatti \(\a^G \to \a^G, \a_j \mapsto \s(\a_j)\) è una permutazione dell'orbita. In generale avremo \(\s(c_j)=c_j\) per ogni \(\s\in G\). Ciò significa che \(c_1,\ldots,c_m\) sono fissati da ogni elemento di \(G\), ovvero \(c_1,\ldots,c_m\in E^G=F\). In particolare
+	\[
+		g(X) \in F[X].
+	\]
+	D'altronde \(\a_1=\a\) ci dice che \(\a\) è una radice di \(g\), pertanto \(f_\a (X)\mid g(X)\). Inoltre, per ogni \(\s\in G\),
+	\[
+		f_\a(\a_j) = f_\a\big(\s(\a)\big) = \s\big(f_\a(\a)\big) = 0,
+	\]
+	in quanto \(\s \in \Aut(E/F)\). Per cui
+	\[
+		g(X) \mid f_\a(X) \implies g(X) = f_\a(X).
+	\]
+	\graffito{\(3\implies 1\)}\(E/F\) è finita, quindi \(E=F[\a_1,\ldots,\a_m]\).
+	Sia \(f=\mcm(f_{\a_1},\ldots,f_{\a_m})\). Segue che \(f\) è separabile e \(E\) è il campo di spezzamento di \(f\).
+	Mostriamo che \(F_f=F[\a_1,\ldots,\a_m]\).
+	Chiaramente \(F_f\supseteq F[\a_1,\ldots,\a_m]\). L'altra inclusione segue da \(E/F\) normale e pertanto tutte le radici di \(f\) sono in \(E\).
+\end{proof}
+
+\begin{defn}{Estensione Galois}{estensioneGalois}\index{Estensione di campi!Galois}
+	Un'estensione finita \(E/F\) si dice \emph{Galois} se soddisfa una delle condizioni equivalenti del teorema precedente.
+\end{defn}
+
+\begin{notz}
+	Se \(E/F\) è Galois scriviamo
+	\[
+		\Gal(E/F) := \Aut(E/F).
+	\]
+\end{notz}
+
+\begin{pr}\label{pr:polMinimoTFCG}
+	Sia \(E/F\) Galois. Se \(G=\Gal(E/F)\) allora
+	\[
+		f_\a(X) = \prod_{\b\in \a^G} (X-\b)
+	\]
+	per ogni \(\a\in E\).
+\end{pr}
+
+\begin{proof}
+	Segue dal passo \((2)\implies (3)\) del teorema precedente.
+\end{proof}
+
+\begin{ese}
+	\(E=\Q[\sqrt{2},\sqrt{3}]\) è Galois in quanto \(E=\Q_f\) con \(f(X)=(X^2-2)(X^2-3)\). In quanto campo di spezzamento \(\Gal(E/\Q)\) ha \([E:\Q]=4\) elementi. Nello specifico:
+	\[
+		\s_1 = id; \quad \s_2=
+		\left(\begin{aligned}
+				\sqrt{3} & \mapsto -\sqrt{3} \\
+				\sqrt{2} & \mapsto \sqrt{2}
+			\end{aligned}\right);\quad
+		\s_3=
+		\left(\begin{aligned}
+				\sqrt{3} & \mapsto \sqrt{3}  \\
+				\sqrt{2} & \mapsto -\sqrt{2}
+			\end{aligned}\right);\quad
+		\s_4=
+		\left(\begin{aligned}
+				\sqrt{3} & \mapsto -\sqrt{3} \\
+				\sqrt{2} & \mapsto -\sqrt{2}
+			\end{aligned}\right).
+	\]
+	Avevamo infatti già osservato che \(\Gal(E/\Q)\cong V\) il gruppo di Klein.
+
+	Vorremmo calcolare il polinomio minimo di \(\sqrt{3}\) e \(\sqrt{3}+\sqrt{2}\). Applichiamo la proprietà:
+	\begin{gather*}
+		(\sqrt{3})^G = \{\sqrt{3},-\sqrt{3}\} \implies f_{\sqrt{3}}(X) = (X-\sqrt{3})(X+\sqrt{3}) = X^2-3\\
+		(\sqrt{3}+\sqrt{2})^G = \{\pm\sqrt{3}\pm\sqrt{2},\pm\sqrt{3}\mp\sqrt{2}\},
+	\end{gather*}
+	da cui
+	\[
+		\begin{split}
+			f_{\sqrt{3}+\sqrt{2}}(X) & = (X-\sqrt{3}-\sqrt{2})(X-\sqrt{3}+\sqrt{2})(X+\sqrt{3}-\sqrt{2})(X+\sqrt{3}+\sqrt{2})\\
+			& = X^4-10X^2+1.
+		\end{split}
+	\]
+\end{ese}
+
+\begin{defn}{Orbita di un elemento}{orbita}\index{Orbita}
+	Se \(G\) è un gruppo che agisce sull'insieme \(E\), per ogni \(\a \in E\), si definisce \emph{l'orbita di \(\a\) sotto \(G\)}, come
+	\[
+		\a^G = \Set{\s\a | \s \in G}
+	\]
+\end{defn}
+
+\begin{notz}
+	Se \(E/F\) è Galois e \(\a\in E\). Posto \(G=\Gal(E/F)\), gli elementi di \(\a^G\) si definiscono \emph{coniugati} di \(\a\).
+\end{notz}
+
+\begin{defn}{Chiusura di Galois}{chiusuraGalois}\index{Chiusura!di Galois}
+	Sia \(E/F\) un'estensione finita. \(\chius{E}\) si definisce \emph{chiusura di Galois} di \(E\) se
+	\begin{itemize}
+		\item \(\chius{E}/F\) è Galois;
+		\item \(\chius{E}\) è minimale, ovvero per ogni campo intermedio \(\chius{E}\supset L \supseteq F, L/F\) non è Galois.
+	\end{itemize}
+\end{defn}
+
+\begin{oss}
+	Se \(E/F\) è finita e separabile, esiste sempre la chiusura di Galois \(\chius{E}\) di \(E\).
+	Infatti se \(E=F[\a_1,\ldots,\a_m]\), è sufficiente prendere \(f=\mcm(f_{\a_1},\ldots,f_{\a_m})\) che è separabile, così da avere \(\chius{E}=F_f\).
+	Infatti \(F_f\supseteq E\) ed è Galois su \(F\).
+\end{oss}
+
+\begin{ese}
+	\(E=\Q[\sqrt[3]{2}]\) è finita e separabile su \(\Q\). Per ottenere la chiusura di Galois di \(E\), è sufficiente prendere il campo di spezzamento di \(X^3-2\), ovverto \(\Q[\sqrt[3]{2},w]\).
+\end{ese}
+
+\begin{pr}
+	La chiusura di Galois di \(E/F\) è unica a meno di isomorfismi.
+\end{pr}
+
+\begin{pr}
+	Se \(E/F\) è Galois e \(E\supseteq M\supseteq F\). Allora \(E/M\) è Galois.
+\end{pr}
+
+\begin{proof}
+	Supponiamo che \(E/F\) sia Galois. Per la caratterizzazione, \(E=F_f\) con \(f\in F[X]\) separabile.
+	In particolare, se consideriamo \(f\) in \(M[X]\), avremo \(E=M_f\), dove \(f\in M[X]\) rimane ancora separabile.
+	Per cui \(E/M\) è Galois.
+\end{proof}
+
+\begin{oss}
+	In generale non è però vero che \(M/F\) è Galois. Ad esempio se consideriamo \(\Q[\sqrt[3]{2},w]\supseteq \Q[\sqrt[3]{2}]\supseteq \Q\), abbiamo che \(\Q[\sqrt[3]{2},w]\) è Galois su \(\Q\) e \(\Q[\sqrt[3]{2}]\). Ma \(\Q[\sqrt[3]{2}]/\Q\) non lo è.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%TEOREMA FONDAMENTALE DELLA CORRISPONDENZA DI GALOIS%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Teorema fondamentale della corrispondenza di Galois}
+
+In questo paragrafo tratteremo il teorema di Galois, andando poi a dimostrarne le principali conseguenze.
+
+\begin{teor}{fondamentale della corrispondenza di Galois}{TFCG}\index{Teorema!fondamentale della corrispondenza di Galois}
+	Sia \(E/F\) Galois e sia \(G=\Gal(E/F)\). Allora le mappe
+	\[
+		H \longmapsto E^H \qquad\text{e}\qquad M \longmapsto \Gal(E/M),
+	\]
+	sono biezioni, l'una l'inversa dell'altra, tra l'insieme dei sottogruppi di \(G\) e quello dei campi intermedi fra \(E\) ed \(F\):
+	\[
+		\Set{H | H\le G} \longleftrightarrow \Set{M | F\subseteq M \subseteq E}
+	\]
+\end{teor}
+
+\begin{proof}
+	\'E Sufficiente mostrare che la composizione delle mappa costituisce l'identità per i rispettivi insiemi.
+	\(H=\Gal(E/E^H)\) segue dal \hyperref[cor:Artin]{corollario di Artin} in quanto \(G\) è finito.
+	Viceversa, \(M=E^{\Gal(E/M)}\) segue da
+	\[
+		E/F \text{ Galois } \implies E/M \text{ Galois},
+	\]
+	quindi, per la quarta proprietà della \hyperref[th:caratterizzazioneEstensioniGalois]{caratterizzazione},
+	\[
+		M= E^{\Aut(E/M)} = E^{\Gal(E/M)}.
+	\]
+\end{proof}
+
+\begin{pr}[Inversione dell'inclusione tramite la corrispondenza]\label{TFCG1}
+	Se \(H_1,H_2\le G\) allora
+	\[
+		H_1 \subseteq H_2 \iff E^{H_1} \supseteq E^{H_2}.
+	\]
+\end{pr}
+
+\begin{proof}
+	Per definizione
+	\[
+		E^{H_1} = \Set{\a \in E | \s\a = \a,\,\fa \s \in H_1} \qquad\text{e}\qquad E^{H_2} = \Set{\a \in E | \s\a = \a,\,\fa \s \in H_2}.
+	\]
+	Quindi se \(H_1\subseteq H_2\), chiaramente \(E^{H_1}\supseteq E^{H_2}\). Viceversa se \(E^{H_1}\supseteq E^{H_2}\), segue immediatamente che \(\Gal(E/E^{H_2})\supseteq \Gal(E/E^{H_1})\). Per il \hyperref[cor:Artin]{corollario di Artin}
+	\[
+		\Gal(E/E^{H_2}) = H_2 \qquad\text{e}\qquad \Gal(E/E^{H_1})=H_1.
+	\]
+	Quindi \(H_2 \supseteq H_1\).
+\end{proof}
+
+\begin{oss}
+	Chiaramente, per la corrispondenza, vale anche il viceversa. Ovvero se \(F\subseteq M_1,M_2 \subseteq E\), allora
+	\[
+		M_1 \subseteq M_2 \iff \Gal(E/M_1) \supseteq \Gal(E/M_2).
+	\]
+\end{oss}
+
+\begin{pr}[Conservazione degli indici]\label{TFCG2}
+	Se \(H_1,H_2 \le G\) e \(H_1 \subseteq H_2\), allora
+	\[
+		[H_2:H_1] = [E^{H_1}:E^{H_2}].
+	\]
+\end{pr}
+
+\begin{proof}
+	Per il \hyperref[cor:Artin]{corollario di Artin} \(H_2 = \Gal(E/E^{H_2})\), da cui
+	\[
+		\abs{H_2} = \#\Gal(E/E^{H_2}) = [E:E^{H_2}] = [E:E^{H_1}][E^{H_1}:E^{H_2}].
+	\]
+	D'altronde, dal teorema di Lagrange della teoria dei gruppi
+	\[
+		\abs{H_2} = \abs{H_1}[H_2:H_1],
+	\]
+	dove \(\abs{H_1}=[E:E^{H_1}]\) ancora per il corollario di Artin. Da ciò segue immediatamente
+	\[
+		[E:E^{H_1}][E^{H_1}:E^{H_2}] = [E:E^{H_1}][H_2:H_1] \implies [E^{H_1}:E^{H_2}] = [H_2:H_1].
+	\]
+\end{proof}
+
+\begin{oss}
+	Anche in questo caso vale il viceversa. Se \(F\subseteq M_1,M_2 \subseteq E\) e \(M_1\subseteq M_2\), allora
+	\[
+		[M_2:M_1] = \big[\Gal(E/M_1):\Gal(E/M_2)\big].
+	\]
+\end{oss}
+
+\begin{ese}
+	In esempi precedenti abbiamo mostrato che \(\Q[\sqrt[3]{2},w]/\Q\) è Galois e \(\Gal(\Q[\sqrt[3]{2},w]/Q)\cong S_3\).
+	Sappiamo che il reticolo di \(S_3\) è il seguente
+	\[
+		\begin{tikzcd}
+			&                     & S_3 \arrow[dll, dash, swap, "3"] \arrow[dl, dash, "3"] \arrow[dr, dash, swap, "3"] \arrow[drr, dash, "2"]\\
+			\langle(1,2)\rangle & \langle(1,3)\rangle &       & \langle(2,3)\rangle & \langle(1,2,3)\rangle\\
+			&                     & (1) \arrow[ull, dash, "2"] \arrow[ul, dash, swap, "2"] \arrow[ur, dash, "2"] \arrow[urr, dash, swap, "3"]
+		\end{tikzcd}
+	\]
+	il teorema di corrispondenza ci permette di dedurre
+	\[
+		\begin{tikzcd}
+			&                     & \Q \arrow[dll, dash, swap, "3"] \arrow[dl, dash, "3"] \arrow[dr, dash, swap, "3"] \arrow[drr, dash, "2"]\\
+			\Q(w^2\sqrt[3]{2}) & \Q(w\sqrt[3]{2}) &       & \Q(\sqrt[3]{2}) & \Q(\sqrt{-3})\\
+			&                     & \Q(\sqrt[3]{2},\sqrt{-3}) \arrow[ull, dash, "2"] \arrow[ul, dash, swap, "2"] \arrow[ur, dash, "2"] \arrow[urr, dash, swap, "3"]
+		\end{tikzcd}
+	\]
+	Infatti anche se in principio riconoscevamo solo \(\Q[\sqrt[3]{2}]\), la teoria ci dice che vi sono altre due sottocampi di grado \(3\) su \(\Q\).
+	D'altronde sappiamo che se \(\s\in G\) e \(F\subseteq M\subseteq E\), allora
+	\[
+		\s M = \Set{\s(\g) | \g \in M},
+	\]
+	che si chiama sottocampo coniugato a \(M\).
+	Ora \(M\) è isomorfo \(\s M\) tramite \(\g \mapsto \s(\g)\). Quindi per trovare gli alti due sottocampi, ci basta studiare i coniugati di \(\Q[\sqrt[3]{2}]\). Tali coniugati sono proprio definiti dai coniugati di \(\sqrt[3]{2}\), per cui avremo
+	\[
+		\Q[w\,\sqrt[3]{2}] \qquad\text{e}\qquad \Q[w^2 \sqrt[3]{2}].
+	\]
+	Osserviamo che non è possibile dire con precisione a chi corrisponde \(\langle(1,2)\rangle\), poiché esso risente della rappresentazione scelta per \(S_3\).
+
+	D'altra parte sappiamo con esattezza che \(\langle(1,2,3)\rangle\) corrisponde a \(\Q[w]\) e possiamo osservare una proprietà interessante:
+	\[
+		\langle(1,2,3)\rangle = A_3 \trianglelefteq S_3
+	\]
+	e infatti \(\Q[w]\) è normale su \(\Q\).
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 21/11/2016 - SETTIMA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{pr}[Invariante del coniugato]\label{TFCG3}
+	Per ogni \(\s\in G\) e per ogni \(H\le G\) vale
+	\[
+		E^{\s H \s^{-1}} = \s E^H.
+	\]
+\end{pr}
+
+\begin{proof}
+	Per definizione
+	\begin{gather*}
+		E^{\s H\s^{-1}} = \Set{\a \in E | \s\t\s^{-1}(\a)=\a,\,\fa \t\in H},\\
+		\s E^{H} = \Set{\s\a \in E | \t(\a)=\a,\,\fa \t\in H}.
+	\end{gather*}
+	Si mostra facilmente che
+	\[
+		\t\a = \a \iff (\s\t\s^{-1})\big(\s(\a)\big) = \s(\a).
+	\]
+	Quindi
+	\[
+		\begin{split}
+			\b \in E^{\s H\s^{-1}} & \iff \s\t\s^{-1}(\b)=\b \iff \t\big(\s^{-1}(\b)\big) = \s^{-1}(\b)\graffito{\(\s^{-1}(\b)=\a\)}\\
+			& \iff \t\a = \a \iff \a \in E^H\\
+			& \iff \b = \s\a \in \s E^{H}.\qedhere
+		\end{split}
+	\]
+\end{proof}
+
+\begin{oss}
+	Chiaramente vale anche il viceversa. Se \(\s\in G\) e \(F\subseteq M\subseteq E\), allora
+	\[
+		\s \Gal(E/M)\s^{-1} = \Gal(E/\s M).
+	\]
+\end{oss}
+
+\begin{pr}[Conservazione della normalità]\label{TFCG4}
+	\(N\) è normale in \(G\) se e soltanto se \(E^N/F\) è normale.
+\end{pr}
+
+\begin{proof}
+	Per definizione
+	\[
+		N \trianglelefteq G \iff \s n\s^{-1} \in N,\,\fa n\in N\,\fa \s \in G \iff \s N\s^{-1}=N.
+	\]
+	Mentre \(E^N/F\) è normale se il polinomio minimo \(f_\a(X)\) di ogni \(\a\in E^N\) si spezza in \(E^N\). Quindi se
+	\[
+		f_\a(X) = \prod_{j=1}^{\deg f_\a} (X-\a_j) \implies \a_1,\ldots,\a_{\deg f_\a} \in E^N.
+	\]
+	D'altronde esisterà \(\s\in \Gal(E/F)\) tale che \(\a_j=\s(\a)\). Quindi \(E^N/F\) è normale se e soltanto se
+	\[
+		\s\a \in E^N,\,\fa \a \in E^n\,\fa \s \in G \iff \s E^N = E^N.
+	\]
+	DA FINIRE!!!
+\end{proof}
+
+\begin{oss}
+	Se \(E^N/F\) è normale è necessariamente Galois. In generale sappiamo che se \(F\subseteq M\subseteq E\) e \(E/F\) è Galois, non è necessariamente vero che \(M/F\) lo sia. D'altronde se \(E/F\) è separabile lo è anche \(M/F\).
+	Quindi \(E^N/F\) è Galois per la \hyperref[th:caratterizzazioneEstensioniGalois]{caratterizzazione} in quanto finito, normale e separabile.
+\end{oss}
+
+\begin{oss}
+	Se \(E^N/F\) è normale, e quindi Galois, vale
+	\[
+		\Gal(E^N/F) \cong \frac{G}{N}.
+	\]
+	L'identità fra gli ordine è facile da dedurre, infatti
+	\[
+		\#G = \#\Gal(E/F) = [E:F] = [E:E^N][E^N:F] = \#N \#\Gal(E^N/F),
+	\]
+	da cui
+	\[
+		\#\Gal(E^N/F) = \frac{\#G}{\#N} = \# \frac{G}{N}.
+	\]
+\end{oss}
+
+\begin{pr}[Invariante dell'intersezione di sottogruppi]\label{TFCG5}
+	Se \(H_1,H_2\le G\), allora
+	\[
+		E^{H_1\cap H_2} = E^{H_1}E^{H_2}.
+	\]
+\end{pr}
+
+\begin{proof}
+	\(H_1\cap H_2\) è per definizione il più grande sottogruppo contenuto in \(H_1\) e \(H_2\).
+	Il teorema ci dice che vi è un'anti-corrispondenza fra i sottogruppi di \(G\) e i campi intermedi di \(E/F\). Pertanto \(E^{H_1\cap H_2}\) deve essere il più piccolo sottocampo che contiene \(E^{H_1}\) e \(E^{H_2}\), ovvero \(E^{H_1}E^{H_2}\).
+\end{proof}
+
+\begin{oss}
+	In generale vale
+	\[
+		E^{H_1 \cap \ldots \cap H_n} = E^{H_1}\cdot\ldots\cdot E^{H_n}.
+	\]
+\end{oss}
+
+\begin{pr}[Corrispondenza del normalizzatore]\label{TFCG6}
+	Sia \(H\le G\), allora
+	\[
+		\bigcap_{\s\in G} \s H \s^{-1} \text{ corrisponde a } \prod_{\s\in G}\s E^H.\qedhere
+	\]
+\end{pr}
+
+\begin{proof}
+	Per definizione il normalizzatore di \(H\) in \(G\)
+	\[
+		n_H G = \bigcap_{\s\in G} \s H \s^{-1}
+	\]
+	è il più grande sottogruppo normale di \(G\) contenuto in \(H\). Nuovamente, poiché il teorema inverte l'ordine nella corrispondenza, \(n_H G\) dovrà corrispondenre alla più piccola estensione normale di \(F\) che contiene \(E^H\), ovvero
+	\[
+		\prod_{\s\in G}\s E^H.\qedhere
+	\]
+\end{proof}
+
+\begin{notz}
+	La composizione
+	\[
+		\prod_{\s\in G}\s E^H
+	\]
+	viene detta \emph{chiusura normale, o Galois}, di \(E^H\) e si denota con \(\chius{E^H}\).
+\end{notz}

@@ -1,0 +1,1243 @@
+%!TEX root = ../main.tex
+\chapter{Definizioni e risultati di base}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 27/09/2016 - PRIMA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%
+%ANELLI%
+%%%%%%%%
+\section{Anelli}
+
+\begin{defn}{Anello}{anello}\index{Anello}
+	Un \emph{anello} è un insieme \(A\) dotato di due operazioni \(+\) e \(\cdot\) tali che
+	\begin{enumerate}
+		\item \((A,+)\) è un gruppo commutativo;
+		\item \((A,\cdot)\) è un monoide commutativo;
+		\item la moltiplicazione è distributiva rispetto alla somma.
+	\end{enumerate}
+\end{defn}
+
+\begin{notz}
+	In questo corso un anello, a meno di esplicitarlo altrimenti, si intende sempre unitario e commutativo.
+\end{notz}
+
+\begin{defn}{Sottoanello}{sottoanello}\index{Sottoanello}
+	Sia \(A\) un anello e \(B\subseteq A\).
+	\(B\) si dice \emph{sottoanello} di \(A\) se
+	\begin{itemize}
+		\item \((B,+)\) è un sottogruppo di \((A,+)\);
+		\item \(B\) è chiuso rispetto al prodotto;
+		\item \(1_A\) appartiene a \(B\).
+	\end{itemize}
+\end{defn}
+
+\begin{oss}
+	In particolare un sottoanello costituisce un anello.
+	D'altronde il viceversa è falso, infatti \(A=\Z\times \Z\) è un anello rispetto alle operazioni canoniche la cui identità è \((1,1)\).
+	Se considero \(S = \Set{(x,0)| x\in \Z}\) avrò che \(S\) è un anello e \(S\subseteq A\), ma \(S\) non è un sottoanello di \(A\) in quanto \((1,1)\not\in S\), la cui identità è invece \((1,0)\).
+\end{oss}
+
+\begin{defn}{Omomorfismo di anelli}{omomorfismoAnelli}\index{Omomorfismo!di anelli}
+	Siano \(A,A'\) anelli.
+	Un \emph{omomorfismo di anelli} \(\j\colon A \to A'\) è una mappa che mantiene le operazioni, ovvero tale che per ogni \(a,b\in A\)
+	\[
+		\j(a+b)=\j(a)+\j(b), \qquad \j(a\,b)=\j(a)\j(b), \qquad \j(1_A) = 1_{A'}.
+	\]
+\end{defn}
+
+\begin{ese}
+	Riprendendo l'esempio dell'osservazione precedente avremo che
+	\[
+		\j\colon S \hookrightarrow A, (x,0) \mapsto (x,0),
+	\]
+	non è un omomorfismo in quanto
+	\[
+		\j(1_S) = \j((1,0)) = (1,0) \neq 1_A.
+	\]
+\end{ese}
+
+\begin{defn}{Dominio di integrità}{dominio}\index{Dominio di integrità}
+	Un anello \(A\) si definisce \emph{dominio di integrità} se il prodotto di elementi non nulli è sempre non nullo, ovvero
+	\[
+		a\,b = 0 \implies a=0\text{ oppure }b=0,\,\fa a,b\in A.
+	\]
+\end{defn}
+
+\begin{notz}
+	Spesso la sola parola dominio viene utilizzata per i domini di integrità.
+\end{notz}
+
+\begin{ese}
+	\(\Z \times \Z\) non è un dominio di integrità, infatti
+	\[
+		(1,0)(0,1) = (0,0) \qquad\text{con}\qquad (1,0),(0,1) \neq (0,0).
+	\]
+\end{ese}
+
+\begin{defn}{Ideale}{ideale}\index{Ideale}
+	Sia \(A\) un anello e sia \(I\subseteq A\).
+	\(I\) si dice \emph{ideale} di \(A\) se
+	\begin{itemize}
+		\item \((I,+)\) è un sottogruppo di \((A,+)\);
+		\item \(I\) è chiuso rispetto alla moltiplicazioni di elementi in \(A\), ovvero
+		      \[
+			      a\,x \in I,\,\fa x \in I,\,\fa a \in A.
+		      \]
+	\end{itemize}
+\end{defn}
+
+\begin{pr*}
+	Se \(A\) è un anello e \(I\subseteq A\) è un ideale,
+	\[
+		\frac{A}{I} = \Set{a+I : a\in A} \qquad\text{con }a+I = \Set{a+x : x\in I}\subseteq A,
+	\]
+	è una partizione di \(A\) e costituisce un anello con le operazioni indotte sulle classi laterali.
+\end{pr*}
+
+\begin{defn}{Ideale generato}{idealeGenerato}\index{Ideale!generato}
+	Sia \(A\) un anello e siano \(\a_1,\ldots,\a_r\in A\).
+	Definiamo
+	\[
+		(\a_1,\ldots,\a_r) = \Set{x_1\a_1 + \ldots + x_r\a_r | x_1, \ldots, x_r \in A},
+	\]
+	come l'\emph{ideale generato} da \(\a_1,\ldots,\a_r\).
+\end{defn}
+
+\begin{defn}{Anello a ideali principali}{PID}\index{Anello!a ideali principali}
+	Un anello \(A\) si dice \emph{a ideali principali} se per ogni ideale \(I\subseteq A\), si ha che \(I\) è generato da un elemento di \(A\), ovvero
+	\[
+		\ex a\in A: I = (a).
+	\]
+\end{defn}
+%%%%%%%
+%CAMPI%
+%%%%%%%
+\section{Campi}
+
+\begin{defn}{Campo}{campo}\index{Campo}
+	Un anello \(K\) si definisce \emph{campo} se ogni suo elemento non nullo è invertibile, ovvero
+	\[
+		\fa x \in K, x\neq 0 \,\ex y\in K: x\,y = 1_K.
+	\]
+\end{defn}
+
+\begin{oss}
+	In altre parole un campo è un insieme \(K\) costituito da due operazioni \(+\) e \(\cdot\) tali che
+	\begin{enumerate}
+		\item \((K,+)\) è un gruppo abeliano;
+		\item \((K\setminus\{0\},\cdot)\) è un gruppo abeliano;
+		\item la moltiplicazione è distributiva rispetto alla somma.
+	\end{enumerate}
+\end{oss}
+
+\begin{ese}
+	\(\Q,\R\) e \(\C\) sono alcuni esempi di campi.
+\end{ese}
+
+\begin{oss}
+	Vi sono moltissimi campi che possono essere costruiti fra \(\Q\) ed \(\R\) od oltre \(\C\).
+	D'altronde non ve ne è nessuno fra \(\R\) e \(\C\).
+\end{oss}
+
+\begin{ese}
+	L'estensione algebrica \(\Q(\sqrt{2})\) di \(\Q\) definita come
+	\[
+		\Q(\sqrt{2}) = \Set{a+b\,\sqrt{2} | a,b\in \Q},
+	\]
+	è un campo.
+	Si mostra facilmente che ogni suo elemento ha inverso, infatti
+	\[
+		\frac{1}{a+\sqrt{2}b} = \frac{a}{a^2-2b^2} - \frac{b}{a^2-2b^2}\sqrt{2} \in \Q(\sqrt{2}).
+	\]
+\end{ese}
+
+\begin{ese}
+	L'esensione trascendente \(\Q(\p)\) di \(\Q\) definita come
+	\[
+		\Q(\p) = \Set{ \frac{a_0+a_1\p + \ldots + a_n \p^n}{b_0 + b_1\p + \ldots + b_m \p^m} | a_0,\ldots,a_n,b_0,\ldots,b_m \in \Q},
+	\]
+	è un campo.
+\end{ese}
+
+\begin{defn}{Sottocampo}{sottocampo}\index{Sottocampo}
+	Sia \(K\) un campo e sia \(L\subseteq K\).
+	\(L\) si dice \emph{sottocampo} di \(K\) se è un suo sottoanello ed inoltre costitutisce un campo.
+\end{defn}
+
+\begin{oss}
+	Se \(L\) è un sottocampo di \(K\) allora \(K\) è anche uno spazio vettoriale su \(L\).
+	Infatti se \(\a\in L,k\in K\), allora \(\a \cdot k = \a\,k\).
+	su uno spazio vettoriale posso anche parlare di dimensione \(\dim_L K\).
+\end{oss}
+
+\begin{notz}
+	Un'inclusione di campi \(L\subseteq K\) si chiama \emph{estensione di campi} e se ne definisce il \emph{grado} come
+	\[
+		[K:L] := \dim_L K.
+	\]
+\end{notz}
+
+\begin{ese}
+	Rifacendoci a due esempi precedenti abbiamo
+	\[
+		[\Q(\sqrt{2}):\Q] = 2 \qquad\text{e}\qquad [\Q(\p):\Q] = +\infty.
+	\]
+\end{ese}
+
+\begin{prop}{Caratterizzazione dei campi tramite ideali}{caratterizzazioneCampiIdeali}
+	Sia \(A\) un anello.
+	Allora \(A\) è un campo se e soltanto se per ogni \(I\subseteq A\) ideale risulta
+	\[
+		I = (0) \qquad\text{oppure}\qquad I=A.
+	\]
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Leftarrow)\)}Sia \(a\in A\setminus\{0\}\).
+	Dobbiamo esibire un inverso di \(a\).
+	Consideriamo l'ideale da esso generato \((a)\), chiaramente
+	\[
+		(a) \neq 0 \implies (a)=A \implies 1\in (a).
+	\]
+	Ovvero esiste \(b\in A\) tale che \(a\,b=1\), quindi \(a\) è invertibile.
+
+	\graffito{\(\Rightarrow)\)}Sia \(I\subseteq A\) un ideale tale che \(I\neq (0)\).
+	Allora per ogni \(a\in A\) possiamo fissare \(x\in I, x\neq 0\) e scrivere
+	\[
+		a = a\,x^{-1}x.
+	\]
+	D'altronde \(a\,x^{-1}\in A\) e \(x\in I\), da cui
+	\[
+		a\,x^{-1}x \in I \implies a \in I,\,\fa a \in A.
+	\]
+	Ovvero \(A\subseteq I\) che implica immediatamente \(A=I\).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 28/09/2016 - PRIMA SETTIMANA (3)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{prop}{Omomorfismi di campi}{omomorfismiCampi}
+	Sia \(\j\colon F_1 \to F_2\) un omomorfismo di campi.
+	Allora \(\j\) è iniettivo.
+\end{prop}
+
+\begin{proof}
+	Sappiamo che \(\Ker \j \subseteq F_1\) è un ideale.
+	D'altronde \(F_1\) è un campo, quindi, per la \autoref{pr:caratterizzazioneCampiIdeali},
+	\[
+		\Ker \j = (0) \qquad\text{oppure}\qquad \Ker \j = F_1.
+	\]
+	Ma \(1_{F_1}\not\in \Ker\j\) in quanto \(\j(1_{F_1})=1_{F_2}\neq 0_{F_2}\).
+	Quindi \(\Ker \j = (0)\), ovvero \(\j\) è iniettivo.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%CARATTERISTICA DI UN CAMPO%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Caratteristica di un campo}
+
+Sia \(F\) un campo, si mostra facilmente che la mappa
+\[
+	\j\colon \Z \to F, n\mapsto \overbrace{1_F+1_F+\ldots+1_F}^{n \text{volte}} =: n\,1_F, -1 \mapsto -1_F,
+\]
+è un omomorfismo di anelli. Pertanto il suo nucleo \(\Ker \j\) è un ideale di \(\Z\).
+
+\begin{defn}{Caratteristica}{caratteristica}\index{Caratteristica}
+	Sia \(A\) un anello, si definisce \emph{caratteristica} di \(A\) il più piccolo naturale \(n\in \N\) tale che
+	\[
+		\underbrace{1_A+1_A+\ldots+1_A}_{n \text{volte}} = 0_A.
+	\]
+\end{defn}
+
+\begin{notz}
+	Se tale naturale non esiste si dice che \(A\) ha caratteristica \(0\) per definizione.
+\end{notz}
+
+\begin{teor}{Caratteristica di un campo}{caratteristicaCampo}\index{Caratteristica!di un campo}
+	Sia \(F\) un campo.
+	Allora la caratteristica di \(F\) è zero oppure un numero primo.
+\end{teor}
+
+\begin{proof}
+	Consideriamo nuovamente l'omomorfismo \(\j\) introdotto all'inizio del paragrafo e analizziamo due casi distinti:
+	\begin{itemize}
+		\item Se \(\Ker \j=(0)\), allora
+		      \[
+			      n\,1_F = 0 \implies n = 0.
+		      \]
+		      Per cui gli elementi non nulli di \(\Z\) vengono mappati in elementi invertibili di \(F\), ne segue che \(\j\) può essere esteso a \(\Q\) tramite
+		      \[
+			      \Q \to F, \frac{n}{m} \mapsto (n\,1_F)(m\,1_F)^{-1},
+		      \]
+		      ovvero in questo caso \(F\) contiene una copia isomorfa a \(\Q\) ed ha caratteristica zero.
+		\item Se \(\Ker \j \neq (0)\) allora esiste \(m\neq 0\) tale che \(m\,1_F = 0_F\) e si avrebbe
+		      \[
+			      p = \Char F = \min\Set{m | m\,1_F = 1_F+1_F + \ldots +1_F =0},
+		      \]
+		      è primo.
+		      Infatti se per assurdo \(p=a\,b\) si avrebbe \(p\,1_F = a\,b\,1_F = (a\,1_F)(b\,1_F)\).
+		      D'altronde \(F\) è in particolare un dominio, per cui
+		      \[
+			      p\,1_F = 0 \implies a\,1_F = 0 \qquad\text{oppure}\qquad b\,1_F = 0,
+		      \]
+		      ma ciò è assurdo per la minimalità di \(p\).
+
+		      Inoltre in questo caso si ha \(\Ker \j = (p)\subset\Z\), per cui il Teorema Fondamentale degli Omomorfismi definisce un'inclusione
+		      \[
+			      \frac{\Z}{(p)} = \frac{\Z}{p\Z} \hookrightarrow F, n \pmod{p} \mapsto n\,1_F.
+		      \]
+		      Ovvero \(F\) contiene una copia isomorfa a \(\F_p\) e ha caratteristica \(p\).
+	\end{itemize}
+\end{proof}
+
+\begin{notz}
+	Quando \(F\) ha caratteristica \(p\) diciamo che \(\F_p\) è il \emph{sottocampo fondamentale} di \(F\).
+\end{notz}
+
+\begin{prop}{Binomio di Newton nei campi}{binomioNewtonCampi}
+	Se \(F\) è un campo di caratteristica \(p\) allora
+	\[
+		(a+b)^p = a^p+b^p,\,\fa a,b\in F.
+	\]
+\end{prop}
+
+\begin{proof}
+	Il binomio di Newton
+	\[
+		(a+b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k}b^k
+	\]
+	è valido in ogni anello commutativo. Ora se \(n=p\) si ha \(p\mid \binom{p}{k}\) per ogni \(k=1,\ldots,p-1\).
+	Quindi se \(F\) ha caratteristica \(p\) avremo
+	\[
+		p \mid \binom{p}{k} \implies \binom{p}{k} 1_F = m\,p\,1_F = m\,(p\,1_F) = 0_F,
+	\]
+	da cui, sostituendo nell'espressione del binomio di Newton, si giunge alla tesi.
+\end{proof}
+
+\begin{oss}
+	In generale vale
+	\[
+		(a+b)^{p^n} = a^{p^n}+b^{p^n},\,\fa n\ge 1.
+	\]
+	Per cui la mappa \(F\to F, x \mapsto x^p\) risulta essere un omomorfismo, detto \emph{Endomorfismo di Frobenius}.
+	Tale endomorfismo risulta essere un automorfismo quando \(F\) è finito.
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%
+%ANELLI DI POLINOMI%
+%%%%%%%%%%%%%%%%%%%%
+\section{Anelli di polinomi}
+
+Se \(F\) è un campo possiamo definire il seguente insieme
+\[
+	F[X] = \Set{\sum_{j=0}^k a_j X^j | a_j\in F}.
+\]
+Inoltre se consideriamo due elementi
+\[
+	f(X) = \sum_{j=0}^n a_j X^j \qquad\text{e}\qquad g(X) = \sum_{j=0}^m b_j X^j,
+\]
+possiamo definire le operazioni di somma
+\[
+	(f+g) = \sum_{j=0}^{\max\{n,m\}}(a_j+b_j)X^j \qquad\text{con }\begin{cases}a_j=0 & \text{se }j>n\\b_j=0 & \text{se }j>m\end{cases}
+\]
+e di prodotto
+\[
+	(f\,g) = \sum_{j=0}^{m+n} c_j X^j \qquad\text{con }c_j = \sum_{\substack{h+k=j\\0\le h\le n\\0\le k\le m}} a_h + b_k.
+\]
+
+\begin{defn}{Anello di polinomi}{anelloPolinomi}\index{Anello di polinomi}
+	Sia \(F\) un campo. L'insieme \(F[X]\) si definisce \emph{anello di polinomi} nell'indeterminata \(X\) a coefficienti in \(F\).
+\end{defn}
+
+\begin{oss}
+	Si osservi che \(F[X]\) è un anello rispetto alle operazioni definite sopra, inoltre risulta \(F\subseteq F[X]\) e \(F[X]\) un dominio.
+\end{oss}
+
+\begin{pr}[Divisione di polinomi]
+	Siano \(f,g\in F[X]\) con \(g\neq 0\).
+	Allora esistono unici \(q(X),r(X)\in F[X]\) tali che
+	\[
+		f(X) = q(X)g(X) + r(X) \qquad\text{con }r(X)=0 \text{ oppure }\deg r< \deg g.
+	\]
+\end{pr}
+
+\begin{oss}
+	\(F[X]\) è pertanto un dominio euclideo con il grado dei polinomi come norma.
+	In particolare è anche un dominio a fattorizzazione unica ed esiste sempre il MCD di due elementi.
+\end{oss}
+
+\begin{pr}
+	Siano \(f(X)\in F[X]\) e \(a\in F\). Allora esiste unico \(q(X)\in F[X]\) tale che
+	\[
+		f(X) = (X-a)q(X) + c \qquad\text{con }c=f(a).
+	\]
+\end{pr}
+
+\begin{oss}
+	Se \(a\) è una radice di \(f\), ovvero \(f(a)=0\), allora
+	\[
+		(X-a) \mid f(X),
+	\]
+	da ciò segue inoltre che \(f\) ha al più \(\deg f\) radici.
+\end{oss}
+
+\begin{pr}[Algoritmo euclideo]
+	Siano \(f,g\in F[X]\) e supponiamo che \(d(X)=\big(f(X),g(X)\big)\).
+	Tramite l'algoritmo euclideo delle divisioni è possibile costruire \(a(X),b(X)\in F[X]\) tali che
+	\[
+		a(X)f(X) + b(X)g(X) = d(X) \qquad\text{con }\deg a < \deg g \text{ e } \deg b < \deg f.
+	\]
+\end{pr}
+
+\begin{defn}{Campo dei quozienti dei polinomi}{campoQuozientiPolinomi}\index{Campo dei quozienti!dei polinomi}
+	Dal momento che \(F[X]\) è un dominio di integrità possiamo considerare il suo \emph{campo dei quozienti} \(F(X)\).
+	Esso è costituito dai quozienti \(f/g\), dove \(f,g\in F[X]\) e \(g\neq 0\).
+\end{defn}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%FATTORIZZAZIONE DI POLINOMI%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fattorizzazione di Polinomi}
+
+In questo paragrafo studieremo in quali casi è possibile determinare la riducibilità dei polinomi.
+
+In questo corso quando diciamo che \(f\in \Z[X]\) è irriducibile si intende che per ogni \(g\mid f\) si ha \(\deg g=0\) oppure \(\deg g = f\).
+
+\begin{prop}{Radici razionali di un polinomio a coefficienti interi}{radiciPolinomioIntero}
+	Sia \(f(X) = a_0+a_1 X + \ldots + a_m X^m \in \Z[X]\) e supponiamo che \(q=N/D, N,D\in \Z, (N,D)=1\) sia una radice di \(f\).
+	Allora
+	\[
+		N \mid a_0 \qquad\text{e}\qquad D\mid a_m.
+	\]
+\end{prop}
+
+\begin{proof}
+	Per ipotesi \(f(q)=0\). Se all'espressione di \(f(q)\) semplifichiamo il denominatore, otteniamo
+	\[
+		a_0 D^m + a_1 D^{m-1}N + \ldots + a_{m-1}D\,N^{m-1}+a_m N^m = 0 \implies D\,(a_0 D^{m-1}+\ldots+a_{m-1}) = -a_m N^m,
+	\]
+	da cui \(D\mid a_m N^m\). D'altronde \((N,D)=1 \implies D\mid a_m\).
+
+	Analogamente si mostra che \(N\mid a_0\).
+\end{proof}
+
+\begin{ese}
+	Consideriamo il polinomio \(f(X)=X^3+a\,X+1,a\in \Z\).
+	Per la proposizione le uniche possibili radici razionali di \(f\) sono \(x=\pm 1\), dove
+	\[
+		f(1) = a+2 \qquad\text{e}\qquad f(-1) = -a.
+	\]
+	Per cui se \(a\neq 0,-2\) allora \(f\) è irriducibile.
+\end{ese}
+
+\begin{prop}{Lemma di Gauss}{lemmaGauss}
+	Sia \(f(X) \in \Z[X]\) e supponiamo che \(f\) si fattorizzi in modo non banale in \(\Q[X]\).
+	Allora \(f\) si fattorizza in modo non banale anche in \(\Z[X]\).
+\end{prop}
+
+\begin{proof}
+	Per ipotesi \(f= h\,g\) con \(h,g\in \Q[X]\) divisori propri di \(f\). Certamente esisteranno \(m,n\in \Z\) tali che
+	\[
+		m\,h(X) = h_1(X) \in \Z[X] \qquad\text{e}\qquad n\,g(X) = g_1(X) \in \Z[X],
+	\]
+	da cui
+	\begin{equation}\label{eq:lemmaGauss}
+		m\,n\,f(X) = h_1(X)g_1(X). \tag{\(\star\)}
+	\end{equation}
+	Vogliamo mostrare di poter assumere che \(m\,n = 1\).
+
+	Se \(p\mid n\,m\) leggiamo \(\eqref{eq:lemmaGauss}\) in \(\F_p[X]\), così da ottenere \(\bar{h}_1\bar{g}_1 \equiv_p 0\).
+	D'altronde \(\F_p[X]\) è un dominio, per cui \(\bar{h}_1(X) \equiv_p 0\) oppure \(\bar{g}_1(X) \equiv_p 0\).
+	Assumiamo \(\bar{h}_1 \equiv_p 0\), ciò significa che tutti i coefficienti di \(h_1\) sono divisibili per \(p\). Quindi
+	\[
+		m\,h(X) = h_1(X) = p\,h_2(X) \implies \frac{m\,n}{p}\,f(X) = h_2(X)g_1(X),
+	\]
+	iterando il procedimento si giunge alla tesi.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 03/10/2016 - SECONDA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{prop}{Fattori monici di un polinomio monico a fattori interi}{fattoriMoniciPolinomioMonico}
+	Sia \(f(X)\in\Z[X]\) un polinomio monico. Supponiamo che \(g\mid f\) con \(g\in \Q[X]\) monico.
+	Allora \(g(X)\in\Z[X]\).
+\end{prop}
+
+\begin{proof}
+	Scriviamo \(f=g\,h\) con \(g,h\in\Q[X]\) monici.
+	Sappiamo, tramite lo stesso argomento della \hyperref{pr:lemmaGauss}{proposizione precedente}, che esistono \(m,n\in \Z\) tali che \(m\,g,n\,h\in\Z[X]\), consideriamo inoltre \(m,n\) tali che abbiano un numeri di fattori primi minimi.
+	Vogliamo ottenere una contraddizione mostrando che se \(p\mid m\,n\) allora \(m\), oppure \(n\), non sarebbero minimali rispetto alla proprietà di avere un numero minimo di fattori.
+
+	Supponiamo quindi che \(p\mid m\,n\) con \(p\) primo, allora
+	\[
+		m\,g\cdot n\,h = m\,n\,f \implies m\,g \cdot n\,h \equiv_p 0.
+	\]
+	Siccome \(\F_p[X]\) è un dominio, otteniamo \(m\,g\equiv_p 0\) oppure \(n\,h \equiv_p 0\). Assumiamo che \(m\,g\equiv_p= 0\), in tal caso si avrebbe \(p\mid m\) in quanto \(g\) è monico per ipotesi, da cui
+	\[
+		\frac{m}{p}g(X) \in \Z[X],
+	\]
+	che è assurdo per la minimalità di \(m\).
+\end{proof}
+
+\begin{prop}{Criterio di Eisenstein}{criterioEisenstein}
+	Sia \(f(X) = a_m X^m+a_{m-1}X^{m-a} + \ldots + a_1 X + a_0 \in \Z[X]\) e supponiamo che esista \(p\) primo tale che
+	\begin{enumerate}
+		\item \(p\) non divide \(a_m\).
+		\item \(p\) divide \(a_j\) per ogni \(j\in\{0,\ldots,m-1\}\).
+		\item \(p^2\) non divide \(a_0\).
+	\end{enumerate}
+	Allora \(f\) è irriducibile in \(\Q[X]\).
+\end{prop}
+
+\begin{proof}
+	Se per assurdo fosse
+	\[
+		a_m X^m + \ldots + a_1 X + a_0 = (b_r X^r + \ldots + b_1 X+b_0)(c_s X^s + \ldots + c_1 X + c_0).
+	\]
+
+	Dal momento che \(p\), ma non \(p^2\), divide \(a_0=b_0 c_0\), si avrebbe che \(p\) deve dividere necessariamente \(b_0\) oppure \(c_0\), assumiamo \(b_0\). Inoltre da
+	\[
+		a_1 = b_0 c_1+ b_1 c_0,
+	\]
+	deduciamo che \(p\mid b_1\). Analogamente da
+	\[
+		a_2 = b_0 c_2 + b_1 c_1 + b_2 c_0,
+	\]
+	deduciamo che \(p\mid b_2\).
+	Iterando tale procedimento otteniamo che \(p\) divide \(b_0,b_1,\ldots,b_r\) che è assurdo per l'ipotesi che \(p\nmid a_m\).
+\end{proof}
+
+\begin{oss}
+	Le proposizioni che abbiamo dimostrato finora in questo paragrafo sono ancora valide se al posto di \(\Z\) consideriamo un qualsiasi altro dominio a fattorizzazione unica.
+\end{oss}
+
+\begin{pr}
+	Sia \(f(X)\in \Z[X]\) e siano \(a,b\in \Q,a\neq 0\). Allora \(f(X)\) è irriducibile se e solo se \(f(a\,X+b)\) è irriducibile.
+\end{pr}
+
+\begin{proof}
+	Supponiamo che \(f(a\,X+b)\) sia irriducibile, se per assurdo fosse \(f(X)=g(X)h(X)\) si avrebbe
+	\[
+		f(a\,X+b) = g(a\,X+b)h(a\,X+b),
+	\]
+	che è chiaramente assurdo.
+	Analogamente si mostra il viceversa, infatti
+	\[
+		F(X):=f(a\,X+b) \implies f(X) = F \Big(\frac{1}{a}\,X- \frac{b}{a}\Big),
+	\]
+	d'altronde abbiamo già mostrate che \(F(X)\) irriducibile implica \(F(1/a\,X-b/a)\) irriducibile.
+\end{proof}
+
+\begin{ese}
+	Consideriamo il \emph{\(p\)-esimo polinomio ciclotomico}
+	\[
+		\phi_p(X) = \frac{X^p-1}{X-1} = 1+X+\ldots+X^{p-1} = \prod_{j=1}^{p-1}\Big(X-e^{\frac{2\p\,i\,j}{p}}\Big) \in \Z[X]
+	\]
+	Per mostrare che \(\phi_p(X)\) è irriducibile vogliamo sfruttare il criterio di Eisenstein. Scriviamo \(\phi_p(X+1)\):
+	\[
+		\phi_p(X+1) = \frac{(X+1)^p-1}{X} = X^{p-1}+p\,X^{p-2} + \binom{p}{2}X^{p-3} + \ldots + \binom{p}{p-2}X + \binom{p}{p-1}\graffito{tramite il binomio di Newton},
+	\]
+	otteniamo quindi che \(\phi_p(X+1)\) è un \(p\)-eisenstein, per cui \(\phi_p(X+1)\) è irriducibile e di conseguenza \(\phi_p(X)\) è irriducibile.
+\end{ese}
+
+\begin{teor}{Irriducibilità in \(\Z[X]\) è deterministico}{irriducibilitàDeterministica}
+	Sia \(f(X)\in \Z[X]\), allora esiste un algoritmo per fattorizzare \(f\).
+	Ovvero l'irriducibilità di un polinomio in \(\Z[X]\) è un problema deterministico.
+\end{teor}
+
+\begin{proof}
+	Possiamo assumere che \(f\) sia monico a meno di moltiplicare per una costante, per cui
+	\[
+		f(X) = X^m + a_{1}X^{m-1} + \ldots + a_m, \qquad\text{con }a_i \in \Z.
+	\]
+	Dal Teorema Fondamentale dell'Algebra sappiamo che esistono \(\a_1,\ldots,\a_m\in\C\) tali che
+	\[
+		f(X) = \prod_{j=1}^m (X-\a_j).
+	\]
+	Osserviamo che dall'identità
+	\[
+		0 = f(\a_j) = \a_j^m + a_1 \a_j^{m-1} + \ldots + a_m,
+	\]
+	si deduce che \(\abs{\a_j}\) è limitata e può essere stimata in termini dei soli coefficienti di \(f\). Infatti avremo
+	\[
+		\abs{\a_j} \le \bigg\lvert \frac{a_m}{\a_j^{m-1}} \bigg\rvert + \bigg\lvert \frac{a_{m-1}}{\a_j^{m-2}} \bigg\rvert + \ldots + \abs{a_1} \implies \abs{\a_j} \le \sum_{k=1}^m \frac{\abs{a_k}}{\abs{\a_j}^{k-1}}
+	\]
+	Da cui
+	\[
+		\abs{\a_j} \ge 1 \implies \abs{\a_j} \le \sum_{k=1}^m \abs{a_k},
+	\]
+	ovvero
+	\[
+		\abs{\a_j} \le \max\Set{1,\sum_{k=1}^m \abs{a_k}}, \,\fa j=1,\ldots,m.
+	\]
+	Ora se \(g(X)\) è un fattore monico di \(f(X)\), allora le sue radici saranno un sottoinsieme di quelle di \(f\) e i suoi coefficienti saranno polinomi simmetrici nelle sue radici. Per cui i moduli dei coefficienti di \(g\) saranno limitati in termini dei coefficienti di \(f\).
+	Dal momento che essi sono anche interi, ne deduciamo che esistono solo un numero finito di possibilità per \(g(X)\).
+	Per cui, per trovare i fattori di \(f(X)\), dobbiamo analizzare un numero finito di casi.
+\end{proof}
+
+\begin{oss}
+	Tale procedimento può essere esteso anche ai polinomi in \(\Q[X]\). Infatti se \(f\in \Q[X]\) possiamo renderlo monico tramite la moltiplicazione per un razionale e infine sostituirlo con
+	\[
+		F_D(f):= D^{\deg f} f \left( \frac{X}{D} \right),
+	\]
+	dove \(D\) è il mcm dei denominatore dei coefficienti di \(f\). Abbiamo così ottenuto un polinomio monico a coefficienti interi che ha le stesse radici di quello di partenza.
+\end{oss}
+
+\begin{ese}
+	Se \(f(X) = X-1/2\) possiamo scrivere
+	\[
+		F_2(f) = 2^1 \left( \frac{X}{2}-\frac{1}{2} \right) = X-1.
+	\]
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 04/10/2016 - SECONDA SETTIMANA (2)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%
+%ESTENSIONE DI CAMPI%
+%%%%%%%%%%%%%%%%%%%%%
+\section{Estensione di campi}
+
+\begin{defn}{Estensione di campi}{estensioneCampi}\index{Estensione di campi}
+	Se \(E,F\) sono campi e \(F\subseteq E\) è un sottocampo, diciamo che \(E\) è un'\emph{estensione} di \(F\).
+\end{defn}
+
+\begin{notz}
+	Per denotare che \(E\) è un'estensione di \(F\) scriviamo \(E/F\).
+\end{notz}
+
+\begin{defn}{Grado dell'estensione}{grado}\index{Grado estensione}
+	Il \emph{grado} di un'estensione \(E/F\) è la dimensione di \(E\) come \(F\)-spazio vettoriale:
+	\[
+		[E:F] := \dim_F E.
+	\]
+\end{defn}
+
+\begin{notz}
+	Diciamo che \(E/F\) è un'estensione \emph{finita} se \([E:F]<+\infty\).
+\end{notz}
+
+\begin{ese}
+	\begin{itemize}
+		\item \(\C/\R\) è un'estensione finita e \([\C:\R]=2\), infatti \(\{1,i\}\) è una \(\R\)-base di \(\C\).
+		      \item\(\R/\Q\) è un'estensione infinita. Infatti se fosse \([\R:\Q]<+\infty\), allora esisterebbe \(n\) tale che \(\R\cong_\Q \Q^n\), il che è assurdo in quanto \(\Q\) ha cardinalità numerabile ed \(n-copie\) di \(\Q\) sarebbero ancora numerabili, mentre \(\R\) ha la cardinalità del continuo.
+		\item Il campo dei numeri di Gauss \(\Q(i) = \Set{a+i\,b | a,b\in\Q}\) ha dimensione \(2\) come estensione di \(\Q\). Infatti \(\{1,i\}\) è una \(\Q\)-base.
+		\item Il campo dei quozienti di un campo \(F\), definito come
+		      \[
+			      F(X) = \Set{\frac{f}{g} | f,g\in F[X],g\neq 0},
+		      \]
+		      è un'estensione infinita di \(F\). Infatti \(\Set{1,X,X^2,\ldots,X^n,\ldots}\) è una famiglia infinita in \(F(X)\) che è \(F\)-linearmente indipendente.
+	\end{itemize}
+\end{ese}
+
+\begin{prop}{Formula del grado}{formulaGrado}
+	Consideriamo \(L,E,F\) campi tali che \(L\supset E\supset F\). Allora \(L/F\) ha grado finito se e soltanto se \(L/E\) e \(E/F\) hanno grado finito, nel qual caso vale
+	\[
+		[L:F]=[L:E][E:F].
+	\]
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(L/F\) sia finita, allora \(E/F\) è finita poiché \(E\) è un \(F\)-sottospazio di \(L\).
+	Inoltre anche \(L/E\) è finita, infatti se \((\a_1,\ldots,\a_r)\) sono generatori di \(L/F\), ovvero
+	\[
+		L = \Set{a_1\a_1 + \ldots + a_r\a_r | a_i \in F},
+	\]
+	allora a maggior ragione
+	\[
+		L = \Set{b_1\a_1 + \ldots + b_r\a_r | b_i \in E}.
+	\]
+	\graffito{\(\Leftarrow)\)}Supponiamo che \(L/E\) e \(E/F\) siano estensioni finite. Siano \((\a_1,\ldots,\a_t)\) e \((\b_1,\ldots,\b_s)\) rispettivamente una \(F\)-base di \(E\) e una \(E\)-base di \(L\).
+	Vogliamo mostrare che
+	\[
+		(\a_i\b_j)_{\substack{i=1,\ldots,t\\j=1,\ldots,s}},
+	\]
+	è una \(F\)-base di \(L\). Da ciò seguirebbe \([L:F]=t\,s=[E:F][L:E]\).
+
+	Per prima cosa \((\a_i,\b_j)_{i,j}\) genera \(L\): se \(x\in L\), allora \(x=x_1\b_1+\ldots+x_s\b_s\) con \(x_1,\ldots,x_s\in E\). Ora per ogni \(j=1,\ldots,s\) avremo \(x_j = x_{1j}\a_1+\ldots+x_{t\,j}\a_t\), in quanto \((\a_1,\ldots,\a_t)\) è una base di \(E\). Sostituendo otteniamo
+	\[
+		x = \sum_{i=1}^t \sum_{j=1}^s x_{i j}\a_i\b_j,
+	\]
+	ovvero \((\a_i\b_j)_{i,j}\) genera \(L/F\).
+
+	Inoltre \((\a_i,\b_j)_{i,j}\) sono linearmente indipendenti: supponiamo che esistano \(y_{i j}\in F\) tali che
+	\[
+		\sum_{i,j} y_{i j}\a_i \b_j = 0,
+	\]
+	allora
+	\[
+		(\underbrace{y_{1 1}\a_1+\ldots+y_{t 1}\a_t}_{\in E})\,\b_1 + (\underbrace{y_{1 2}\a_1+\ldots+y_{t 2}\a_t}_{\in E})\,\b_2 + \ldots + (\underbrace{y_{1 s}\a_1 + \ldots + y_{t s}\a_t}_{\in E})\,\b_s = 0,
+	\]
+	da cui \(y_{1 j}\a_1 + \ldots + y_{t j}\a_t = 0\) per ogni \(j\) per la lineare indipendenza di \((\b_1,\ldots,\b_s)\).
+	D'altronde poiché \((\a_1,\ldots,\a_t)\) è una \(F\)-base di \(E\) si ha
+	\[
+		y_{1 j}\a_1 + \ldots + y_{t j}\a_t = 0 \implies y_{1 j},\ldots,y_{t j} = 0,\,\fa j.\qedhere
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%SOTTOANELLI GENERATI DA SOTTOINSIEMI%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sottoanelli generati da sottoinsiemi}
+
+\begin{defn}{Sottoanello generato da un sottoinsieme}{sottoanelloGeneratoSottoinsieme}\index{Sottoanello generato!da un sottoinieme}
+	Sia \(F\) un sottocampo di un campo \(E\) e sia \(S\subset E\). Definisco il \emph{sottoanello di \(E\) generato da \(S\) su \(F\)} come il più piccolo sottoanello di \(E\) che contiene \(F\) e \(S\):
+	\[
+		F[S] := \bigcap_{\substack{R\subseteq E \text{ anello}\\F\subseteq R, S\subseteq R}} R.
+	\]
+\end{defn}
+
+\begin{notz}
+	Quando \(S=\{\a_1,\ldots,\a_n\}\) è finito scriviamo \(F[\a_1,\ldots,\a_n]\) per \(F[S]\).
+\end{notz}
+
+\begin{pr}
+	L'anello \(F[S]\) consiste negli elementi di \(E\) che possono essere scritti come somme finite della forma
+	\[
+		\sum a_{i_1 \ldots i_n}\a_1^{i_1} \cdot\ldots\cdot \a_n^{i_n}, \qquad\text{con } a_{i_1 \ldots i_n}\in F,\quad \a_i \in S.
+	\]
+\end{pr}
+
+\begin{proof}
+	Supponiamo che \(R\) sia l'insieme di tutti tali elementi. Chiaramente \(R\) è un sottoanello che contiene \(F,S\), per cui \(F[S]\supseteq R\).
+	Inoltre ogni altro sottoanello che contiene \(F,S\) deve necessariamente contenere \(R\) per le proprietà di un anello. Quindi \(F[S]=R\).
+\end{proof}
+
+\begin{ese}
+	L'anello \(\Q[\p]\) consiste in tutti i numeri complessi che possono essere espressi nella forma
+	\[
+		a_0 + a_1\p + a_2 \p^2 + \ldots + a_n \p^n, \qquad \text{con }a_i\in \Q.
+	\]
+\end{ese}
+
+\begin{pr}\label{pr:sottocampoAnelloIntegro}
+	Sia \(R\) un anello integro e sia \(F\subseteq R\) un campo. Se \(\dim_F R<\infty\) allora \(R\) è un campo.
+\end{pr}
+
+\begin{proof}
+	Per ogni \(\b\in R,\b\neq 0\) consideriamo la mappa \(f\colon R\to R, x\mapsto \b\,x\). Tale mappa è un applicazione lineari di \(F\)-spazi vettoriali, infatti
+	\[
+		f(a\,x+b\,y) = \b\,(a\,x+b\,y) = \b\,a\,x+\b\,b\,y = a\,f(x)+b\,f(y).
+	\]
+	Inoltre \(f\) è iniettiva, infatti \(\Ker f=\Set{x\in R | \b\,x = 0} = (0)\) in quanto \(R\) è integro.
+	Ricordando che un endomorfismo fra spazi finiti quando è iniettivo è anche suriettivo si avrà che
+	\[
+		\ex \a \in R : \b\,\a = 1 \implies \b \text{ invertibile}.\qedhere
+	\]
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%SOTTOCAMPI GENERATI DA SOTTOINSIEMI%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sottocampi generati da sottoinsiemi}
+
+\begin{defn}{Sottocampo generato da un sottoinsieme}{sottocampoGeneratoSottoinsieme}\index{Sottocampo generato!da un sottoinsieme}
+	Sia \(F\) un sottocampo di un campo \(E\) e sia \(S\subset E\). Definisco il \emph{sottocampo di \(E\) generato da \(S\) su \(F\)} come il più piccolo sottocampo di \(E\) che contiene \(F\) e \(S\):
+	\[
+		F(S) := \bigcap_{\substack{L\subseteq E \text{ sottocampo}\\F\subseteq L,S\subseteq L}} L.
+	\]
+\end{defn}
+
+\begin{notz}
+	Quando \(S=\{\a_1,\ldots,\a_n\}\) è finito scriviamo \(F(\a_1,\ldots,\a_n)\) per \(F(S)\).
+\end{notz}
+
+\begin{oss}
+	Dal momento che i sottocampi sono in particolare sottoanelli, avremo \(F[S]\subseteq F(S)\).
+\end{oss}
+
+\begin{pr}
+	\(F(S)\) è il campo dei quozienti di \(F[S]\), ovvero
+	\[
+		f(S) = \Set{\frac{x}{y} | x,y \in F[S], y \neq 0}.
+	\]
+\end{pr}
+
+\begin{proof}
+	Segue dal fatto che \(F(S)\) è un sottocampo che contiene \(F\) e \(S\) e che è contenuto in ogni altro sottocampo con questa proprietà.
+\end{proof}
+
+\begin{oss}
+	Dalla \autoref{pr:sottocampoAnelloIntegro} sappiamo che \(F[S]\) è un campo se ha dimensione finita su \(F\).
+	In tal caso si avrebbe \(F(S)=F[S]\).
+\end{oss}
+
+\begin{defn}{Estensione semplice}{estensioneSemplice}\index{Estensione di campi!semplice}
+	Un'estensione \(E/F\) si dice \emph{semplice} se esiste \(\a\in E\) tale che \(F(\a)=E\).
+\end{defn}
+
+\begin{ese}
+	\(\Q(\p)\) e \(\Q[i]\) sono estensioni semplici di \(\Q\).
+\end{ese}
+
+\begin{defn}{Estensione finitamente generata}{estensioneFinitamenteGenerata}\index{Estensione di campi!finitamente generata}
+	Un'estensione \(E/F\) si dice \emph{finitamente generata} se esistono \(\a_1,\ldots,\a_k\in E\) tale che \(F(\a_1,\ldots,\a_k)=E\).
+\end{defn}
+%%%%%%%%%%%%%%%%%%
+%ANELLI COL GAMBO%
+%%%%%%%%%%%%%%%%%%
+\section{Anelli col gambo}
+
+Sia \(f(X)\in F[X]\) un polinomio monico di grado \(m\) e sia \((f)\) l'ideale generato da \(f(X)\).
+Consideriamo l'anello quoziente \(F[X]/(f)\) e denotiamo con \(\a\) l'immagine di \(X\) in tale anello, ovvero \(\a\) sarà la classe laterale \(X+\big(f(X)\big)\). Ne segue:
+\begin{itemize}
+	\item La mappa
+	      \[
+		      F[X] \to F[\a], P(X) \mapsto P(\a),
+	      \]
+	      è un omomorfismo suriettivo in cui \(f(X)\) viene mappato in \(0\), ovvero \(f(\a)=0\).
+	\item Dall'algoritmo euclideo delle divisioni, sappiamo che ogni elemento \(g(X)\in F[X]/(f)\) è rappresentato da un unico polinomio \(r(X)\) con \(\deg r<m\). Quindi ogni elemento di \(F[X]/(f)\) può essere scritto come
+	      \begin{equation}\label{eq:campoQuozientePolinomi}
+		      a_0+a_1\a_1+\ldots+a_{m-1}\a^{m-1},\qquad\text{con }a_i \in F.\tag{\(\star\)}
+	      \end{equation}
+	\item Per sommare due elementi nella forma \eqref{eq:campoQuozientePolinomi} è sufficiente sommarne i coefficienti.
+	\item Per moltiplicare due elementi nella forma \eqref{eq:campoQuozientePolinomi} si deve moltiplicare nel modo usuale, sfruttando la relazione \(f(\a)=0\) per scrivere i termini di grado superiore a \(m\) in termini di grado inferiore.
+	\item Supponiamo che \(f(X)\) sia irriducibile. Allora ogni elemento \(\b\in F[\a]\) ha un inverso. Tale inverso può essere trovato scrivendo \(\b=g(\a)\) con \(g(X)\) un polinomio di grado inferiore a \(m\), per poi applicare l'algoritmo euclideo per ottenere \(a(X)\) e \(b(X)\) tali che
+	      \[
+		      a(X)f(X)+b(X)g(X) = d(X), \qquad\text{con }d(X) = \big(f(X),g(X)\big).
+	      \]
+	      Nel nostro caso \(f\) è irriducibile per cui \(d(X)=1\). Inoltre \(\deg g < \deg f\), per cui sostituendo \(\a\) si ottiene
+	      \[
+		      b(\a)g(\a) = 1 \implies g(\a)^{-1} = b(\a).
+	      \]
+\end{itemize}
+
+\begin{defn}{Anello col gambo}{anelloGambo}\index{Anello!col gambo}
+	Sia \(F\) un campo e sia \(f\) un polinomio monico in \(F[X]\). Si definisce \emph{anello col gambo} l'anello
+	\[
+		R = \Set{a_0+a_1\a+\ldots+a_{m-1}\a^{m-1} | a_j \in F},
+	\]
+	con le operazioni definite sopra e tale che
+	\[
+		F[\a] = R \qquad\text{e}\qquad f(\a) = 0.
+	\]
+\end{defn}
+
+\begin{oss}
+	Se \(f\in F[X]\) è irriducibile \(F[\a]\) è un campo, per cui \(F[\a]=F(\a)\), e inoltre
+	\[
+		\deg f = n = \big[F[\a]:F\big].
+	\]
+\end{oss}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 05/10/2016 - SECONDA SETTIMANA (3)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ese}
+	Consideriamo \(f(X) = X^3-3X-1\in \Q[X]\). Avremo che
+	\[
+		\Q[\a] = \Set{a+b\,\a+c\,\a^2 | a,b,c \in \Q}.
+	\]
+	Inoltre \(f\) è irriducibile in \(\Q[X]\), per cui \(\Q[\a]\) è un campo ed ha base \((1,\a,\a^2)\) come \(\Q\)-spazio vettoriale.
+
+	Consideriamo adesso \(\b = \a^4+2\a^3+3\in\Q[\a]\). Sapendo che \(\a^3-3\a-1=0\) otteniamo
+	\[
+		\b = (3\a+1)\,\a + 6\a+2 +3 = 3\a^2+7\a+5.
+	\]
+	Vogliamo calcolare l'inversa di \(\b\). Dal momento che \(f(X)\) è irriducibile in \(\Q[X]\) segue
+	\[
+		(X^3-3X-1, 3X^2+7X+5)=1.
+	\]
+	Applicando l'algoritmo di Euclide otteniamo l'identità di Bezout
+	\[
+		(X^3-3X-1)\left( -\frac{7}{37}X+\frac{29}{111} \right)+(3X^2+7X+5)\left( \frac{7}{111}X^2+\frac{26}{111}X+\frac{28}{111} \right)=1,
+	\]
+	da cui segue immediatamente
+	\[
+		\b^{-1} = \frac{7}{111}\a^2+\frac{26}{111}\a+\frac{28}{111}.
+	\]
+\end{ese}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%ELEMENTI ALGEBRICI E TRASCENDENTI%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Elementi algebrici e trascendenti}
+
+Sia \(E/F\) un'estensione e sia \(\a\in E\), avremo che
+\[
+	\j\colon F[X] \to E, h(X) \mapsto h(\a),
+\]
+è un omomorfismo di anelli.
+
+\begin{defn}{Elemento trascendente}{elementoTrascendente}\index{Elemento trascendente}
+	Se \(\Ker \j=(0)\) diciamo che \(\a\) è \emph{trascendente} su \(F\).
+\end{defn}
+
+\begin{oss}
+	Quando un elemento è trascendente significa che per ogni \(h\in F[X],h\neq 0\) si ha \(h(\a)\neq 0\).
+	Ciò significa che l'immagine di \(\j\) è isomorfa a \(F[X]\), ovvero \(F[\a]\cong F[X]\). Inoltre avremo
+	\[
+		\begin{tikzcd}
+			F[X] \arrow[dr, hook] \arrow[rr, hook] &                       & E\\
+			& F(X) \arrow[ur, hook] &
+		\end{tikzcd}
+		\qquad \text{con }F(X) \hookrightarrow E, \frac{h_1(X)}{h_2(X)} \mapsto \frac{h_1(\a)}{h_2(\a)}.
+	\]
+\end{oss}
+
+\begin{ese}
+	Prendiamo 	\(E=\C,F=\Q\) e \(\a=\p\). Siccome \(\p\) è trascendente si ha
+	\[
+		\Q[X] \cong \Q[\p] \subseteq \C.
+	\]
+	Ciò significa che \(\Q[\p]\) è algebricamente indistinguibile da \(\Q[X]\).
+\end{ese}
+
+\begin{defn}{Elemento algebrico}{elementoAlgebrico}\index{Elemento algebrico}
+	Se \(\Ker \j=(f_\a)\) diciamo che \(\a\) è \emph{algebrico} su \(F\).
+\end{defn}
+
+\begin{defn}{Polinomio minimo}{polinomioMinimo}\index{Polinomio minimo}
+	I polinomi \(g\) tali che \(g(\a)=0\) formano un ideale non banale in \(F[X]\). Tale ideale è generato dal più piccolo polinomio monico \(f_\a\) tale che \(f_\a(\a)=0\). Definiamo \(f_\a\) come il \emph{polinomio minimo di \(\a\) su \(F\)}.
+\end{defn}
+
+\begin{oss}
+	Il polinomio minimo è irriducibile poiché altrimenti vi sarebbero due elementi non nulli di \(E\) che hanno come prodotto zero.
+\end{oss}
+
+\begin{oss}
+	Siccome \(F[X]/(f_\a)\cong F[\a]\), in \(F[\a]\) possiamo assumere che tutte le espressioni polinomiali abbiano grado minore di \(\deg f_\a\).
+	Cioè l'immagine tramite \(\j\) è il campo col gambo \(F[\a]\) di gambo \(f_\a\). In questo caso si ha che
+	\[
+		F[\a] = F(\a).
+	\]
+	Inoltre \(\big[F[\a]:F\big]=\deg f_\a\) e \((1,\a,\ldots,\a^{\deg f_\a-1})\) è una base.
+\end{oss}
+
+\begin{prop}{Caratterizzazione del polinomio minimo}{caratterizzazionePolinomioMinimo}
+	Se \(E/F\) è un'estensione e \(\a\in E\) è algebrico su \(F\), il polinomio minimo \(f_\a\) è caratterizzato come polinomio di \(F[X]\) da ognuna seguenti condizioni:
+	\begin{itemize}
+		\item L'unico polinomio monico e irriducibile in \(F[X]\) che si annulla in \(\a\).
+		\item L'unico polinomio monico con la proprietà che se \(g(X)\in F[X]\) e \(g(\a)=0\) allora \(f_\a\mid g\).
+		\item L'unico polinomio monico che si annulla in \(\a\) e ha grado minimo.
+	\end{itemize}
+\end{prop}
+
+\begin{ese}
+	Su \(\big(\Q[\a],\a^3=3\a+1\big)\) prendiamo \(\a^2\in\Q[\a]\).
+	Vogliamo stabilire se \(\a^2\) è trascendete su \(\Q\). Se non lo è vogliamo trovare il suo polinomio minimo.
+
+	Prendiamo un generico polinomio \(X^3+A\,X^2+B\,X+C\). Se trovo \(A,B,C\in \Q\) tali che una volta sostituito \(\a^2\) nel polinomio ottengo zero, ho trovato il polinomio minimo:
+	\[
+		\begin{split}
+			\a^6+A\,\a^4+B\,\a^2+C = 0 & \iff (3\a+1)^2+A\,(3\a^2+\a)+B\,\a^2+C = 0\\
+			& \iff (9\a^2+6\a+1)+A\,(3\a^2+\a)+B\,\a^2+C= 0\\
+			& \iff (3A+B+9)\a^2+(A+6)\a+(C+1)=0,
+		\end{split}
+	\]
+	da cui
+	\[
+		\begin{cases}
+			3A+B+9 = 0 \\
+			A+6 = 0    \\
+			C+1=0
+		\end{cases}
+		\implies
+		\begin{cases}
+			A=-6 \\
+			B=9  \\
+			C=-1
+		\end{cases}
+	\]
+	ovvero \(f_{\a^2}(X)=X^3-6X^2+9X-1\). Quindi
+	\[
+		\Q\subseteq \Q(\a^2) \subseteq \Q[\a] \cong \Q(\a).
+	\]
+	Con \(\big[\Q[\a]:\Q\big]=\deg(\a^3-3\a-1)=3\) e ancora \(\big[\Q(\a^2):\Q\big]=3\), da cui
+	\[
+		\big[\Q[\a]:\Q(\a^2)\big] = 1 \implies \Q(\a) = \Q(\a^2).
+	\]
+\end{ese}
+
+\begin{defn}{Estensione algebrica}{estensioneAlgebrica}\index{Estensione di campi!algebrica}
+	Un'estensione \(E/F\) si dice \emph{algebrica} se ogni elemento \(\a\in E\) è algebrico in \(F\).
+\end{defn}
+
+\begin{defn}{Estensione trascendente}{estensioneTrascendente}\index{Estensione di campi!trascendente}
+	Un'estensione \(E/F\) si dice \emph{trascendente} se non è algebrica, ovvero se esiste un elemento \(\b\in E\) che è trascendente su \(F\).
+\end{defn}
+
+\begin{prop}{Caratterizzazione estensione finita}{caratterizzazioneEstensioneFinita}
+	Sia \(E/F\) un'estensione.
+	Allora \(E/F\) è finita se e soltanto se \(E/F\) e algebrica e finitamente generata.
+\end{prop}
+
+\begin{proof}
+	\graffito{\(\Rightarrow)\)}Supponiamo che \(E/F\) sia un'estensione finita, allora
+	\begin{itemize}
+		\item \(E/F\) algebrica: se per assurdo esistesse \(\b\in E\) trascendente su \(F\), si avrebbe che \((1,\b,\ldots,\b^n,\ldots)\) sarebbero linearmente indipendenti su \(F\). Ciò implicherebbe che \(\dim_F E=\infty\) che è assurdo per la finitezza dell'estensione.
+		\item \(E/F\) finitamente generate: se \(E=F\) allora \(E=F(1)\); se invece \(E\supset F\), preso \(\a_1\in E-F\) avremmo
+		      \[
+			      E \supseteq F[\a_1] \supset F.
+		      \]
+		      In particolare \(F[\a_1]/F\) è finita per cui \(F[\a_1]=F(\a_1)\).
+		      Ora se \(E=F[\a_1]\) abbiamo mostrato la tesi, altrimenti se \(E\supset F[\a_1]\) possiamo trovare \(\a_2\in E-F[\a_1]\) ottenendo
+		      \[
+			      E\supset F[\a_1,\a_2]\supset F[\a_1]\supset F,
+		      \]
+		      che sono tutte estensioni finite. Posso quindi iterare il processo scrivendo \(E\supseteq F[\a_1,\ldots,\a_k]=F(\a_1,\ldots,\a_k)\). Tale processo deve terminare poiché
+		      \[
+			      n_1 n_2 \cdot\ldots\cdot n_k = \big[F[\a_1,\ldots,\a_k]:F\big] = \big[F[\a_1,\ldots,\a_k]:F[\a_1,\ldots,\a_{k-1}]\big]\big[F[\a_1,\ldots,\a_{k-1}]:F\big],
+		      \]
+		      dove \(n_j=\big[F[\a_1,\ldots,\a_j]:F[\a_1,\ldots,\a_{j-1}]\big]>1\). D'altronde \(n_1 \cdot\ldots\cdot n_k \mid [E:F]<\infty\), per cui deve esistere \(k_0\) tale che
+		      \[
+			      n_1 \cdot\ldots\cdot n_{k_0} = [E:F] \implies E = F[\a_1,\ldots,\a_{k_0}].
+		      \]
+	\end{itemize}
+	\graffito{\(\Leftarrow)\)}Supponiamo che \(E/F\) sia un'estensione finitamente generata, con \(E=F[\a_1,\ldots,\a_k]\), e algebrica. Dobbiamo mostrare che è finita.
+	\begin{itemize}
+		\item Se \(k=1\) allora \(E=F[\a]/F\) è finita di grado \(\deg f_\a\) poichè \(F[\a]\) risulta essere un campo col gambo.
+		\item Se \(k>1\) possiamo scrivere \(E=F[\a_1,\ldots,\a_{k-1}][\a_k]\) che per induzione ci dice che \(F[\a_1,\ldots,\a_{k-1}]/F\) è finita.
+		      Inoltre \(E/F[\a_1,\ldots,\a_{k-1}]\) è finita perché è un campo col gambo, il cui gambo è il polinomio minimo \(f_{\a_k}\) su \(F[\a_1,\ldots,\a_{k-1}][\a_k]\) e il suo grado è
+		      \[
+			      [E:F] = \underbrace{\big[E:F[\a_1,\ldots,\a_{k-1}]\big]}_{<\infty}\underbrace{\big[F[\a_1,\ldots,\a_{k-1}]:F\big]}_{<\infty} < \infty.\qedhere
+		      \]
+	\end{itemize}
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 11/10/2016 - TERZA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{cor}
+	Siano \(E/F\) un'estensione algebrica e \(R\) un anello tale che \(F\subset R\subset E\).
+	Allora \(R\) è un campo.
+\end{cor}
+
+\begin{proof}
+	Preso \(\a\in R\setminus\{0\}\) avremo che \(\a\) è algebrico su \(F\) in quanto elemento di \(E\).
+	Ora \(F[\a]\) è algebrico e finitamente generato, quindi per la proposizione precedente \(F[\a]\) è finito, ovvero \(F[\a]=F(\a)\).
+	Da cui segue
+	\[
+		\frac{1}{\a} \in F[\a] \subset R,
+	\]
+	poiché ciò vale per ogni elemento non nullo di \(R\), segue che \(R\) è un campo.
+\end{proof}
+
+\begin{cor}
+	Siano \(E/F\) e \(L/E\) due estensioni algebriche. Allora \(L/F\) è un'estensione algebrica.
+\end{cor}
+
+\begin{proof}
+	Sia \(\a\in L\). Dal momento che \(L/E\) è algebrica esisterà \(f\in E[X]\) monico tale che \(f(\a)=0\). Dove
+	\[
+		f(X) = X^m + a_1 X^{m-1}+\ldots+a_m, \qquad\text{con }a_j\in E.
+	\]
+	Per ipotesi \(E/F\) è algebrica, per cui \(a_j\in E \implies F[a_1,\ldots,a_m]\) è ancora algebrica su \(F\), inoltre è finitamente generata. Quindi per la proposizione \(F[a_1,\ldots,a_m]/F\) è finita. Inoltre anche
+	\[
+		F[a_1,\ldots,a_m,\a]/F[a_1,\ldots,a_m],
+	\]
+	è finita poiché \(F[a_1,\ldots,a_m,\a]=F[a_1,\ldots,a_m][\a]\) è l'anello col gambo su \(F[a_1,\ldots,a_m]\).
+	Quindi per la \hyperref[pr:formulaGrado]{la formula del grado} avremo
+	\[
+		\big[F[a_1,\ldots,a_m,\a]:F\big] = \big[F[a_1,\ldots,a_m,\a]:F[a_1,\ldots,a_m]\big]\big[F[a_1,\ldots,a_m]:F\big] < +\infty.
+	\]
+	Ovvero \(F[a_1,\ldots,a_m,\a]\) è finito, e quindi algebrico, su \(F\).
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%LEZIONE 17/10/2016 - QUARTA SETTIMANA (1)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%
+%NUMERI TRASCENDENTI%
+%%%%%%%%%%%%%%%%%%%%%
+\section{Numeri trascendenti}
+
+Un numero complesso si dice \emph{algebrico} o \emph{trascendente} secondo che sia algebrico o trascendente su \(\Q\).
+Per comodità definiamo l'insieme dei numeri algebrici
+\[
+	\mathbb{A} = \Set{\a \in \C | \a \text{ è algebrico su }\Q}.
+\]
+Si può dimostrare che \(\mathbb{A}\) è un campo e che ha cardinalità numerabile.
+
+Ora riportiamo alcuni cenni storici:
+\begin{description}
+	\item[1844] Liouville dimostra l'esistenza di numeri trascendenti, ovvero che \(\C-\mathbb{A}\neq \emptyset\).
+	\item[1873] Hermite dimostra che \(e\) è un numero trascendente.
+	\item[1874] Cantor dimosta che l'insieme \(\mathbb{A}\) è numerabile e che \(\R\) non lo è. Ciò prova che la maggior parte dei reali sono trascendenti, anche se è molto difficile dimostrare che un numero specifico lo sia.
+	\item[1882] Lindemann dimostra che \(\p\) è trascendente.
+	\item[1934] Gel'fond dimostra che se \(\a\) e \(\b\) sono algebrici con \(\a,\b\neq 0,1\) e \(\b\not\in \Q\), allora \(\a^\b\) è trascendente.
+	\item[2016] Non è stato ancora dimostrato se la costante di Eulero-Mascheroni
+		\[
+			\g = \lim_{N \to +\infty} \bigg(\sum_{n=1}^N \frac{1}{n}-\ln N\bigg),
+		\]
+		è trascendente o addirittura se è irrazionale.
+	\item[2016] Nonostante i numeri \(\p+e\) e \(\p-e\) siano certamente trascendenti non è stato ancora dimostrato se sono irrazionali.
+\end{description}
+
+\begin{prop}{Numerabilità dell'insieme dei numeri algebrici}{numerabilitàAlgebrici}
+	L'insieme \(\mathbb{A}\) dei numeri algebrici è numerabile.
+\end{prop}
+
+\begin{proof}
+	Definiamo l'altezza \(H(r)\) di un razionale \(r=n/m\), con \((n,m)=1\) e \(n\in\Z,m\in\N\), come
+	\[
+		H(r) = \max{\abs{n},m}.
+	\]
+	\`E è facile convincersi che vi sono solo un numero finito di razionali con la proprietà di avere l'altezza minore di un certo \(N\) fissato.
+	Definiamo inoltre l'altezza di un polinomio monico come
+	\[
+		H(a_0+a_1 X+\ldots+a_{n-1}X^{n-1}+X^n) = \max\Set{H(a_0),\ldots,H(a_{n-1})}.
+	\]
+	La strategia è mostrare che, definito \(B_n=\Set{\a \in \mathbb{A} | \deg f_\a \le n, H(f_\a)\le n}\), si abbia
+	\[
+		\mathbb{A} = \bigcup_{n\in\N} B_n \qquad\text{e}\qquad \#B_n < +\infty.
+	\]
+	Da cui seguirebbe che \(\# \mathbb{A}\) è numerabile in quanto unione numerabile di insiemi finiti.
+	Anche in questo caso è facile convincersi che \(\#B_n\) è finito.
+\end{proof}
+
+\begin{teor}{Trascendenza di un numero di Liouville}{trascendenzaNumeroLiuoville}
+	Il seguente numero di Liouville
+	\[
+		\a = \sum_{n=0}^\infty \frac{1}{2^{n!}}
+	\]
+	è trascendente.
+\end{teor}
+
+\begin{proof}
+	Supponiamo per assurdo che \(\a\) sia algebrico. Scriviamo il polinomio minimo di \(\a\):
+	\[
+		f_\a(X) = X^d+a_1 X^{d-1}+\ldots+ a_d, \qquad\text{con }a_j\in \Q.
+	\]
+	Fissato \(N\in \N\) definiamo
+	\[
+		\Sigma_N = \sum_{n=0}^N \frac{1}{2^{n!}}.
+	\]
+	Chiaramente avremo che \(\Sigma_N\in \Q\) e \(\Sigma_N \to \a\) monotonicamente.
+	Inoltre avremo che \(X_N = f_\a(\Sigma_N)\in\Q-\{0\}\), in quanto \(f_\a\) è un polinomio irriducibile in \(\Q\) e pertanto non può avere radici razionali a meno che non sia di grado uno, ma in tal caso la sua unica radice sarebbe \(\a\).
+
+	Sia \(D\in \Z\) tale che \(D\,f_\a(X)\in\Z[X]\), per cui avremo
+	\[
+		{(2^{N!})}^d D\,X_n \in \Z-\{0\} \qquad\text{e}\qquad 1 \le \abs{{(2^{N!})}^d D\,X_N}.
+	\]
+	Ora per il Teorema Fondamentale dell'Algebra
+	\[
+		f_\a(X) = (X-\a)(X-\a_2)\cdot\ldots\cdot(X-\a_d),
+	\]
+	da cui
+	\[
+		\abs{X_N} = \abs{\Sigma_N-\a} \prod_{j=2}^d \abs{\Sigma_N-\a_j}.
+	\]
+	In particolare, da \(k\ge N+1 \implies k!-(N+1)!\ge k\), avremo
+	\[
+		\abs{\Sigma_N-\a} = \sum_{k=N+1}^\infty \frac{1}{2^{k!}} \le \frac{1}{2^{(N+1)!}}\sum_{k=0}^\infty \frac{1}{2^k} \le \frac{2}{2^{(N+1)!}}
+	\]
+	Inoltre
+	\[
+		\abs{\Sigma_N-\a_j} \le \Sigma_N + \abs{\a_j} \le \a + M, \qquad\text{con }M = \max\Set{\abs{\a_2},\ldots,\abs{\a_d}}.
+	\]
+	Quindi
+	\[
+		\abs{X_N} \le \frac{2}{2^{(N+1)!}}\,(\a+M)^{d-1},
+	\]
+	ovvero
+	\[
+		1 \le \abs{{(2^{N!})}^d D\,X_N} \le \frac{{(2^{N!})}^d\,2}{2^{(N+1)!}}\,(\a+M)^{d-1} = \left( \frac{2^d}{2^{N+1}} \right)^{N!}\,2(\a+M)^{d-1},
+	\]
+	che tende a zero, da cui l'assurdo.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%CAMPI ALGEBRICAMENTE CHIUSI%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Campi algebricamente chiusi}
+
+\begin{notz}
+	Diciamo che un polinomio si \emph{spezza} su un campo \(F\) se può essere scritto come prodotto di polinomi di grado \(1\) in \(F[X]\).
+\end{notz}
+
+\begin{defn}{Campo algebricamente chiuso}{campoAlgebricamenteChiuso}\index{Campo!algebricamente chiuso}
+	Un campo \(\Omega\) si dice \emph{algebricamente chiuso} se ogni polinomio non costante in \(\Omega[X]\) si spezza in \(\Omega\).
+\end{defn}
+
+\begin{oss}
+	\(\C\) è algebricamente chiuso come immediata conseguenza del Teorema Fondamentale dell'Algebra.
+\end{oss}
+
+\begin{prop}{Caratterizzazione di campi algebricamente chiusi}{caratterizzazioneCampiAlgebricamenteChiusi}
+	Sia \(\Omega\) un campo, allora le seguenti affermazioni sono equivalenti:
+	\begin{enumerate}
+		\item Ogni polinomio non costante in \(\Omega[X]\) si spezza in \(\Omega\).
+		\item Ogni polinomio non costante in \(\Omega\) ha almeno una radice in \(\Omega\).
+		\item Se un polinomio su \(\Omega[X]\) è irriducibile allora ha grado \(1\).
+		\item Se \(E/\Omega\) è un'estensione finita allora \(E=\Omega\).
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	Le implicazioni \((1)\implies (2)\implies (3)\implies (1)\) sono ovvie.
+
+	\graffito{\((3)\implies (4)\)} Sia \(E/\Omega\) un'estensione finita e sia \(\a\in E\).
+	Il polinomio minimo \(f_\a(X)\in\Omega[X]\) è irriducibile, quindi, per ipotesi, \(\deg f_\a = 1\).
+	In particolare
+	\[
+		f_\a(X) = X-\a \implies \a \in \Omega,
+	\]
+	da cui \(E\subseteq \Omega\).
+
+	\graffito{\((4)\implies (3)\)}Sia \(f(X)\in\Omega[X]\) un polinomio irriducibile.
+	Consideriamo \(\Omega'=\Omega[X]/(f)\), avremo che \(\Omega'/\Omega\) è un'estensione finita con
+	\[
+		[\Omega':\Omega] = \deg f.
+	\]
+	D'altronde per ipotesi \(\Omega'=\Omega\), quindi \(1=[\Omega':\Omega]=\deg g\).
+\end{proof}
+
+\begin{oss}
+	\(\C(X)/\C\) è un'estensione non banale di \(\C\) ma è infinita.
+\end{oss}
+
+\begin{defn}{Chiusura algebrica}{chiusuraAlgebrica}\index{Chiusura!algebrica}
+	Un'estensione \(\Omega/F\) si definisce \emph{chiusura algebrica} di \(F\) se
+	\begin{itemize}
+		\item \(\Omega/F\) è un'estensione algebrica.
+		\item \(\Omega\) è algebricamente chiuso.
+	\end{itemize}
+\end{defn}
+
+\begin{ese}
+	\(\C/\R\) è una chiusura algebrica, d'altronde \(\C/\Q\) non lo è in quanto non è un'estensione algebrica.
+\end{ese}
+
+\begin{pr}
+	Sia \(\Omega/F\) è un'estensione algebrica e supponiamo che per ogni \(f\in F[X]\) si abbia che \(f\) si spezza in \(\Omega[X]\).
+	Allora \(\Omega\) è algebricamente chiuso.
+\end{pr}
+
+\begin{proof}
+	Sia \(f\in \Omega[X]\) con \(\deg f\ge 1\). Vogliamo trovare una radice di \(f\) in \(\Omega\).
+	Scriviamo il polinomio come
+	\[
+		f(X) = a_n X^n + \ldots + a_1 X + a_0, \qquad\text{con }a_j\in \Omega.
+	\]
+	Supponiamo per assurdo che \(f\) sia irriducibile. Allora possiamo trovare un'estensione \(L/\Omega\) tale che \(f\) ha una radice in \(L\).
+	Infatti è sufficiente prendere \(L=\Omega[X]/(f)\).
+	In particolare avremo \(L/\Omega\) finita e \(f(\a)=0\) per una certa \(\a\in L\). Inoltre
+	\[
+		F \subseteq F[a_0,\ldots,a_n] \subseteq F[a_0,\ldots,a_n,\a] \subseteq L = \Omega[\a].
+	\]
+	Dove la prima estensione è finita in quanto algebrica e finitamente generata, mentre la seconda lo è poiché costruita con la radice di un polinomio nel campo di partenza. Quindi per la \hyperref[pr:formulaGrado]{la formula del grado} avremo che \(F[a_0,\ldots,a_n,\a]/F\) è finita, e in particolare \(\a\) soddisfa un polinomio irriducibile in \(F[X]\).
+	Ovvero esiste \(g\in F[X]\) tale che \(g(\a)=0\).
+	Ora, per ipotesi, \(g\) si spezza in \(\Omega\), per cui \(\a \in \Omega\).
+\end{proof}
+
+\begin{oss}
+	In particolare \(\Omega\) è una chiusura algebrica di \(F\).
+\end{oss}
+
+\begin{pr}
+	Sia \(E/F\) un'estensione, allora
+	\[
+		\mathbb{A}_{E/F} = \Set{\a \in E | \a \text{ è algebrico su }F}
+	\]
+	è un campo.
+\end{pr}
+
+\begin{proof}
+	Siano \(\a,\b\) elementi algebrici di \(F\). Allora \(F[\a,\b]\) è un campo ed un'estensione finita di \(F\), in quanto \hyperref[pr:caratterizzazioneEstensioneFinita]{algebrico e finitamente generato}.
+	In particolare ogni elemento di \(F[\a,\b]\) sarà algebrico su \(F\), compresi
+	\[
+		\a+\b; \qquad \a\,\b; \qquad \frac{\a}{\b}.\qedhere
+	\]
+\end{proof}
